@@ -15,7 +15,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('modules/utilisateurs/index');
+    return view('welcome');
 });
 
 Route::get('/utilisateurs', [UtilisateurComponent::class, 'index'])->name('utilisateurs.index');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
