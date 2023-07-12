@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'statut'
     ];
 
     /**
@@ -41,4 +42,30 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function mouchards()
+    {
+        return $this->hasMany(Mouchard::class);
+    }
+
+    //============================= MODULES APPLICATIONS =============================
+    public function modules()
+    {
+        return $this->belongsToMany(Module::class, "user_module", "user_id", "module_id");
+    }
+
+    public function hasModule($module)
+    {
+        return $this->modules()->where("nom", $module)->first() !== null;
+    }
+
+    public function hasAnyModules($modules)
+    {
+        return $this->modules()->whereIn("nom", $modules)->first() !== null;
+    }
+
+    public function getAllModuleNamesAttribute()
+    {
+        return $this->modules->implode("nom", ' | ');
+    }
 }

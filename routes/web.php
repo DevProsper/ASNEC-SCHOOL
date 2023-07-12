@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Livewire\UtilisateurComponent;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Livewire\UtilisateurComponent;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +19,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/utilisateurs', [UtilisateurComponent::class, 'index'])->name('utilisateurs.index');
+Route::get('/utilisateurs', UtilisateurComponent::class)->name('utilisateurs.index');
 
 Auth::routes();
 
