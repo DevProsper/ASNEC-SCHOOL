@@ -6,8 +6,10 @@ use Livewire\Component;
 
 class UtilisateurComponent extends Component
 {
-    public function render()
+    public $message = "Mon message";
+    public function index()
     {
-        return view('livewire.utilisateur-component');
+        $message = $this->message;
+        return view('livewire.modules.utilisateurs.index', compact("message"));
     }
 }
