@@ -5,10 +5,10 @@
                 <h3 class="card-title flex-grow-1"><i class="fas fa-users fa-2x"></i> Liste des utilisateurs</h3>
 
                 <div class="card-tools d-flex align-items-center ">
-                    <a class="btn btn-link text-white mr-4 d-block" wire:click.prevent="goToAddUser()"><i
+                    <a class="btn btn-success text-white mr-4 d-block" wire:click.prevent="goToAddUser()"><i
                             class="fas fa-user-plus"></i> Nouvel utilisateur</a>
                     <div class="input-group input-group-md" style="width: 250px;">
-                        <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                        <input type="text" name="table_search" wire:model.debounce.700ms="search" class="form-control float-right" placeholder="Recherche par nom ou tel">
 
                         <div class="input-group-append">
                             <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>

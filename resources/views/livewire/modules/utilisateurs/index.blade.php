@@ -29,6 +29,20 @@
 </script>
 
 <script>
+    window.addEventListener("showErrorMessage", event=>{
+        Swal.fire({
+                position: 'top-end',
+                icon: 'warning',
+                toast:true,
+                title: event.detail.message || "Opération effectuée avec succès!",
+                showConfirmButton: false,
+                timer: 5000
+                }
+            )
+    })
+</script>
+
+<script>
     window.addEventListener("showConfirmMessage", event=>{
        Swal.fire({
         title: event.detail.message.title,
@@ -44,9 +58,6 @@
             if(event.detail.message.data){
                 @this.deleteUser(event.detail.message.data.user_id)
             }
-
-            @this.resetPassword()
-
         }
         })
     })
