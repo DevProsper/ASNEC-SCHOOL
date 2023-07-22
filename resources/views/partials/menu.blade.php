@@ -35,30 +35,155 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" 
             data-accordion="false">
 
-                <li class="nav-item menu-open">
+            <li class="nav-item">
+                <a href="{{route('users.utilisateurs.index')}}" class="nav-link">
+                    <i class="nav-icon fas fa-users"></i>
+                    <p>
+                        Elèves
+                    </p>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{{route('users.utilisateurs.index')}}" class="nav-link">
+                    <i class="nav-icon fas fa-users"></i>
+                    <p>
+                        Gestion d'elèves
+                    </p>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{{route('users.utilisateurs.index')}}" class="nav-link">
+                    <i class="nav-icon fas fa-users"></i>
+                    <p>
+                        Scolarité
+                    </p>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{{route('users.utilisateurs.index')}}" class="nav-link">
+                    <i class="nav-icon fas fa-users"></i>
+                    <p>
+                        Ensignants
+                    </p>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{{route('users.utilisateurs.index')}}" class="nav-link">
+                    <i class="nav-icon fas fa-users"></i>
+                    <p>
+                        Cours
+                    </p>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{{route('users.utilisateurs.index')}}" class="nav-link">
+                    <i class="nav-icon fas fa-users"></i>
+                    <p>
+                        Emargements
+                    </p>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{{route('users.utilisateurs.index')}}" class="nav-link">
+                    <i class="nav-icon fas fa-users"></i>
+                    <p>
+                        Elèves
+                    </p>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{{route('users.utilisateurs.index')}}" class="nav-link">
+                    <i class="nav-icon fas fa-users"></i>
+                    <p>
+                        Examens et devois
+                    </p>
+                </a>
+            </li>
+
+                @can("administration")
+                <li class="nav-item {{ setMenuClass('administration.', 'menu-open') }}">
                     <a href="#" class="nav-link active">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <i class="nav-icon fas fa-cog"></i>
                         <p>
-                            Starter Pages
+                            Administration
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="#" class="nav-link active">
+                            <a href="{{route('administration.annees.scolaires.index')}}" 
+                            class="nav-link {{ setMenuClass('administration.annees.scolaires.index', 'active') }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Active Page</p>
+                                <p>Année scolaire</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{route('administration.niveaux.nvscolaires.index')}}" 
+                            class="nav-link {{ setMenuClass('administration.niveaux.nvscolaires.index', 'active') }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Inactive Page</p>
+                                <p>Niveaux scolaires</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('administration.tarifications.tarifications.index')}}" 
+                            class="nav-link {{ setMenuClass('administration.tarifications.tarifications.index', 'active') }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Tarifications</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('administration.classes.classes.index')}}" 
+                            class="nav-link {{ setMenuClass('administration.classes.classes.index', 'active') }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Gestion des classes</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('administration.matieres.matieres.index')}}" 
+                            class="nav-link {{ setMenuClass('administration.matieres.matieres.index', 'active') }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Gestion des matières</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('administration.batiments.batiments.index')}}" 
+                            class="nav-link {{ setMenuClass('administration.batiments.batiments.index', 'active') }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Gestion de batiment(s)</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('administration.salles.salles.index')}}" 
+                            class="nav-link {{ setMenuClass('administration.salles.salles.index', 'active') }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Gestion des salles</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('administration.trimestres.trimestres.index')}}" 
+                            class="nav-link {{ setMenuClass('administration.trimestres.trimestres.index', 'active') }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Gestion des trimestres</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('administration.mois.mois.index')}}" 
+                            class="nav-link {{ setMenuClass('administration.mois.mois.index', 'active') }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Gestion des mois</p>
                             </a>
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item">
+                @endcan
+             <!--   <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
@@ -66,16 +191,19 @@
                             <span class="right badge badge-danger">New</span>
                         </p>
                     </a>
-                </li>
+                </li> -->
 
+                @can("utilisateurs")
                 <li class="nav-item">
-                    <a href="{{route('utilisateurs.index')}}" class="nav-link">
+                    <a href="{{route('users.utilisateurs.index')}}" 
+                    class="nav-link {{ setMenuClass('users.utilisateurs.index', 'active') }}">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
                             Utilisateurs
                         </p>
                     </a>
                 </li>
+                @endcan
             </ul>
         </nav>
 
