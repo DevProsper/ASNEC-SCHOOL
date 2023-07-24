@@ -1,9 +1,5 @@
 <?php
 
-use App\Models\Batiment;
-use App\Models\Trimestre;
-use App\Models\Tarification;
-use App\Models\NiveauScolaire;
 use App\Http\Livewire\MoiComponent;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Livewire\SalleComponent;
@@ -12,6 +8,7 @@ use App\Http\Livewire\ClasseComponent;
 use App\Http\Livewire\MatiereComponent;
 use App\Http\Livewire\BatimentComponent;
 use App\Http\Livewire\TrimestreComponent;
+use App\Http\Livewire\EnseignantComponent;
 use App\Http\Livewire\UtilisateurComponent;
 use App\Http\Livewire\TarificationComponent;
 use App\Http\Livewire\AnneeScolaireComponent;
@@ -30,7 +27,7 @@ use App\Http\Livewire\NiveauScolaireComponent;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name("home");
 
 Auth::routes();
 
@@ -134,3 +131,13 @@ Route::group([
 ], function () {
     Route::get('/utilisateurs', UtilisateurComponent::class)->name('utilisateurs.index');
 });
+
+Route::group(
+    [
+        "middleware" => ["auth", "auth.enseignants"],
+        'as' => 'enseignants.'
+    ],
+    function () {
+        Route::get('/enseignants', EnseignantComponent::class)->name('enseignants.index');
+    }
+);

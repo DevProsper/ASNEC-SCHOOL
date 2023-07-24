@@ -4,7 +4,7 @@
         <img src="{{asset('assets/images/logo-asnec-it.png')}}" alt="ASNEC-IT Logo" 
         class="brand-image img-circle elevation-3"
             style="opacity: .8">
-        <span class="brand-text font-weight-light">ASNEC-IT</span>
+        <span class="brand-text font-weight-light">ASNEC-SCHOOL</span>
     </a>
 
     <div class="sidebar">
@@ -62,14 +62,17 @@
                 </a>
             </li>
 
-            <li class="nav-item">
-                <a href="{{route('users.utilisateurs.index')}}" class="nav-link">
-                    <i class="nav-icon fas fa-users"></i>
-                    <p>
-                        Ensignants
-                    </p>
-                </a>
-            </li>
+            @can("enseignants")
+                <li class="nav-item">
+                    <a href="{{route('enseignants.enseignants.index')}}" 
+                    class="nav-link {{ setMenuClass('enseignants.enseignants.index', 'active') }}">
+                        <i class="nav-icon fas fa-user"></i>
+                        <p>
+                            Enseignants
+                        </p>
+                    </a>
+                </li>
+            @endcan
 
             <li class="nav-item">
                 <a href="{{route('users.utilisateurs.index')}}" class="nav-link">
