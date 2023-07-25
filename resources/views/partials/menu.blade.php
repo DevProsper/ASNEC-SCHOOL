@@ -35,32 +35,33 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" 
             data-accordion="false">
 
-            <li class="nav-item">
-                <a href="{{route('users.utilisateurs.index')}}" class="nav-link">
-                    <i class="nav-icon fas fa-users"></i>
+            @can("inscri.reinscri")
+            <li class="nav-item {{ setMenuClass('inscri.reinscri.', 'menu-open') }}">
+                <a href="#" class="nav-link {{ setMenuClass('inscri.reinscri.', 'active') }}">
+                    <i class="nav-icon fas fa-user-plus"></i>
                     <p>
-                        Elèves
+                        Inscri. et Réinscription
+                        <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{route('administration.annees.scolaires.index')}}"
+                            class="nav-link {{ setMenuClass('administration.annees.scolaires.index', 'active') }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Inscription</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('administration.niveaux.nvscolaires.index')}}"
+                            class="nav-link {{ setMenuClass('administration.niveaux.nvscolaires.index', 'active') }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Réinscription</p>
+                        </a>
+                    </li>
+                </ul>
             </li>
-
-            <li class="nav-item">
-                <a href="{{route('users.utilisateurs.index')}}" class="nav-link">
-                    <i class="nav-icon fas fa-users"></i>
-                    <p>
-                        Gestion d'elèves
-                    </p>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="{{route('users.utilisateurs.index')}}" class="nav-link">
-                    <i class="nav-icon fas fa-users"></i>
-                    <p>
-                        Scolarité
-                    </p>
-                </a>
-            </li>
+            @endcan
 
             @can("enseignants")
                 <li class="nav-item">
@@ -74,45 +75,9 @@
                 </li>
             @endcan
 
-            <li class="nav-item">
-                <a href="{{route('users.utilisateurs.index')}}" class="nav-link">
-                    <i class="nav-icon fas fa-users"></i>
-                    <p>
-                        Cours
-                    </p>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="{{route('users.utilisateurs.index')}}" class="nav-link">
-                    <i class="nav-icon fas fa-users"></i>
-                    <p>
-                        Emargements
-                    </p>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="{{route('users.utilisateurs.index')}}" class="nav-link">
-                    <i class="nav-icon fas fa-users"></i>
-                    <p>
-                        Elèves
-                    </p>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="{{route('users.utilisateurs.index')}}" class="nav-link">
-                    <i class="nav-icon fas fa-users"></i>
-                    <p>
-                        Examens et devois
-                    </p>
-                </a>
-            </li>
-
                 @can("administration")
                 <li class="nav-item {{ setMenuClass('administration.', 'menu-open') }}">
-                    <a href="#" class="nav-link active">
+                    <a href="#" class="nav-link {{ setMenuClass('administration.annees.scolaires.index', 'active') }}">
                         <i class="nav-icon fas fa-cog"></i>
                         <p>
                             Administration
