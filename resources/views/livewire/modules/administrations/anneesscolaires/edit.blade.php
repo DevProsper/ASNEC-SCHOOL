@@ -46,6 +46,18 @@
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <label>Par defaut *</label>
+                        <select class="form-control @error('editScolaire.defaut') is-invalid @enderror" wire:model="editScolaire.defaut">
+                            <option value="">---------</option>
+                            <option value="0">Non</option>
+                            <option value="1">Oui</option>
+                        </select>
+                        @error("editScolaire.defaut")
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+
                 </div>
                 <!-- /.card-body -->
 

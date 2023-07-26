@@ -13,7 +13,7 @@
                 <table class="table table-head-fixed">
                     <thead>
                         <tr>
-                            <th style="width:5%;">Genre</th>
+                            <th style="width:25%;">Genre</th>
                             <th style="width:25%;">Nom complet</th>
                             <th style="width:20%;">Teléphone</th>
                             <th style="width:20%;">Diplôme</th>

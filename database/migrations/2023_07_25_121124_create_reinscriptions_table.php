@@ -19,8 +19,8 @@ return new class extends Migration
             $table->foreignId("classe_id")->constrained();
             $table->foreignId("anneesscolaire_id")->constrained();
             $table->foreignId("tarification_id")->constrained();
-            $table->double('montantVerse')->constrained();
-            $table->double('montantRestant')->constrained();
+            $table->double('montantVerse')->nullable();
+            $table->double('montantRestant')->nullable();
             $table->timestamps();
         });
         Schema::enableForeignKeyConstraints();

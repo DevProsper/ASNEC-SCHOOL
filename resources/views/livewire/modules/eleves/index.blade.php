@@ -1,15 +1,15 @@
 <div wire:ignore.self>
 
     @if($currentPage == PAGECREATEFORM)
-    @include("livewire.modules.administrations.enseignants.create")
+    @include("livewire.modules.eleves.create")
     @endif
 
     @if($currentPage == PAGEEDITFORM)
-    @include("livewire.modules.administrations.enseignants.edit")
+    @include("livewire.modules.eleves.edit")
     @endif
 
     @if($currentPage == PAGELIST)
-    @include("livewire.modules.administrations.enseignants.liste")
+    @include("livewire.modules.eleves.liste")
     @endif
 
 </div>
@@ -56,7 +56,7 @@
         }).then((result) => {
         if (result.isConfirmed) {
             if(event.detail.message.data){
-                @this.deleteEnseignant(event.detail.message.data.data_id)
+                @this.deleteEleve(event.detail.message.data.data_id)
             }
         }
         })

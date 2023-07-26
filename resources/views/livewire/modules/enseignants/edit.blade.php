@@ -113,27 +113,25 @@
                         <div class="form-group flex-grow-1 mr-2">
                             <label>Durée</label>
                             <input autocomplete="off" type="text" wire:model="editEnseignant.duree"
-                                class="form-control @error('editEnseignant.duree') is-invalid @enderror">
+                                class="form-control @error('editEnseignant.duree') is-invalid 
+                                @enderror">
                     
                             @error("editEnseignant.duree")
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>
-                    
+                
                     <div class="form-group">
-                        <label>Diplômes *</label>
-                        <select
-                            class="form-control @error('editEnseignant.diplome_id') 
-                        is-invalid @enderror"
-                                                                                                                                            is-invalid @enderror"
-                            name="diplome_id" wire:model="editEnseignant.diplome_id">
+                        <label>Diplôme *</label>
+                        <select class="form-control @error('editEnseignant.diplome_id') is-invalid @enderror"
+                            wire:model="editEnseignant.diplome_id">
                             <option value="">---------</option>
                             @foreach($diplomes as $value)
                             <option value="{{ $value->id }}">{{ $value->nom }} - {{ $value->prix }}</option>
                             @endforeach
                         </select>
-                        @error("diplome_id")
+                        @error("editEnseignant.diplome_id")
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>

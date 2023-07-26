@@ -17,6 +17,7 @@
                             <th style="width:25%;">Année scolaire</th>
                             <th style="width:20%;">Date début</th>
                             <th style="width:20%;">Date fin</th>
+                            <th style="width:20%;">Par défaut</th>
                             <th style="width:30%;" class="text-center">Action</th>
                         </tr>
                     </thead>
@@ -26,6 +27,13 @@
                             <td>{{ $value->nom }}</td>
                             <td>{{ $value->dateDebut }}</td>
                             <td>{{ $value->dateFin }}</td>
+                            <td>
+                                @if($value->defaut == 0)
+                                Non
+                                @else
+                                Oui
+                                @endif
+                            </td>
                             <td class="text-center">
                                 <button class="btn btn-link" wire:click="goToEditScolaire({{$value->id}})"> <i
                                         class="far fa-edit"></i> </button>

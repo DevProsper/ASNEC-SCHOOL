@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Eleve;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class AnneeScolaire extends Model
 {
@@ -16,6 +17,12 @@ class AnneeScolaire extends Model
         'dateDebut',
         'dateFin',
         'description',
+        'defaut',
         'statut'
     ];
+
+    public function eleves()
+    {
+        return $this->hasMany(Eleve::class);
+    }
 }

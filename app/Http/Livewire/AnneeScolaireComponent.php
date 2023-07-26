@@ -58,15 +58,17 @@ class AnneeScolaireComponent extends Component
 
             return [
                 'editScolaire.nom' => 'required',
-                'editScolaire.dateDebut' => 'required',
-                'editScolaire.dateFin' => 'required'
+                'editScolaire.dateDebut' => 'nullable',
+                'editScolaire.dateFin' => 'nullable',
+                'editScolaire.defaut' => 'nullable'
             ];
         }
 
         return [
             'newScolaire.nom' => 'required',
-            'newScolaire.dateDebut' => 'date',
-            'newScolaire.dateFin' => 'date'
+            'newScolaire.dateDebut' => 'nullable',
+            'newScolaire.dateFin' => 'nullable',
+            'newScolaire.defaut' => 'nullable'
         ];
     }
 

@@ -35,16 +35,50 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" 
             data-accordion="false">
 
+            @can("eleves")
+            <li class="nav-item {{ setMenuClass('eleves.', 'menu-open') }}">
+                <a href="#" class="nav-link {{ setMenuClass('eleves.', 'active') }}">
+                    <i class="nav-icon fas fa-users"></i>
+                    <p>
+                        Elèves
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{route('eleves.parents.index')}}"
+                            class="nav-link {{ setMenuClass('eleves.parents.index', 'active') }}">
+                            <i class="nav-icon fas fa-user"></i>
+                            <p>Parents</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('eleves.eleves.index')}}" class="nav-link {{ setMenuClass('eleves.eleves.index', 'active') }}">
+                            <i class="nav-icon fas fa-user"></i>
+                            <p>Elèves</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            @endcan
+
             @can("inscri.reinscri")
             <li class="nav-item {{ setMenuClass('inscri.reinscri.', 'menu-open') }}">
                 <a href="#" class="nav-link {{ setMenuClass('inscri.reinscri.', 'active') }}">
-                    <i class="nav-icon fas fa-user-plus"></i>
+                    <i class="fas fa-school"></i>
                     <p>
                         Inscri. et Réinscription
                         <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{route('inscri.reinscri.liste.index')}}"
+                            class="nav-link {{ setMenuClass('inscri.reinscri.liste.index', 'active') }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Elèves</p>
+                        </a>
+                    </li>
                     <li class="nav-item">
                         <a href="{{route('administration.annees.scolaires.index')}}"
                             class="nav-link {{ setMenuClass('administration.annees.scolaires.index', 'active') }}">
@@ -63,6 +97,7 @@
             </li>
             @endcan
 
+
             @can("enseignants")
                 <li class="nav-item">
                     <a href="{{route('enseignants.enseignants.index')}}" 
@@ -77,7 +112,7 @@
 
                 @can("administration")
                 <li class="nav-item {{ setMenuClass('administration.', 'menu-open') }}">
-                    <a href="#" class="nav-link {{ setMenuClass('administration.annees.scolaires.index', 'active') }}">
+                    <a href="#" class="nav-link {{ setMenuClass('administration.', 'active') }}">
                         <i class="nav-icon fas fa-cog"></i>
                         <p>
                             Administration

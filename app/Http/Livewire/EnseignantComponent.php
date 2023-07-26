@@ -43,7 +43,7 @@ class EnseignantComponent extends Component
         $diplomes = Diplome::where('statut', 1)->orderBy('nom', 'asc')->get();
 
         return view(
-            'livewire.modules.administrations.enseignants.index',
+            'livewire.modules.enseignants.index',
             compact("enseignants", "diplomes")
         )
             ->extends("layouts.master")
@@ -57,6 +57,11 @@ class EnseignantComponent extends Component
     }
 
     public function goToAddEnseignant()
+    {
+        $this->currentPage = PAGECREATEFORM;
+    }
+
+    public function goToAddEleveWithParent()
     {
         $this->currentPage = PAGECREATEFORM;
     }

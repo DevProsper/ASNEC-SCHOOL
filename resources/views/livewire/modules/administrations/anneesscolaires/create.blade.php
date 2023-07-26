@@ -46,6 +46,18 @@
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <label>Par defaut *</label>
+                        <select class="form-control @error('newScolaire.defaut') is-invalid @enderror" wire:model="newScolaire.defaut">
+                            <option value="">---------</option>
+                            <option value="0">Non</option>
+                            <option value="1">Oui</option>
+                        </select>
+                        @error("newScolaire.defaut")
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+
                         <button type="submit" class="btn btn-primary">Enregistrer</button>
                         <button type="button" wire:click.prevent="goToListScolaire()" class="btn btn-danger">Retouner à la liste des
                         années scolaires</button>

@@ -2,9 +2,11 @@
 
 use App\Http\Livewire\MoiComponent;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Livewire\EleveComponent;
 use App\Http\Livewire\SalleComponent;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\ClasseComponent;
+use App\Http\Livewire\ParentComponent;
 use App\Http\Livewire\MatiereComponent;
 use App\Http\Livewire\BatimentComponent;
 use App\Http\Livewire\TrimestreComponent;
@@ -139,5 +141,26 @@ Route::group(
     ],
     function () {
         Route::get('/enseignants', EnseignantComponent::class)->name('enseignants.index');
+    }
+);
+
+Route::group(
+    [
+        "middleware" => ["auth", "auth.inscri.reinscri"],
+        'as' => 'inscri.reinscri.'
+    ],
+    function () {
+        Route::get('/liste', EleveComponent::class)->name('liste.index');
+    }
+);
+
+Route::group(
+    [
+        "middleware" => ["auth", "auth.eleves"],
+        'as' => 'eleves.'
+    ],
+    function () {
+        Route::get('/parents', ParentComponent::class)->name('parents.index');
+        Route::get('/eleves', EleveComponent::class)->name('eleves.index');
     }
 );

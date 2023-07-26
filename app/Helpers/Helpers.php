@@ -1,9 +1,11 @@
 <?php
+
 use Illuminate\Support\Str;
 
 define("PAGELIST", "liste");
 define("PAGECREATEFORM", "create");
 define("PAGEEDITFORM", "edit");
+define("PAGECREATEFORM_ELEVE", "create_eleve");
 
 define("DEFAULTPASSOWRD", "password");
 

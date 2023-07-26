@@ -19,11 +19,14 @@ return new class extends Migration
             $table->string('nom');
             $table->string('prenom');
             $table->string('telephone1')->nullable();
-            $table->timestamp('dateNaissance');
+            $table->dateTime('dateNaissance');
             $table->string('lieuNaissance')->nullable();
             $table->string('email')->nullable();
             $table->text('description')->nullable();
-            $table->foreignId("titeur_id")->constrained();
+            $table->foreignId("classe_id")->constrained();
+            $table->foreignId("anneesscolaire_id")->constrained();
+            $table->foreignId("parent_id")->constrained();
+
             $table->timestamps();
         });
         Schema::enableForeignKeyConstraints();

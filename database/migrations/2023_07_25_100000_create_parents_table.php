@@ -13,15 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('titeurs', function (Blueprint $table) {
+        Schema::create('parents', function (Blueprint $table) {
             $table->id();
             $table->char('sexe');
             $table->string('nom');
             $table->string('prenom');
+            $table->string('relation');
             $table->string('telephone1');
             $table->string('telephone2')->nullable();
-            $table->timestamp('dateNaissance')->nullable();
-            $table->string('lieuNaissance')->nullable();
             $table->string('email')->nullable();
             $table->string('profession')->nullable();
             $table->string('adresse')->nullable();
@@ -36,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('titeurs');
+        Schema::dropIfExists('parents');
     }
 };
