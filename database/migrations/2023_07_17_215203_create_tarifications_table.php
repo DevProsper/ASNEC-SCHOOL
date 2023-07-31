@@ -15,8 +15,11 @@ return new class extends Migration
     {
         Schema::create('tarifications', function (Blueprint $table) {
             $table->id();
-            $table->string('nom'); //Frais scolaire // Réinscription
+            $table->string('nom')->nullable(); //Frais scolaire // Réinscription
             $table->double("prix");
+            $table->foreignId("categoriestarification_id")->constrained();
+            $table->foreignId("anneesscolaire_id")->constrained();
+            $table->foreignId("classe_id")->constrained();
             $table->boolean("statut")->default(1);
             $table->timestamps();
         });

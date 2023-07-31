@@ -12,7 +12,7 @@
 
                     <div class="d-flex">
                         <div class="form-group flex-grow-1 mr-2">
-                            <label>Classe</label>
+                            <label>Classe *</label>
                             <input autocomplete="off" type="text" wire:model="newClasse.nom"
                                 class="form-control @error('newClasse.nom') is-invalid @enderror">
 
@@ -22,51 +22,37 @@
                         </div>
                     </div>
 
-                    <div class="d-flex">
-                        <div class="form-group flex-grow-1 mr-2">
-                            <label>Capacité d'acceuil</label>
-                            <input autocomplete="off" type="number" wire:model="newClasse.acceuil"
-                                class="form-control @error('newClasse.acceuil') is-invalid @enderror">
-                    
-                            @error("newClasse.acceuil")
-                            <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-
                     <div class="form-group">
-                        <label>Scolarité</label>
+                        <label>Groupe *</label>
                         <select
-                            class="form-control @error('tarification_id') 
-                                                                                                                        is-invalid @enderror"
-                            name="tarification_id" wire:model="newClasse.tarification_id">
+                            class="form-control @error('groupe_classe_id') 
+                                                                                                                                            is-invalid @enderror"
+                            name="groupe_classe_id" wire:model="newClasse.groupe_classe_id">
                             <option value="">---------</option>
-                            @foreach($tarifications as $value)
-                            <option value="{{ $value->id }}">{{ $value->nom }} - {{ $value->prix }}</option>
+                            @foreach($groupes as $value)
+                            <option value="{{ $value->id }}">{{ $value->nom }}</option>
                             @endforeach
                         </select>
-                        @error("tarification_id")
+                        @error("groupe_classe_id")
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
-
+                    
                     <div class="form-group">
-                        <label>Niveau scolaire</label>
+                        <label>Niveau scolaire *</label>
                         <select
-                            class="form-control @error('niveauxscolaire_id') 
+                            class="form-control @error('niveauxscolaires_id') 
                                                                                                                         is-invalid @enderror"
-                            name="niveauxscolaire_id" wire:model="newClasse.niveauxscolaire_id">
+                            name="niveauxscolaires_id" wire:model="newClasse.niveauxscolaires_id">
                             <option value="">---------</option>
                             @foreach($niveauxScolaires as $value)
                             <option value="{{ $value->id }}">{{ $value->nom }}</option>
                             @endforeach
                         </select>
-                        @error("niveauxscolaire_id")
+                        @error("niveauxscolaires_id")
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
-                    
-
                         <button type="submit" class="btn btn-primary">Enregistrer</button>
                         <button type="button" wire:click.prevent="goToListClasse()" class="btn btn-danger">Retouner à la liste des
                         classes</button>

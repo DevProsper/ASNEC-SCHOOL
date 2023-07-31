@@ -5,20 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class NiveauScolaire extends Model
+class CategorieTarification extends Model
 {
     use HasFactory;
 
-    protected $table = "niveauxscolaires";
+    protected $table = "categoriestarifications";
 
     protected $fillable = [
         'nom',
-        'ordre',
         'statut'
     ];
 
-    public function classes()
+    public function tarifications()
     {
-        return $this->hasMany(Classe::class, 'niveauxscolaires_id');
+        return $this->hasMany(Tarification::class);
     }
 }

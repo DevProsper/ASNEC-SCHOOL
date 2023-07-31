@@ -12,20 +12,14 @@ class Classe extends Model
 
     protected $fillable = [
         'nom',
-        'acceuil',
-        'niveauxscolaire_id',
-        'tarification_id',
+        'niveauxscolaires_id',
+        'groupe_classe_id',
         'statut'
     ];
 
     public function niveauScolaire()
     {
-        return $this->belongsTo(NiveauScolaire::class, "niveauxscolaire_id");
-    }
-
-    public function tarification()
-    {
-        return $this->belongsTo(Tarification::class, "tarification_id");
+        return $this->belongsTo(NiveauScolaire::class, "niveauxscolaires_id");
     }
 
     public function matieres()
@@ -41,5 +35,15 @@ class Classe extends Model
     public function eleves()
     {
         return $this->hasMany(Eleve::class);
+    }
+
+    public function groupeClasse()
+    {
+        return $this->belongsTo(GroupeClasse::class, "groupe_classe_id");
+    }
+
+    public function tarifications()
+    {
+        return $this->hasMany(Tarification::class);
     }
 }

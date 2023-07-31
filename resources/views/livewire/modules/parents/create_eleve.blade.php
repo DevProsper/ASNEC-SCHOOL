@@ -11,7 +11,7 @@
                 <div class="card-body">
                 
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-8">
                             <div class="d-flex">
                                 <div class="form-group flex-grow-1 mr-2">
                                     <label>Nom *</label>
@@ -96,22 +96,6 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Classes</label>
-                                <select
-                                    class="form-control @error('classe_id') 
-                                                                                                                                                    is-invalid @enderror"
-                                    name="classe_id" wire:model="classe_id">
-                                    <option value="">---------</option>
-                                    @foreach($classes as $value)
-                                    <option value="{{ $value->id }}">{{ $value->nom }} - {{ $value->tarification->prix }}</option>
-                                    @endforeach
-                                </select>
-                                @error("classe_id")
-                                <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
-
-                            <div class="form-group">
                                 <label>Année scolaire</label>
                                 <select
                                     class="form-control @error('anneesscolaire_id') 
@@ -137,6 +121,35 @@
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Classes</label>
+                                <select
+                                    class="form-control @error('classe_id') 
+                                                                                                                                                                                                            is-invalid @enderror"
+                                    name="classe_id" wire:model="classe_id">
+                                    <option value="">---------</option>
+                                    @foreach($classes as $value)
+                                    <option value="{{ $value->id }}">{{ $value->nom }} - {{ $value->tarification->prix }}</option>
+                                    @endforeach
+                                </select>
+                                @error("classe_id")
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label>Statut admission *</label>
+                                <select class="form-control @error('statutAdmission') is-invalid @enderror" wire:model="statutAdmission">
+                                    <option value="">---------</option>
+                                    <option value="1">Inscription</option>
+                                    <option value="2">Réinscription</option>
+                                </select>
+                                @error("statutAdmission")
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                     </div>

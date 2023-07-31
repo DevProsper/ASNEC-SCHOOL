@@ -13,14 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('reinscriptions', function (Blueprint $table) {
+        Schema::create('admissions', function (Blueprint $table) {
             $table->id();
             $table->foreignId("eleve_id")->constrained();
             $table->foreignId("classe_id")->constrained();
             $table->foreignId("anneesscolaire_id")->constrained();
-            $table->foreignId("tarification_id")->constrained();
-            $table->double('montantVerse')->nullable();
-            $table->double('montantRestant')->nullable();
+            $table->boolean("statutAdmission")->default(1); //1 Inscription, 2 Réinscription
             $table->timestamps();
         });
         Schema::enableForeignKeyConstraints();
@@ -33,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reinscriptions');
+        Schema::dropIfExists('admissions');
     }
 };

@@ -67,12 +67,14 @@ class SalleComponent extends Component
 
             return [
                 'editSalle.nom' => 'required',
+                'editSalle.acceuil' => 'nullable',
                 'editSalle.batiment_id' => 'required'
             ];
         }
 
         return [
             'newSalle.nom' => 'required',
+            'newSalle.acceuil' => 'nullable',
             'newSalle.batiment_id' => 'required',
         ];
     }

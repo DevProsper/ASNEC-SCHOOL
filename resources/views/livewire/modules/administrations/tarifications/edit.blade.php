@@ -12,8 +12,8 @@
 
                     <div class="d-flex">
                         <div class="form-group flex-grow-1 mr-2">
-                            <label>Libelle</label>
-                            <input autocomplete="off" type="text" wire:model="editTarification.nom"
+                            <label>Libelle *</label>
+                            <input autocomplete="off" type="texte" wire:model="editTarification.nom"
                                 class="form-control @error('editTarification.nom') is-invalid @enderror">
                     
                             @error("editTarification.nom")
@@ -32,6 +32,66 @@
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Catégorie *</label>
+                        <select
+                            class="form-control @error('categoriestarification_id') 
+                                                                                                                                                                is-invalid @enderror"
+                            name="categoriestarification_id" wire:model="editTarification.categoriestarification_id">
+                            <option value="">---------</option>
+                            @foreach($categories as $value)
+                            <option value="{{ $value->id }}">{{ $value->nom }}</option>
+                            @endforeach
+                        </select>
+                        @error("categoriestarification_id")
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Année scolaire *</label>
+                        <select
+                            class="form-control @error('anneesscolaire_id') 
+                                                                                                                                                                is-invalid @enderror"
+                            name="anneesscolaire_id" wire:model="editTarification.anneesscolaire_id">
+                            <option value="">---------</option>
+                            @foreach($anneesscolaires as $value)
+                            <option value="{{ $value->id }}">{{ $value->nom }}</option>
+                            @endforeach
+                        </select>
+                        @error("anneesscolaire_id")
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Classe</label>
+                        <select
+                            class="form-control @error('classe_id') 
+                                                                                                                                                                is-invalid @enderror"
+                            name="classe_id" wire:model="editTarification.classe_id">
+                            <option value="">---------</option>
+                            @foreach($classes as $value)
+                            <option value="{{ $value->id }}">{{ $value->nom }}</option>
+                            @endforeach
+                        </select>
+                        @error("classe_id")
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label>Statut *</label>
+                        <select class="form-control @error('statut') is-invalid @enderror" wire:model="editTarification.statut">
+                            <option value="">---------</option>
+                            <option value="1">Visible</option>
+                            <option value="0">Invisible</option>
+                        </select>
+                        @error("statut")
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
 
                 </div>

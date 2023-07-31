@@ -14,11 +14,24 @@ class Tarification extends Model
     protected $fillable = [
         'nom',
         'prix',
-        'statut'
+        'statut',
+        'categoriestarification_id',
+        'anneesscolaire_id',
+        'classe_id'
     ];
 
-    public function classes()
+    public function categorie()
     {
-        return $this->hasMany(Classe::class);
+        return $this->belongsTo(CategorieTarification::class, 'categoriestarification_id');
+    }
+
+    public function anneeScolaire()
+    {
+        return $this->belongsTo(AnneeScolaire::class, 'anneesscolaire_id');
+    }
+
+    public function classe()
+    {
+        return $this->belongsTo(Classe::class, 'classe_id');
     }
 }

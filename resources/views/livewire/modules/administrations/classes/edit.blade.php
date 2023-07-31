@@ -3,7 +3,7 @@
         <!-- general form elements -->
         <div class="card card-primary">
             <div class="card-header">
-                <h3 class="card-title"><i class="fas fa-user-plus fa-2x"></i> Formulaire d'édition utilisateur</h3>
+                <h3 class="card-title"><i class="fas fa-user-plus fa-2x"></i> Formulaire d'édition d'une classe</h3>
             </div>
             <!-- /.card-header -->
             <!-- form start -->
@@ -22,46 +22,34 @@
                         </div>
                     </div>
                 
-                    <div class="d-flex">
-                        <div class="form-group flex-grow-1 mr-2">
-                            <label>Capacité d'acceuil</label>
-                            <input autocomplete="off" type="number" wire:model="editClasse.acceuil"
-                                class="form-control @error('editClasse.acceuil') is-invalid @enderror">
-                
-                            @error("editClasse.acceuil")
-                            <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-                
                     <div class="form-group">
-                        <label>Scolarité</label>
+                        <label>Groupe *</label>
                         <select
-                            class="form-control @error('tarification_id') 
-                                                                                                                                        is-invalid @enderror"
-                            name="tarification_id" wire:model="editClasse.tarification_id">
+                            class="form-control @error('groupe_classe_id') 
+                                                                                                                                                                is-invalid @enderror"
+                            name="groupe_classe_id" wire:model="editClasse.groupe_classe_id">
                             <option value="">---------</option>
-                            @foreach($tarifications as $value)
-                            <option value="{{ $value->id }}">{{ $value->nom }} - {{ $value->prix }}</option>
+                            @foreach($groupes as $value)
+                            <option value="{{ $value->id }}">{{ $value->nom }}</option>
                             @endforeach
                         </select>
-                        @error("tarification_id")
+                        @error("groupe_classe_id")
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                 
                     <div class="form-group">
-                        <label>Niveau scolaire</label>
+                        <label>Niveau scolaire *</label>
                         <select
-                            class="form-control @error('niveauxscolaire_id') 
+                            class="form-control @error('niveauxscolaires_id') 
                                                                                                                                         is-invalid @enderror"
-                            name="niveauxscolaire_id" wire:model="editClasse.niveauxscolaire_id">
+                            name="niveauxscolaires_id" wire:model="editClasse.niveauxscolaires_id">
                             <option value="">---------</option>
                             @foreach($niveauxScolaires as $value)
                             <option value="{{ $value->id }}">{{ $value->nom }}</option>
                             @endforeach
                         </select>
-                        @error("niveauxscolaire_id")
+                        @error("niveauxscolaires_id")
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>

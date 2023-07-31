@@ -25,4 +25,9 @@ class AnneeScolaire extends Model
     {
         return $this->hasMany(Eleve::class);
     }
+
+    public function tarifications()
+    {
+        return $this->hasMany(Tarification::class);
+    }
 }

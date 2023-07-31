@@ -22,6 +22,18 @@
                         </div>
                     </div>
 
+                    <div class="d-flex">
+                        <div class="form-group flex-grow-1 mr-2">
+                            <label>Capacité d'acceuil</label>
+                            <input autocomplete="off" type="number" wire:model="newSalle.acceuil"
+                                class="form-control @error('newSalle.acceuil') is-invalid @enderror">
+                    
+                            @error("newSalle.acceuil")
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <label>Batiment</label>
                         <select

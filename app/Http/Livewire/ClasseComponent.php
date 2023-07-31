@@ -6,6 +6,7 @@ use Exception;
 use Carbon\Carbon;
 use App\Models\Classe;
 use Livewire\Component;
+use App\Models\GroupeClasse;
 use App\Models\Tarification;
 use Livewire\WithPagination;
 use App\Models\NiveauScolaire;
@@ -24,7 +25,7 @@ class ClasseComponent extends Component
 
     protected $messages = [
         'newClasse.nom.required' => "la classe est obligatoire.",
-        'newClasse.niveauxscolaire_id.required' => "Le niveau scolaire est obligatoire.",
+        'newClasse.niveauxscolaires_id.required' => "Le niveau scolaire est obligatoire.",
         'newClasse.tarification_id.required' => "la tarification est obligatoire.",
 
         'editClasse.nom.required' => "la classe est obligatoire.",
@@ -35,12 +36,16 @@ class ClasseComponent extends Component
         Carbon::setLocale("fr");
 
         $classes = Classe::latest()->paginate(10);
-        $niveauxScolaires = NiveauScolaire::where('statut', 1)->orderBy('nom', 'asc')->get();
-        $tarifications = Tarification::where('statut', 1)->orderBy('prix', 'asc')->get();
+        $niveauxScolaires = NiveauScolaire::orderBy('nom', 'asc')->get();
+        $groupes = GroupeClasse::orderBy('nom', 'asc')->get();
 
         return view(
             'livewire.modules.administrations.classes.index',
-            compact("classes", "niveauxScolaires", "tarifications")
+            compact(
+                "classes",
+                "niveauxScolaires",
+                'groupes'
+            )
         )
             ->extends("layouts.master")
             ->section("contenu");
@@ -69,24 +74,21 @@ class ClasseComponent extends Component
 
             return [
                 'editClasse.nom' => 'required',
-                'editClasse.acceuil' => 'integer',
-                'editClasse.niveauxscolaire_id' => 'required',
-                'editClasse.tarification_id' => 'required'
+                'editClasse.niveauxscolaires_id' => 'required',
+                'editClasse.groupe_classe_id' => 'required',
             ];
         }
 
         return [
             'newClasse.nom' => 'required',
-            'newClasse.acceuil' => 'string',
-            'newClasse.niveauxscolaire_id' => 'required',
-            'newClasse.tarification_id' => 'required'
+            'newClasse.niveauxscolaires_id' => 'required',
+            'newClasse.groupe_classe_id' => 'required',
         ];
     }
 
     public function addClasse()
     {
         $validationAttributes = $this->validate();
-
         try {
             DB::beginTransaction();
             Classe::create($validationAttributes["newClasse"]);
@@ -95,6 +97,7 @@ class ClasseComponent extends Component
 
             $this->dispatchBrowserEvent("showSuccessMessage", ["message" => "La classe a créée avec succès!"]);
         } catch (Exception $e) {
+            dd($e->getMessage());
             DB::rollback();
             Log::error($e->getMessage());
             $this->dispatchBrowserEvent("showErrorMessage", ["message" => "Une erreur s'est produite lors de la création de la classe."]);

@@ -13,28 +13,23 @@ class Eleve extends Model
         'sexe',
         'nom',
         'prenom',
-        'telephone1',
+        'telephone',
         'dateNaissance',
         'lieuNaissance',
         'email',
         'description',
         'classe_id',
-        'parent_id',
-        'anneesscolaire_id',
+
+        'nomTiteur',
+        'prenomTiteur',
+        'telephoneTiteur',
+        'emailTiteur',
+        'ProfessionTiteur',
+        'AdresseTiteur',
     ];
 
     public function classe()
     {
         return $this->belongsTo(Classe::class, "classe_id");
-    }
-
-    public function parent()
-    {
-        return $this->belongsTo(ParentEl::class, "parent_id");
-    }
-
-    public function anneesscolaire()
-    {
-        return $this->belongsTo(ParentEl::class, "anneesscolaire_id");
     }
 }

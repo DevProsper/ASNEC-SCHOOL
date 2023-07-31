@@ -4,9 +4,14 @@ namespace App\Http\Livewire;
 
 use Exception;
 use Carbon\Carbon;
+use App\Models\Classe;
 use Livewire\Component;
 use App\Models\Tarification;
 use Livewire\WithPagination;
+use App\Models\AnneeScolaire;
+use App\Models\CategoriesFinance;
+use Illuminate\Support\Facades\Log;
+use App\Models\CategorieTarification;
 
 class TarificationComponent extends Component
 {
@@ -19,18 +24,31 @@ class TarificationComponent extends Component
     public $editTarification = [];
 
     protected $messages = [
-        'newTarification.nom.required' => "la tarification est obligatoire.",
+        'newTarification.prix.required' => "la tarification est obligatoire.",
 
-        'editTarification.nom.required' => "la tarification est obligatoire.",
+        'editTarification.prix.required' => "la tarification est obligatoire.",
     ];
 
     public function render()
     {
-        Carbon::setLocale("fr");
+        //Carbon::setLocale("fr");
 
         $tarifications = Tarification::latest()->paginate(10);
 
-        return view('livewire.modules.administrations.tarifications.index', compact("tarifications"))
+        $classes = Classe::where('statut', 1)->orderBy('nom', 'asc')->get();
+        $categories = CategorieTarification::orderBy('nom', 'asc')->get();
+        $anneesscolaires = AnneeScolaire::where('defaut', 1)->orderBy('nom', 'asc')->get();
+
+
+        return view(
+            'livewire.modules.administrations.tarifications.index',
+            compact(
+                "tarifications",
+                "categories",
+                "anneesscolaires",
+                "classes"
+            )
+        )
             ->extends("layouts.master")
             ->section("contenu");
     }
@@ -58,25 +76,36 @@ class TarificationComponent extends Component
 
             return [
                 'editTarification.nom' => 'required',
-                'editTarification.prix' => 'required'
+                'editTarification.prix' => 'required',
+                'editTarification.statut' => 'required',
+                'editTarification.categoriestarification_id' => 'required',
+                'editTarification.anneesscolaire_id' => 'required',
+                'editTarification.classe_id' => 'required',
             ];
         }
 
         return [
             'newTarification.nom' => 'required',
-            'newTarification.prix' => 'required'
+            'newTarification.prix' => 'required',
+            'newTarification.categoriestarification_id' => 'required',
+            'newTarification.anneesscolaire_id' => 'required',
+            'newTarification.classe_id' => 'required',
         ];
     }
 
     public function addTarification()
     {
+
         $validationAttributes = $this->validate();
-
-        Tarification::create($validationAttributes["newTarification"]);
-
-        $this->newTarification = [];
-
-        $this->dispatchBrowserEvent("showSuccessMessage", ["message" => "La tarification a été créée avec succès!"]);
+        try {
+            Tarification::create($validationAttributes["newTarification"]);
+            $this->newTarification = [];
+            $this->dispatchBrowserEvent("showSuccessMessage", ["message" => "La tarification a été créée avec succès!"]);
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            //dd($e->getMessage());
+            $this->dispatchBrowserEvent("showErrorMessage", ["message" => "Une erreur s'est produite lors de la création de la tarification."]);
+        }
     }
 
     public function updateTarification()
@@ -85,7 +114,7 @@ class TarificationComponent extends Component
         $validationAttributes = $this->validate();
         try {
             Tarification::find($this->editTarification["id"])->update($validationAttributes["editTarification"]);
-            $this->dispatchBrowserEvent("showSuccessMessage", ["message" => "La tarification a été créée avec succès!"]);
+            $this->dispatchBrowserEvent("showSuccessMessage", ["message" => "La tarification a été mise à jour avec succès!"]);
         } catch (Exception $e) {
             $this->dispatchBrowserEvent("showErrorMessage", ["message" => "Une erreur s'est produite lors de la mise à jour de la tarification."]);
         }

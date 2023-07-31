@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('salles', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
+            $table->integer('acceuil')->nullable();
             $table->foreignId("batiment_id")->constrained();
             $table->boolean("statut")->default(1);
             $table->timestamps();

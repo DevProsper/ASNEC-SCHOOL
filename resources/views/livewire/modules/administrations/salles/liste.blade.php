@@ -14,6 +14,7 @@
                     <thead>
                         <tr>
                             <th style="width:25%;">Salle</th>
+                            <th style="width:20%;">Capacité d'acceuil</th>
                             <th style="width:20%;">Situé</th>
                             <th style="width:30%;" class="text-center">Action</th>
                         </tr>
@@ -22,6 +23,7 @@
                         @foreach($salles as $value)
                         <tr>
                             <td>{{ $value->nom }}</td>
+                            <td>{{ $value->acceuil }}</td>
                             <td>{{ $value->batiment->nom }}</td>
                             <td class="text-center">
                                 <button class="btn btn-link" wire:click="goToEditSalle({{$value->id}})"> <i

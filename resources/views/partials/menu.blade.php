@@ -38,20 +38,13 @@
             @can("eleves")
             <li class="nav-item {{ setMenuClass('eleves.', 'menu-open') }}">
                 <a href="#" class="nav-link {{ setMenuClass('eleves.', 'active') }}">
-                    <i class="nav-icon fas fa-users"></i>
+                    <i class="fa-solid fa-chalkboard-user"></i>
                     <p>
-                        Elèves
+                        Pré-Admission
                         <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="{{route('eleves.parents.index')}}"
-                            class="nav-link {{ setMenuClass('eleves.parents.index', 'active') }}">
-                            <i class="nav-icon fas fa-user"></i>
-                            <p>Parents</p>
-                        </a>
-                    </li>
                     <li class="nav-item">
                         <a href="{{route('eleves.eleves.index')}}" class="nav-link {{ setMenuClass('eleves.eleves.index', 'active') }}">
                             <i class="nav-icon fas fa-user"></i>

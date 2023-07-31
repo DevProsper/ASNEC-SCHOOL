@@ -13,15 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('classes', function (Blueprint $table) {
+        Schema::create('categoriestarifications', function (Blueprint $table) {
             $table->id();
-            $table->string('nom'); //CP1,CP2
-            $table->foreignId("groupe_classe_id")->nullable();
-            $table->foreignId("niveauxscolaires_id")->nullable();
-            $table->boolean("statut")->default(1);
+            $table->string('nom');
             $table->timestamps();
         });
-        Schema::enableForeignKeyConstraints();
     }
 
     /**
@@ -31,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('classes');
+        Schema::dropIfExists('categoriestarifications');
     }
 };

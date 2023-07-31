@@ -6,7 +6,7 @@
                 <div class="card-tools d-flex align-items-center ">
                     <a class="btn btn-success text-white mr-4 d-block" wire:click.prevent="goToAddParent()"><i
                             class="fas fa-user-plus"></i> Créer nouveau</a>
-                    <div class="input-group input-group-md" style="width: 250px;">
+                    <div class="input-group input-group-md" style="width: 300px;">
                         <input type="text" name="table_search" wire:model.debounce.700ms="search" class="form-control float-right"
                             placeholder="Recherche par nom ou tel">
                 

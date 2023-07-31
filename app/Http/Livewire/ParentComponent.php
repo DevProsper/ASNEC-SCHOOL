@@ -2,14 +2,15 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\AnneeScolaire;
-use App\Models\Classe;
-use App\Models\Eleve;
 use Exception;
 use Carbon\Carbon;
+use App\Models\Eleve;
+use App\Models\Classe;
 use Livewire\Component;
 use App\Models\ParentEl;
+use App\Models\Admission;
 use Livewire\WithPagination;
+use App\Models\AnneeScolaire;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -35,6 +36,8 @@ class ParentComponent extends Component
     public $anneesscolaire_id;
     public $description;
     public $parent_id;
+
+    public $statutAdmission;
 
     public $nomTiteur;
 
@@ -164,10 +167,14 @@ class ParentComponent extends Component
 
     public function addEleve()
     {
+        $this->validate([
+            'nom' => 'required|string|max:255',
+        ]);
+
         try {
             DB::beginTransaction();
             //Eleve::create($validationAttributes["newEleve"]);
-            Eleve::create([
+            $eleve = Eleve::create([
                 'nom' => $this->nom,
                 'prenom' => $this->prenom,
                 'sexe' => $this->sexe,
@@ -180,6 +187,14 @@ class ParentComponent extends Component
                 'description' => $this->description,
                 'parent_id' => $this->parent_id
             ]);
+
+            Admission::create([
+                'eleve_id' => $eleve->id,
+                'classe_id' => $this->classe_id,
+                'anneesscolaire_id' => $this->anneesscolaire_id,
+                'statutAdmission' => $this->statutAdmission
+            ]);
+
             DB::commit();
 
             $this->nom = "";
@@ -198,6 +213,7 @@ class ParentComponent extends Component
         } catch (Exception $e) {
             DB::rollback();
             Log::error($e->getMessage());
+            dd($e->getMessage());
             $this->dispatchBrowserEvent("showErrorMessage", ["message" => "Une erreur s'est produite lors de la création de l'élève! Veuillez remplir tous les champs."]);
         }
     }

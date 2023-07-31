@@ -53,17 +53,17 @@ class EleveComponent extends Component
 
         if ($search) {
             $eleves = $eleves->where('nom', 'LIKE', '%' . $search . '%');
-            $eleves = $eleves->orWhere("telephone1Titeur", "like", "%{$search}%");
+            $eleves = $eleves->orWhere("telephone", "like", "%{$search}%");
+            $eleves = $eleves->orWhere("nomTiteur", "like", "%{$search}%");
+            $eleves = $eleves->orWhere("telephoneTiteur", "like", "%{$search}%");
         }
 
-        $eleves = $eleves->with('parent');
         $eleves = $eleves->paginate(10);
         $classes = Classe::where('statut', 1)->orderBy('nom', 'asc')->get();
-        $anneesscolaires = AnneeScolaire::where('defaut', 1)->orderBy('nom', 'asc')->get();
 
         return view(
             'livewire.modules.eleves.index',
-            compact("eleves", "classes", "anneesscolaires")
+            compact("eleves", "classes")
         )
             ->extends("layouts.master")
             ->section("contenu");
@@ -94,13 +94,19 @@ class EleveComponent extends Component
                 'editEleve.sexe' => "required",
                 'editEleve.nom' => "required",
                 'editEleve.prenom' => "required",
-                'editEleve.telephone1' => "nullable",
+                'editEleve.telephone' => "nullable",
                 'editEleve.dateNaissance' => "required",
                 'editEleve.lieuNaissance' => "nullable",
                 'editEleve.email' => "nullable",
                 'editEleve.description' => "nullable",
                 'editEleve.classe_id' => "required",
-                'editEleve.anneesscolaire_id' => "required",
+
+                'editEleve.nomTiteur' => "required",
+                'editEleve.prenomTiteur' => "required",
+                'editEleve.telephoneTiteur' => "required",
+                'editEleve.professionTiteur' => "nullable",
+                'editEleve.adresseTiteur' => "nullable",
+                'editEleve.emailTiteur' => "nullable",
             ];
         }
 
@@ -108,11 +114,19 @@ class EleveComponent extends Component
             'newEleve.sexe' => "required",
             'newEleve.nom' => "required",
             'newEleve.prenom' => "required",
-            'newEleve.telephone1' => "nullable",
+            'newEleve.telephone' => "nullable",
             'newEleve.dateNaissance' => "required",
             'newEleve.lieuNaissance' => "nullable",
             'newEleve.email' => "nullable",
             'newEleve.description' => "nullable",
+
+            'newEleve.nomTiteur' => "required",
+            'newEleve.prenomTiteur' => "required",
+            'newEleve.telephoneTiteur' => "required",
+            'newEleve.professionTiteur' => "nullable",
+            'newEleve.adresseTiteur' => "nullable",
+            'newEleve.emailTiteur' => "nullable",
+            'newEleve.classe_id' => "required",
         ];
     }
 
@@ -120,9 +134,10 @@ class EleveComponent extends Component
     {
         $validationAttributes = $this->validate();
 
-
         $validationAttributes["newEleve"]["dateNaissance"] =
             substr($validationAttributes["newEleve"]["dateNaissance"], 0, 10);
+
+        //dd($validationAttributes["newEleve"]);
         try {
             DB::beginTransaction();
             Eleve::create($validationAttributes["newEleve"]);
