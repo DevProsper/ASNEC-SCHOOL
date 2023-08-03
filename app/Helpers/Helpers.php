@@ -5,6 +5,8 @@ use Illuminate\Support\Str;
 define("PAGELIST", "liste");
 define("PAGECREATEFORM", "create");
 define("PAGEEDITFORM", "edit");
+define("PAGECREATEADMISSION", "create_admission");
+define("PAGEEDITADMISSION", "edit_admission");
 define("PAGECREATEFORM_ELEVE", "create_eleve");
 
 define("DEFAULTPASSOWRD", "password");

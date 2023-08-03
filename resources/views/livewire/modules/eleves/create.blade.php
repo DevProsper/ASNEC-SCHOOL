@@ -42,6 +42,7 @@
                                     @enderror
                                 </div>
                             </div>
+                            
                             <div class="form-group">
                                 <label>Sexe *</label>
                                 <select class="form-control @error('newEleve.sexe') is-invalid @enderror" wire:model="newEleve.sexe">

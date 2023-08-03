@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
-class InscriptionReinscriptionMiddleware
+class CaisseMiddleware
 {
     /**
      * Handle an incoming request.
@@ -17,7 +17,7 @@ class InscriptionReinscriptionMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Gate::allows("inscri.reinscri")) {
+        if (Gate::allows("caisses")) {
             return $next($request);
         }
         return redirect()->route("home");

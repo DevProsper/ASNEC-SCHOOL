@@ -13,16 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('admissions', function (Blueprint $table) {
+        Schema::create('caisses', function (Blueprint $table) {
             $table->id();
             $table->foreignId("eleve_id")->constrained();
             $table->foreignId("tarification_id")->constrained();
-            $table->foreignId("classe_id")->constrained();
             $table->foreignId("anneesscolaire_id")->constrained();
-            $table->char("statutAdmission"); //1-Nouveau, 2-Redoublant
+            $table->double("montantVerse");
+            $table->double("montantRestant");
+            $table->boolean("statut"); //1-Terminé, 2-Accompte
+            $table->boolean("etat"); // 1 Entrées, 2 Dépenses
             $table->timestamps();
         });
-        Schema::enableForeignKeyConstraints();
     }
 
     /**
@@ -32,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('admissions');
+        Schema::dropIfExists('caisses');
     }
 };

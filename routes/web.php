@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Livewire\EleveComponent;
 use App\Http\Livewire\SalleComponent;
 use Illuminate\Support\Facades\Route;
+use App\Http\Livewire\CaisseComponent;
 use App\Http\Livewire\ClasseComponent;
 use App\Http\Livewire\ParentComponent;
 use App\Http\Livewire\MatiereComponent;
@@ -15,6 +16,7 @@ use App\Http\Livewire\UtilisateurComponent;
 use App\Http\Livewire\TarificationComponent;
 use App\Http\Livewire\AnneeScolaireComponent;
 use App\Http\Livewire\NiveauScolaireComponent;
+use App\Http\Livewire\InscriptionReinscriptionComponent;
 
 /*
 |--------------------------------------------------------------------------
@@ -146,11 +148,11 @@ Route::group(
 
 Route::group(
     [
-        "middleware" => ["auth", "auth.inscri.reinscri"],
-        'as' => 'inscri.reinscri.'
+        "middleware" => ["auth", "auth.caisses"],
+        'as' => 'caisses.'
     ],
     function () {
-        Route::get('/liste', EleveComponent::class)->name('liste.index');
+        Route::get('/inscription-reinscription', InscriptionReinscriptionComponent::class)->name('inscription-reinscription.index');
     }
 );
 

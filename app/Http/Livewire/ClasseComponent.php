@@ -7,7 +7,6 @@ use Carbon\Carbon;
 use App\Models\Classe;
 use Livewire\Component;
 use App\Models\GroupeClasse;
-use App\Models\Tarification;
 use Livewire\WithPagination;
 use App\Models\NiveauScolaire;
 use Illuminate\Support\Facades\DB;
@@ -75,14 +74,14 @@ class ClasseComponent extends Component
             return [
                 'editClasse.nom' => 'required',
                 'editClasse.niveauxscolaires_id' => 'required',
-                'editClasse.groupe_classe_id' => 'required',
+                'editClasse.groupe_classe_id' => 'nullable',
             ];
         }
 
         return [
             'newClasse.nom' => 'required',
             'newClasse.niveauxscolaires_id' => 'required',
-            'newClasse.groupe_classe_id' => 'required',
+            'newClasse.groupe_classe_id' => 'nullable',
         ];
     }
 

@@ -4,7 +4,7 @@
         <img src="{{asset('assets/images/logo-asnec-it.png')}}" alt="ASNEC-IT Logo" 
         class="brand-image img-circle elevation-3"
             style="opacity: .8">
-        <span class="brand-text font-weight-light">ASNEC-SCHOOL</span>
+        <span class="brand-text font-weight-light">SNEC-SCHOOL</span>
     </a>
 
     <div class="sidebar">
@@ -55,35 +55,35 @@
             </li>
             @endcan
 
-            @can("inscri.reinscri")
-            <li class="nav-item {{ setMenuClass('inscri.reinscri.', 'menu-open') }}">
-                <a href="#" class="nav-link {{ setMenuClass('inscri.reinscri.', 'active') }}">
-                    <i class="fas fa-school"></i>
+            @can("caisses")
+            <li class="nav-item {{ setMenuClass('caisses.', 'menu-open') }}">
+                <a href="#" class="nav-link {{ setMenuClass('caisses.', 'active') }}">
+                    <i class="fa-solid fa-credit-card"></i>
                     <p>
-                        Inscri. et Réinscription
+                        Caisse
                         <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="{{route('inscri.reinscri.liste.index')}}"
-                            class="nav-link {{ setMenuClass('inscri.reinscri.liste.index', 'active') }}">
+                        <a href="{{route('caisses.inscription-reinscription.index')}}"
+                            class="nav-link {{ setMenuClass('caisses.inscription-reinscription.index', 'active') }}">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>Elèves</p>
+                            <p>Inscription/Réinscription</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{route('administration.annees.scolaires.index')}}"
                             class="nav-link {{ setMenuClass('administration.annees.scolaires.index', 'active') }}">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>Inscription</p>
+                            <p>Scolarité</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{route('administration.niveaux.nvscolaires.index')}}"
                             class="nav-link {{ setMenuClass('administration.niveaux.nvscolaires.index', 'active') }}">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>Réinscription</p>
+                            <p>Autres frais</p>
                         </a>
                     </li>
                 </ul>

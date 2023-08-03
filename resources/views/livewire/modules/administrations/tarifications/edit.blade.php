@@ -84,7 +84,8 @@
 
                     <div class="form-group">
                         <label>Statut *</label>
-                        <select class="form-control @error('statut') is-invalid @enderror" wire:model="editTarification.statut">
+                        <select class="form-control @error('statut') 
+                        is-invalid @enderror" wire:model="editTarification.statut">
                             <option value="">---------</option>
                             <option value="1">Visible</option>
                             <option value="0">Invisible</option>

@@ -26,6 +26,7 @@ class Eleve extends Model
         'emailTiteur',
         'ProfessionTiteur',
         'AdresseTiteur',
+        'defaut',
     ];
 
     public function classe()

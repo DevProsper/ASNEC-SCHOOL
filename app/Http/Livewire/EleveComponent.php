@@ -58,6 +58,7 @@ class EleveComponent extends Component
             $eleves = $eleves->orWhere("telephoneTiteur", "like", "%{$search}%");
         }
 
+        $eleves = $eleves->where('defaut', 1);
         $eleves = $eleves->paginate(10);
         $classes = Classe::where('statut', 1)->orderBy('nom', 'asc')->get();
 
