@@ -20,10 +20,9 @@ use App\Models\CategorieTarification;
 class InscriptionReinscriptionComponent extends Component
 {
     protected $paginationTheme = "bootstrap";
-
     public $currentPage = PAGELIST;
-
     use WithPagination;
+
     public $newAdmission = [];
     public $editCaisse = [];
     public $showAdmission = [];
@@ -61,6 +60,7 @@ class InscriptionReinscriptionComponent extends Component
             $eleves = $eleves->orWhere("nomTiteur", "like", "%{$search}%");
             $eleves = $eleves->orWhere("telephoneTiteur", "like", "%{$search}%");
         }
+        $eleves->where('defaut', 1);
         $eleves = $eleves->paginate(10);
 
         $niveaux = NiveauScolaire::all();

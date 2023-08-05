@@ -30,4 +30,9 @@ class AnneeScolaire extends Model
     {
         return $this->hasMany(Tarification::class);
     }
+
+    public function admissions()
+    {
+        return $this->hasMany(Admission::class, 'anneesscolaire_id');
+    }
 }

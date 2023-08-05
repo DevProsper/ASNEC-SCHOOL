@@ -1,15 +1,15 @@
 <div wire:ignore.self>
 
     @if($currentPage == PAGECREATEFORM)
-    @include("livewire.modules.administrations.trimestres.create")
+    @include("livewire.modules.administrations.periodes.create")
     @endif
 
     @if($currentPage == PAGEEDITFORM)
-    @include("livewire.modules.administrations.trimestres.edit")
+    @include("livewire.modules.administrations.periodes.edit")
     @endif
 
     @if($currentPage == PAGELIST)
-    @include("livewire.modules.administrations.trimestres.liste")
+    @include("livewire.modules.administrations.periodes.liste")
     @endif
 
 </div>
@@ -56,7 +56,7 @@
         }).then((result) => {
         if (result.isConfirmed) {
             if(event.detail.message.data){
-                @this.deleteTrimestre(event.detail.message.data.data_id)
+                @this.deletePeriode(event.detail.message.data.data_id)
             }
         }
         })

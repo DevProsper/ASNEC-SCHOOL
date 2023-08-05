@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('mois', function (Blueprint $table) {
+        Schema::create('categorieperiodes', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
             $table->boolean("statut")->default(1);
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mois');
+        Schema::dropIfExists('categorieperiodes');
     }
 };

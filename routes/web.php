@@ -9,7 +9,9 @@ use App\Http\Livewire\CaisseComponent;
 use App\Http\Livewire\ClasseComponent;
 use App\Http\Livewire\ParentComponent;
 use App\Http\Livewire\MatiereComponent;
+use App\Http\Livewire\PeriodeComponent;
 use App\Http\Livewire\BatimentComponent;
+use App\Http\Livewire\ScolariteComponent;
 use App\Http\Livewire\TrimestreComponent;
 use App\Http\Livewire\EnseignantComponent;
 use App\Http\Livewire\UtilisateurComponent;
@@ -100,11 +102,11 @@ Route::group([
 
     Route::group(
         [
-            "prefix" => "trimestres",
-            'as' => 'trimestres.'
+            "prefix" => "periodes",
+            'as' => 'periodes.'
         ],
         function () {
-            Route::get('/trimestres', TrimestreComponent::class)->name('trimestres.index');
+            Route::get('/periodes', PeriodeComponent::class)->name('periodes.index');
         }
     );
 
@@ -153,6 +155,7 @@ Route::group(
     ],
     function () {
         Route::get('/inscription-reinscription', InscriptionReinscriptionComponent::class)->name('inscription-reinscription.index');
+        Route::get('/scolarite', ScolariteComponent::class)->name('scolarite.index');
     }
 );
 

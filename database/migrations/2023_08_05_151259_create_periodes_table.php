@@ -13,15 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('trimestres', function (Blueprint $table) {
+        Schema::create('periodes', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
-            $table->timestamp('dateDebut')->nullable();
-            $table->timestamp('dateFin')->nullable();
-            $table->text('description')->nullable();
             $table->boolean("statut")->default(1);
+            $table->foreignId("categorieperiode_id")->constrained();
             $table->timestamps();
         });
+        Schema::enableForeignKeyConstraints();
     }
 
     /**
@@ -31,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('trimestres');
+        Schema::dropIfExists('periodes');
     }
 };

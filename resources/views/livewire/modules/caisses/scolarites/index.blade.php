@@ -1,15 +1,15 @@
 <div wire:ignore.self>
 
     @if($currentPage == PAGECREATEFORM)
-    @include("livewire.modules.administrations.mois.create")
+    @include("livewire.modules.caisses.scolarites.create")
     @endif
 
     @if($currentPage == PAGEEDITFORM)
-    @include("livewire.modules.administrations.mois.edit")
+    @include("livewire.modules.caisses.scolarites.edit")
     @endif
 
     @if($currentPage == PAGELIST)
-    @include("livewire.modules.administrations.mois.liste")
+    @include("livewire.modules.caisses.scolarites.liste")
     @endif
 
 </div>
@@ -56,7 +56,7 @@
         }).then((result) => {
         if (result.isConfirmed) {
             if(event.detail.message.data){
-                @this.deleteMois(event.detail.message.data.data_id)
+                @this.deleteEleve(event.detail.message.data.data_id)
             }
         }
         })

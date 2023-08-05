@@ -36,7 +36,7 @@ class TarificationComponent extends Component
         $tarifications = Tarification::latest()->paginate(10);
 
         $classes = Classe::where('statut', 1)->orderBy('nom', 'asc')->get();
-        $categories = CategorieTarification::orderBy('nom', 'asc')->get();
+        $categories = CategorieTarification::orderBy('id', 'asc')->get();
         $anneesscolaires = AnneeScolaire::where('defaut', 1)->orderBy('nom', 'asc')->get();
 
 

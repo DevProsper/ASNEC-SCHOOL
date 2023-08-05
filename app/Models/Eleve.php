@@ -33,4 +33,9 @@ class Eleve extends Model
     {
         return $this->belongsTo(Classe::class, "classe_id");
     }
+
+    public function admissions()
+    {
+        return $this->hasMany(Admission::class, 'eleve_id');
+    }
 }

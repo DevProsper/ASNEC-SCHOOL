@@ -48,7 +48,7 @@
                     <li class="nav-item">
                         <a href="{{route('eleves.eleves.index')}}" class="nav-link {{ setMenuClass('eleves.eleves.index', 'active') }}">
                             <i class="nav-icon fas fa-user"></i>
-                            <p>Elèves</p>
+                            <p>Nouveaux Arrivants</p>
                         </a>
                     </li>
                 </ul>
@@ -69,14 +69,14 @@
                         <a href="{{route('caisses.inscription-reinscription.index')}}"
                             class="nav-link {{ setMenuClass('caisses.inscription-reinscription.index', 'active') }}">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>Inscription/Réinscription</p>
+                            <p>Admission arrivants</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('administration.annees.scolaires.index')}}"
-                            class="nav-link {{ setMenuClass('administration.annees.scolaires.index', 'active') }}">
+                        <a href="{{route('caisses.scolarite.index')}}"
+                            class="nav-link {{ setMenuClass('caisses.scolarite.index', 'active') }}">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>Scolarité</p>
+                            <p>Admission & paiements</p>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -163,17 +163,10 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('administration.trimestres.trimestres.index')}}" 
-                            class="nav-link {{ setMenuClass('administration.trimestres.trimestres.index', 'active') }}">
+                            <a href="{{route('administration.periodes.periodes.index')}}" 
+                            class="nav-link {{ setMenuClass('administration.periodes.periodes.index', 'active') }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Gestion des trimestres</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{route('administration.mois.mois.index')}}" 
-                            class="nav-link {{ setMenuClass('administration.mois.mois.index', 'active') }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Gestion des mois</p>
+                                <p>Gestion des périodes</p>
                             </a>
                         </li>
                     </ul>

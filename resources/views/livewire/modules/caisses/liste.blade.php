@@ -1,60 +1,17 @@
 <div class="row p-4 pt-5">
     <div class="col-12">
-        <div class="callout callout-info">
-            <div class="row">
-                <div class="col-md-12">
-                    <h5><i class="fas fa-search"></i> Recherche avancée des élèves </h5>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label>Année scolaire</label>
-                        <select
-                            class="form-control @error('editEleve.anneesscolaire_id') 
-                                                                                                                                                                                                                                                        is-invalid @enderror"
-                            name="editEleve.anneesscolaire_id" wire:model="editEleve.anneesscolaire_id">
-                            <option value="">---------</option>
-        
-                            <option>-----</option>
-        
-                        </select>
-                        @error("editEleve.anneesscolaire_id")
-                        <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label>Année scolaire</label>
-                        <select
-                            class="form-control @error('editEleve.anneesscolaire_id') 
-                                                                                                                                                                                                                                                                        is-invalid @enderror"
-                            name="editEleve.anneesscolaire_id" wire:model="editEleve.anneesscolaire_id">
-                            <option value="">---------</option>
-        
-                            <option>-----</option>
-        
-                        </select>
-                        @error("editEleve.anneesscolaire_id")
-                        <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label>Nom ou numéro de téléphone</label>
-                        <input type="text" name="table_search" wire:model.debounce.700ms="search"
-                            class="form-control float-right" placeholder="Recherche par nom ou tel">
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="card">
             <div class="card-header bg-gradient-primary d-flex align-items-center">
-                <h3 class="card-title flex-grow-1"><i class="fas fa-users"></i> Liste des élèves en attente d'admission à l'école</h3>
+                <h3 class="card-title flex-grow-1"><i class="fas fa-users"></i> 
+                    Liste des élèves en attente d'admission à l'école</h3>
                 <div class="card-tools d-flex align-items-center ">
-                    <div class="input-group input-group-md" style="width: 300px;">
+                    <div class="card-tools d-flex align-items-center ">
+                    </div>
+                </div>
+                <div class="card-tools d-flex align-items-center ">
+                    <div class="input-group input-group-md" style="width: 370px;">
                         <input type="text" name="table_search" wire:model.debounce.700ms="search"
-                            class="form-control float-right" placeholder="Recherche par nom ou prenom">
+                            class="form-control float-right" placeholder="Recherche par nom ou tel (Eleve ou titeur)">
 
                         <div class="input-group-append">
                             <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
@@ -68,14 +25,13 @@
                     <thead>
                         <tr>
                             <th style="width:5%;">#</th>
-                            <th style="width:5%;">Detail</th>
-                            <th style="width:25%;">Nom complet</th>
+                            <th style="width:20%;">Nom complet</th>
                             <th style="width:10%;">Teléphone</th>
-                            <th style="width:5%;">Classe</th>
                             <th style="width:5%;">Statut</th>
-                            <th style="width:25%;">Titeur</th>
+                            <th style="width:20%;">Titeur</th>
                             <th style="width:5%;">Téléphone</th>
-                            <th style="width:30%;" class="text-center">Action</th>
+                            <th style="width:20%;" class="text-center">Inscription-Réinscription</th>
+                            <th style="width:20%;" class="text-center">Date</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -88,14 +44,12 @@
                                 <img src="{{asset('assets/images/man.png')}}" width="24" />
                                 @endif
                             </td>
-                            <td><a href=""><i class="fa fa-eye" aria-hidden="true"></i></a></td>
                             <td>{{ $value->nom }} {{ $value->prenom }}</td>
                             <td>{{ $value->telephone }}</td>
-                            <td>{{ $value->classe->nom }}</td>
                             @if ($value->defaut == 1)
-                            <td><span class="badge bg-info">Nouvel élève</span></td>
+                            <td><span class="badge bg-info">Non Inscrit(e)</span></td>
                             @else
-                            <td><span class="badge bg-warning">Ancien élève</span></td>
+                            <td><span class="badge bg-warning">Déjà inscrit(e) - Ancien(e)</span></td>
                             @endif
                             <td>{{ $value->nomTiteur }} {{ $value->prenomTiteur }}</td>
                             <td>{{ $value->telephoneTiteur }}</td>
@@ -104,6 +58,7 @@
                                     <b>Inscription/Réinscription</b>
                                 </button>
                             </td>
+                            <td>{{ $value->created_at->diffForHumans() }}</td>
                         </tr>
                         @endforeach
                     </tbody>

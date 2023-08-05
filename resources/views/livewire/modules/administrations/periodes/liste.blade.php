@@ -2,11 +2,11 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header bg-gradient-primary d-flex align-items-center">
-                <h3 class="card-title flex-grow-1"><i class="fa fa-calendar-plus fa-2x"></i> Liste des mois</h3>
+                <h3 class="card-title flex-grow-1"><i class="fa fa-calendar-plus fa-2x"></i> Liste des periodes</h3>
 
                 <div class="card-tools d-flex align-items-center ">
-                    <a class="btn btn-success text-white mr-4 d-block" wire:click.prevent="goToAddMois()"><i
-                            class="fa fa-calendar-plus"></i> Nouveau mois</a>
+                    <a class="btn btn-success text-white mr-4 d-block" wire:click.prevent="goToAddPeriode()"><i
+                            class="fa fa-calendar-plus"></i> Nouvelle période</a>
                 </div>
             </div>
             <!-- /.card-header -->
@@ -14,16 +14,18 @@
                 <table class="table table-head-fixed">
                     <thead>
                         <tr>
-                            <th style="width:25%;">Mois</th>
+                            <th style="width:5%;">période</th>
+                            <th style="width:20%;">Categorie</th>
                             <th style="width:30%;" class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($mois as $value)
+                        @foreach($periodes as $value)
                         <tr>
                             <td>{{ $value->nom }}</td>
+                            <td>{{ $value->categorie->nom }}</td>
                             <td class="text-center">
-                                <button class="btn btn-link" wire:click="goToEditMois({{$value->id}})"> <i
+                                <button class="btn btn-link" wire:click="goToEditPeriode({{$value->id}})"> <i
                                         class="far fa-edit"></i> </button>
                                 <button class="btn btn-link"
                                     wire:click="confirmDelete('{{ $value->nom }}', {{$value->id}})">
@@ -37,7 +39,7 @@
             <!-- /.card-body -->
             <div class="card-footer">
                 <div class="float-right">
-                    {{ $mois->links() }}
+                    {{ $periodes->links() }}
                 </div>
             </div>
         </div>
