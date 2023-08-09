@@ -11,12 +11,12 @@
                 
                     <div class="row">
                         <div class="col-md-6">
+
                             <div class="d-flex">
                                 <div class="form-group flex-grow-1 mr-2">
                                     <label>Nom complet :</label>
                                     <input disabled autocomplete="off" type="text" wire:model="editCaisse.nom"
                                         class="form-control @error('editCaisse.nom') is-invalid @enderror">
-                    
                                     @error("editCaisse.nom")
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -137,8 +137,8 @@
                                 <select class="form-control @error('newCaisse.statutAdmission') is-invalid @enderror"
                                     wire:model="newCaisse.statutAdmission">
                                     <option value="">---------</option>
-                                    <option value="Nouveau">Nouveau</option>
-                                    <option value="Redoublant">Redoublant</option>
+                                    <option value="Nouveau">Nouveau(lle)</option>
+                                    <option value="Redoublant">Redoublant(e)</option>
                                 </select>
                                 @error("newCaisse.statutAdmission")
                                 <span class="text-danger">{{ $message }}</span>

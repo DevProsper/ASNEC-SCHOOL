@@ -82,6 +82,7 @@
                         <th>Classe</th>
                         <th>Admission</th>
                         <th>Date admission</th>
+                        <th>Statut</th>
                         <th>Année scolaire</th>
                         <th class="text-center">Paiement(s)</th>
                             <!-- Autres colonnes d'information des admissions -->
@@ -102,6 +103,11 @@
                             <td>{{ $admission->classe->nom }}</td>
                             <td>{{ $admission->tarification->categorie->nom }}</td>
                             <td>{{ substr($admission->created_at, 0, 10) }}</td>
+                            @if ($admission->statutAdmission == "Nouveau")
+                            <td><span class="badge bg-info">Nouveau(lle)</span></td>
+                            @else
+                            <td><span class="badge bg-danger">Redoublant(e)</span></td>
+                            @endif
                             <td>{{ $admission->anneesscolaire->nom }}</td>
 
                             <td class="text-center">
@@ -109,11 +115,11 @@
                                     l'admission de l'élève, n'affiche pas la réinscription ---->
                                 @if ($admission->anneesscolaire->id == $anneeScolaireParDefaut)
                                 @else
-                                    <button class="btn btn-warning" wire:click="goToEditScolaire({{$value->id}})">
+                                    <button class="btn btn-warning" wire:click="goToshowReinscription({{$admission->eleve_id}})">
                                         <i class="fa-solid fa-bolt">Ré</i>
                                     </button>
                                 @endif
-                                <button class="btn btn-primary" wire:click="confirmDelete('{{ $value->nom }}', {{$value->id}})">
+                                <button class="btn btn-primary" wire:click="goToshowFrais({{$admission->id}})">
                                     <i class="fa-solid fa-bolt">F</i>
                                 </button>
                             </td>

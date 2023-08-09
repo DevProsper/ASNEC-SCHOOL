@@ -4,7 +4,7 @@
         <div class="card card-danger">
             <div class="card-header">
                 <h3 class="card-title"><i class="fas fa-user fa-2x"></i> 
-                    "Inscriptions et Réinscriptions : Procédez au Paiement en ligne"
+                    "Inscriptions et Réinscriptions : Procédez au Paiement"
                 </h3>
             </div>
             <!-- form start -->

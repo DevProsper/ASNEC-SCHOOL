@@ -1,11 +1,11 @@
 <div wire:ignore.self>
 
-    @if($currentPage == PAGECREATEFORM)
-    @include("livewire.modules.caisses.scolarites.create")
+    @if($currentPage == PAGEFRAISSCOLAIRE)
+    @include("livewire.modules.caisses.scolarites.frais")
     @endif
 
-    @if($currentPage == PAGEEDITFORM)
-    @include("livewire.modules.caisses.scolarites.edit")
+    @if($currentPage == PAGEREINSCRIPTION)
+    @include("livewire.modules.caisses.scolarites.reinscription")
     @endif
 
     @if($currentPage == PAGELIST)

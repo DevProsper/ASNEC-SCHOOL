@@ -41,7 +41,7 @@ class PeriodeComponent extends Component
             $periodes->where('categorieperiode_id', $this->categorieId);
         }
 
-        $periodes = $periodes->paginate(10);
+        $periodes = $periodes->paginate(20);
         $categories = CategoriePeriode::all();
 
         return view(

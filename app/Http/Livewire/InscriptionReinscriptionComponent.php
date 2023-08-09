@@ -129,49 +129,48 @@ class InscriptionReinscriptionComponent extends Component
         $validationAttributes["newAdmission"]["anneesscolaire_id"] = $this->annee_id;
 
         $this->montantAverser = Tarification::find($validationAttributes["newAdmission"]["tarification_id"])->toArray();
-
         $this->montantRestant = $this->montantAverser['prix'] - $this->montantVerse;
 
         if ($this->montantAverser['prix'] == $this->montantVerse) {
             $this->statut = 1;
-        } else if ($this->montantVerse < $this->montantAverser['prix']) {
-            $this->statut = 2;
         } else {
-            $this->statut = 3;
-            $this->dispatchBrowserEvent("showErrorMessage", ["message" => "Le montant verser est supérieur au montant à la tarification !"]);
+            $this->statut = 2;
         }
+        if ($this->montantVerse > $this->montantAverser['prix']) {
+            $this->dispatchBrowserEvent("showErrorMessage", ["message" => "Le montant versé ne doit pas être superieur à la tarification! "]);
+        } else {
+            try {
+                DB::beginTransaction();
+                Admission::create($validationAttributes["newAdmission"]);
 
-        try {
-            DB::beginTransaction();
-            Admission::create($validationAttributes["newAdmission"]);
+                $eleve = Eleve::find($validationAttributes["newAdmission"]["eleve_id"]);
+                $eleve->update([
+                    'defaut' => 2
+                ]);
 
-            $eleve = Eleve::find($validationAttributes["newAdmission"]["eleve_id"]);
-            $eleve->update([
-                'defaut' => 2
-            ]);
+                Caisse::create([
+                    'eleve_id' => $validationAttributes["newAdmission"]["eleve_id"],
+                    'anneesscolaire_id' => $validationAttributes["newAdmission"]["anneesscolaire_id"],
+                    'tarification_id' => $validationAttributes["newAdmission"]["tarification_id"],
+                    'montantVerse' => $this->montantVerse,
+                    'montantRestant' => $this->montantRestant,
+                    // Etat = 1 : Entrées dans la caisse
+                    'etat' => 1,
+                    'statut' => $this->statut
+                ]);
 
-            Caisse::create([
-                'eleve_id' => $validationAttributes["newAdmission"]["eleve_id"],
-                'anneesscolaire_id' => $validationAttributes["newAdmission"]["anneesscolaire_id"],
-                'tarification_id' => $validationAttributes["newAdmission"]["tarification_id"],
-                'montantVerse' => $this->montantVerse,
-                'montantRestant' => $this->montantRestant,
-                // Etat = 1 : Entrées dans la caisse
-                'etat' => 1,
-                'statut' => $this->statut
-            ]);
-
-            DB::commit();
-            $this->montantAverser = "";
-            $this->montantVerse = "";
-            $this->montantRestant = "";
-            $this->newAdmission = [];
-            $this->dispatchBrowserEvent("showSuccessMessage", ["message" => "L'admission a été effectué avec succès!"]);
-        } catch (Exception $e) {
-            DB::rollback();
-            Log::error($e->getMessage());
-            dd($e->getMessage());
-            $this->dispatchBrowserEvent("showErrorMessage", ["message" => "L'admission de l'élève n'a pas aboutie! "]);
+                DB::commit();
+                $this->montantAverser = "";
+                $this->montantVerse = "";
+                $this->montantRestant = "";
+                $this->newAdmission = [];
+                $this->dispatchBrowserEvent("showSuccessMessage", ["message" => "L'admission a été effectué avec succès!"]);
+            } catch (Exception $e) {
+                DB::rollback();
+                Log::error($e->getMessage());
+                dd($e->getMessage());
+                $this->dispatchBrowserEvent("showErrorMessage", ["message" => "L'admission de l'élève n'a pas aboutie! "]);
+            }
         }
     }
 

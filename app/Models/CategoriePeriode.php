@@ -18,6 +18,6 @@ class CategoriePeriode extends Model
 
     public function periodes()
     {
-        return $this->hasMany(Periode::class);
+        return $this->hasMany(Periode::class, 'categorieperiode_id');
     }
 }

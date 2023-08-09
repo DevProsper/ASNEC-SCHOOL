@@ -8,6 +8,10 @@ define("PAGEEDITFORM", "edit");
 define("PAGECREATEADMISSION", "create_admission");
 define("PAGEEDITADMISSION", "edit_admission");
 define("PAGECREATEFORM_ELEVE", "create_eleve");
+define("PAGEREINSCRIPTION", "reinscription");
+define("PAGEFRAISSCOLAIRE", "frais");
+define("PAGEFRAIS_EDITION", "frais_scolaire_edit");
+//PROC
 
 define("DEFAULTPASSOWRD", "password");
 
