@@ -32,12 +32,6 @@ class ScolariteComponent extends Component
 
     public $IdEleve;
 
-    //Informations frais scolaires
-    public $montantRestantFrais;
-    public $fraisAverser;
-    public $statutFrais;
-
-
     //Filtre classes par niveaux scolaires et tarifications par categories tarifications
     public $_classes;
     public $_tarifications;
@@ -47,39 +41,37 @@ class ScolariteComponent extends Component
     public $categorieId;
     public $categoriePeriodeId;
 
-    //Variables à passer dans la vue Frais scolaire
-
+    //=================Variables à passer dans la vue Frais scolaire============
     public $Show = [];
     public $showClasse;
-    public $showSexe;
+
     public $showIdClasse;
     public $showNomEleve;
     public $showPrenomEleve;
     public $showIdEleve;
     public $showIdAnneeScolaire;
     public $showStatutEleve;
-
-    public $Ancienneclasse;
-
-
-    public $anneeScolaireParDefaut;
-
     //A inserer
     public $tarification_id;
     public $periode_id;
     public $fraisVerse;
+    //Informations frais scolaires
+    public $montantRestantFrais;
+    public $fraisAverser;
+    public $statutFrais;
+
+    //Variables Réinscription
+    public $Ancienneclasse;
+    public $Sexe;
+
+
+    public $anneeScolaireParDefaut;
+
+
 
     public function mount()
     {
-        // Récupérer l'année scolaire par défaut si aucune année n'est sélectionnée
-        $this->anneeScolaireParDefaut = AnneeScolaire::where('defaut', 1)->value('id');
-
-        // Appliquer l'année scolaire par défaut à la sélection si aucune année n'est sélectionnée
-        $this->anneeScolaire = $this->anneeScolaire ?? $this->anneeScolaireParDefaut;
-
-        //On initialise le total des filles et garçon à zéro
-        $this->totalFilles = 0;
-        $this->totalGarcons = 0;
+        $this->rafraishir();
     }
 
     public function render()
@@ -112,11 +104,39 @@ class ScolariteComponent extends Component
             ->section("contenu");
     }
 
+    public function rafraishir()
+    {
+        // Récupérer l'année scolaire par défaut si aucune année n'est sélectionnée
+        $this->anneeScolaireParDefaut = AnneeScolaire::where('defaut', 1)->value('id');
+
+        // Appliquer l'année scolaire par défaut à la sélection si aucune année n'est sélectionnée
+        $this->anneeScolaire = $this->anneeScolaire ?? $this->anneeScolaireParDefaut;
+
+        //On initialise le total des filles et garçon à zéro
+        $this->totalFilles = 0;
+        $this->totalGarcons = 0;
+    }
+
     public function goToListScolarite()
     {
         $this->currentPage = PAGELIST;
-        $this->newReinscription = [];
+
+        $this->showIdEleve = "";
+        $this->showIdClasse = "";
+        $this->showIdAnneeScolaire = "";
+
+        $this->showClasse = "";
+        $this->showNomEleve = "";
+        $this->showPrenomEleve = "";
+        $this->showStatutEleve = "";
+
+        $this->tarification_id = "";
+        $this->categorieId = "";
+        $this->fraisAverser = "";
+        $this->periode_id = "";
+        $this->fraisVerse = "";
     }
+
 
     public function goToshowReinscription($id)
     {

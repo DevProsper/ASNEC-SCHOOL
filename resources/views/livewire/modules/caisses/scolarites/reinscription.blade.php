@@ -163,8 +163,8 @@
                     </div>
                 
                     <button type="submit" class="btn btn-primary">Enregistrer</button>
-                    <button type="button" wire:click.prevent="goToListScolarite()" class="btn btn-warning">Retouner à la liste des
-                        élèves</button>
+                    <a href="{{route('caisses.scolarite.index')}}" class="btn btn-warning">Retouner à la liste des
+                        élèves</a>
                 
                 </div>
             </form>
