@@ -41,7 +41,7 @@
                         <div class="col-md-6">
                             <div class="d-flex">
                                 <div class="form-group flex-grow-1 mr-2">
-                                    <label>Nom titeur </label>
+                                    <label>Nom titeur</label>
                                     <input disabled autocomplete="off" type="text" wire:model="newAdmission.nomTiteur"
                                         class="form-control @error('newAdmission.nomTiteur') is-invalid @enderror">
 
@@ -90,22 +90,22 @@
                             <div class="form-group">
                                 <label for="classe">Frais </label>
                                 <select
-                                    class="form-control @error('tarification_id') 
+                                    class="form-control @error('newAdmission.tarification_id') 
                                                                                                                                                                                                                                                 is-invalid @enderror"
-                                    name="tarification_id" wire:model="newAdmission.tarification_id">
+                                    name="newAdmission.tarification_id" wire:model="newAdmission.tarification_id">
                                     <option value="">---------</option>
                                     @foreach ($tarifications as $value)
                                     <option value="{{ $value->id }}">{{ $value->nom }} - {{ $value->prix }}</option>
                                     @endforeach
                                 </select>
-                                @error("tarification_id")
+                                @error("newAdmission.tarification_id")
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
                         @endif
 
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="form-group">
                                 <label>Niveau scolaire</label>
                                 <select
@@ -128,14 +128,15 @@
                             <div class="form-group">
                                 <label for="classe">Classe </label>
                                 <select
-                                    class="form-control @error('newAdmission.classe_id')                                                                                                                                              is-invalid @enderror"
+                                    class="form-control @error('newAdmission.classe_id') 
+                                                                                                                                                                                                                                                                        is-invalid @enderror"
                                     name="newAdmission.classe_id" wire:model="newAdmission.classe_id">
                                     <option value="">---------</option>
-                                    @foreach ($classes as $classe)
-                                    <option value="{{ $classe->id }}">{{ $classe->nom }}</option>
+                                    @foreach ($classes as $value)
+                                    <option value="{{ $value->id }}">{{ $value->nom }}</option>
                                     @endforeach
                                 </select>
-                                @error("classe_id")
+                                @error("newAdmission.classe_id")
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -161,10 +162,12 @@
                             <div class="d-flex">
                                 <div class="form-group flex-grow-1 mr-2">
                                     <label>Montant verse</label>
-                                    <input autocomplete="off" type="number" wire:model="montantVerse"
-                                        class="form-control @error('montantVerse') is-invalid @enderror">
+                                    <input autocomplete="off" type="number" 
+                                    wire:model="newAdmission.montantVerse"
+                                        class="form-control 
+                                        @error('newAdmission.montantVerse') is-invalid @enderror">
                             
-                                    @error("montantVerse")
+                                    @error("newAdmission.montantVerse")
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>

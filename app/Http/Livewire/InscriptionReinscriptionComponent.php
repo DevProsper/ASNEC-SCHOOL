@@ -47,6 +47,14 @@ class InscriptionReinscriptionComponent extends Component
 
     public $statut; // 1-Terminé, 2-Accompte et etat = 1 Entrées, 2 Dépenses
 
+    protected $messages = [
+        'newAdmission.tarification_id.required' => "Veuillez choisir la tarification.",
+        'newAdmission.classe_id.required' => "Veuillez choisir la classe",
+        'newAdmission.statutAdmission.required' => "Veuillez choisir le statut de l'élève.",
+        'categorieId.required' => "Veuillez choisir la catégorie de la tarification.",
+        'newAdmission.montantVerse' => "Le montant versé ne peut pas être vide !.",
+    ];
+
     public function render()
     {
         Carbon::setLocale("fr");
@@ -79,6 +87,10 @@ class InscriptionReinscriptionComponent extends Component
     {
         $this->currentPage = PAGELIST;
         $this->editCaisse = [];
+        $this->montantAverser = "";
+        $this->montantVerse = "";
+        $this->montantRestant = "";
+        $this->newAdmission = [];
     }
 
     public function goToAddEleve()
@@ -103,7 +115,8 @@ class InscriptionReinscriptionComponent extends Component
                 'newAdmission.tarification_id' => 'required',
                 'newAdmission.classe_id' => 'required',
                 'newAdmission.anneesscolaire_id' => 'nullable',
-                'newAdmission.statutAdmission' => 'required'
+                'newAdmission.statutAdmission' => 'required',
+                'newAdmission.montantVerse' => 'required'
             ];
         }
         return [
@@ -129,12 +142,19 @@ class InscriptionReinscriptionComponent extends Component
         $validationAttributes["newAdmission"]["anneesscolaire_id"] = $this->annee_id;
 
         $this->montantAverser = Tarification::find($validationAttributes["newAdmission"]["tarification_id"])->toArray();
+        $this->montantVerse = $validationAttributes["newAdmission"]["montantVerse"];
         $this->montantRestant = $this->montantAverser['prix'] - $this->montantVerse;
 
         if ($this->montantAverser['prix'] == $this->montantVerse) {
             $this->statut = 1;
         } else {
             $this->statut = 2;
+        }
+        if ($this->montantVerse < -1) {
+            $this->dispatchBrowserEvent(
+                "showErrorMessage",
+                ["message" => "Le montant versé ne peut pas être inférieur à - 1 "]
+            );
         }
         if ($this->montantVerse > $this->montantAverser['prix']) {
             $this->dispatchBrowserEvent("showErrorMessage", ["message" => "Le montant versé ne doit pas être superieur à la tarification! "]);

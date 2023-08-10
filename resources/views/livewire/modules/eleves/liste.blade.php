@@ -27,7 +27,6 @@
                             <th style="width:5%;">Detail</th>
                             <th style="width:25%;">Nom complet</th>
                             <th style="width:10%;">Teléphone</th>
-                            <th style="width:5%;">Classe</th>
                             <th style="width:25%;">Titeur</th>
                             <th style="width:5%;">Téléphone</th>
                             <th style="width:30%;" class="text-center">Action</th>
@@ -46,14 +45,15 @@
                             <td><a href=""><i class="fa fa-eye" aria-hidden="true"></i></a></td>
                             <td>{{ $value->nom }} {{ $value->prenom }}</td>
                             <td>{{ $value->telephone }} </td>
-                            <td>{{ $value->classe->nom }}</td>
                             <td>{{ $value->nomTiteur }} {{ $value->prenomTiteur }} </td>
                             <td>{{ $value->telephoneTiteur }} </td>
                             <td class="text-center">
                                 <button class="btn btn-link" wire:click="goToEditEleve({{$value->id}})"> <i class="far fa-edit"></i>
                                 </button>
-                                <button class="btn btn-link" wire:click="confirmDelete('{{ $value->nom }}', {{$value->id}})">
-                                    <i class="far fa-trash-alt"></i> </button>
+                                @can("utilisateurs")
+                                    <button class="btn btn-link" wire:click="confirmDelete('{{ $value->nom }}', {{$value->id}})">
+                                        <i class="far fa-trash-alt"></i> </button>
+                                @endcan
                             </td>
                         </tr>
                         @endforeach

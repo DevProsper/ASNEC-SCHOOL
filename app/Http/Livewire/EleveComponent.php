@@ -8,7 +8,6 @@ use App\Models\Eleve;
 use App\Models\Classe;
 use Livewire\Component;
 use Livewire\WithPagination;
-use App\Models\AnneeScolaire;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -100,7 +99,6 @@ class EleveComponent extends Component
                 'editEleve.lieuNaissance' => "nullable",
                 'editEleve.email' => "nullable",
                 'editEleve.description' => "nullable",
-                'editEleve.classe_id' => "required",
 
                 'editEleve.nomTiteur' => "required",
                 'editEleve.prenomTiteur' => "required",
@@ -127,7 +125,6 @@ class EleveComponent extends Component
             'newEleve.professionTiteur' => "nullable",
             'newEleve.adresseTiteur' => "nullable",
             'newEleve.emailTiteur' => "nullable",
-            'newEleve.classe_id' => "required",
         ];
     }
 

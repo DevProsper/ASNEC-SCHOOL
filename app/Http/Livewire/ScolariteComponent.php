@@ -61,13 +61,28 @@ class ScolariteComponent extends Component
     public $statutFrais;
 
     //Variables Réinscription
-    public $Ancienneclasse;
-    public $Sexe;
+    public $showclasseEleveInscris;
+    public $showSexeEleveInscris;
+    public $showNomEleveInscris;
+    public $showPrenomEleveInscris;
+    public $idAnneeParDefaut;
+
+    public $R_montantVerse;
+    public $R_montantAVerser;
+    public $R_montantRestant;
+    public $R_statut;
+    public $IdEleveInscris;
 
 
     public $anneeScolaireParDefaut;
 
-
+    protected $messages = [
+        'newReinscription.tarification_id.required' => "Veuillez choisir la tarification.",
+        'newReinscription.classe_id.required' => "Veuillez choisir la classe",
+        'newReinscription.statutAdmission.required' => "Veuillez choisir le statut de l'élève.",
+        'categorieId.required' => "Veuillez choisir la catégorie de la tarification.",
+        'newReinscription.montantVerse' => "Le montant versé ne peut pas être vide !.",
+    ];
 
     public function mount()
     {
@@ -140,9 +155,12 @@ class ScolariteComponent extends Component
 
     public function goToshowReinscription($id)
     {
-        $this->newReinscription = Eleve::find($id)->toArray();
-        $this->Ancienneclasse = $this->newReinscription['id'];
-        $this->sexe = $this->newReinscription['id'];
+        $this->newReinscription = Admission::find($id);
+        $this->IdEleveInscris = $this->newReinscription->eleve_id;
+        $this->showclasseEleveInscris = $this->newReinscription->classe->nom;
+        $this->showSexeEleveInscris = $this->newReinscription->eleve->sexe;
+        $this->showNomEleveInscris = $this->newReinscription->eleve->nom;
+        $this->showPrenomEleveInscris = $this->newReinscription->eleve->prenom;
         $this->currentPage = PAGEREINSCRIPTION;
     }
 
@@ -180,15 +198,29 @@ class ScolariteComponent extends Component
         }
     }
 
-    protected $rulesAddFraisScolaire = [
-        'tarification_id' => 'nullable',
-        'fraisVerse' => 'required',
-        'periode_id' => 'required'
-    ];
+    public function rules()
+    {
+        if ($this->currentPage == PAGEFRAISSCOLAIRE) {
+
+            return [
+                'tarification_id' => 'nullable',
+                'fraisVerse' => 'required',
+                'periode_id' => 'required'
+            ];
+        }
+        return [
+            'newReinscription.eleve_id' => 'nullable',
+            'newReinscription.tarification_id' => 'required',
+            'newReinscription.classe_id' => 'required',
+            'newReinscription.anneesscolaire_id' => 'nullable',
+            'newReinscription.statutAdmission' => 'required',
+            'newReinscription.montantVerse' => 'required'
+        ];
+    }
 
     public function addFraisScolaire()
     {
-        $validatedData = $this->validate($this->rulesAddFraisScolaire);
+        $validatedData = $this->validate();
         $this->fraisAverser = Tarification::find($validatedData["tarification_id"]);
         $this->montantRestantFrais = $this->fraisAverser->prix - $validatedData["fraisVerse"];
 
@@ -217,46 +249,87 @@ class ScolariteComponent extends Component
                 ]);
 
                 DB::commit();
+
+                $this->showIdEleve = "";
+                $this->showIdClasse = "";
+                $this->showIdAnneeScolaire = "";
+
+                $this->showClasse = "";
+                $this->showNomEleve = "";
+                $this->showPrenomEleve = "";
+                $this->showStatutEleve = "";
+
                 $this->fraisAverser = "";
                 $this->fraisVerse = "";
                 $this->montantRestantFrais = "";
                 $this->newFrais = [];
-                $this->dispatchBrowserEvent("showSuccessMessage", ["message" => "L'admission a été effectué avec succès!"]);
+                $this->dispatchBrowserEvent("showSuccessMessage", ["message" => "Le paiement a été effectué avec succès!"]);
             } catch (Exception $e) {
                 DB::rollback();
                 Log::error($e->getMessage());
                 dd($e->getMessage());
-                $this->dispatchBrowserEvent("showErrorMessage", ["message" => "L'admission de l'élève n'a pas aboutie! "]);
+                $this->dispatchBrowserEvent("showErrorMessage", ["message" => "Le paiement n'a pas aboutie! "]);
             }
         }
     }
 
-    public function addReinscription()
+    public function AddReinscription()
     {
-        $validatedData = $this->validate($this->rulesReinscription);
+        $validationAttributes = $this->validate();
 
-        try {
-            DB::beginTransaction();
-            Admission::create($validatedData["newReinscription"]);
+        //On affiche l'année scolaire par défaut
+        $anneesscolaires = AnneeScolaire::where('defaut', 1)->get();
+        foreach ($anneesscolaires as $ann) {
+            $this->idAnneeParDefaut = $ann->id;
+        }
 
-            Caisse::create([
-                'eleve_id' => $validatedData["newReinscription"]["eleve_id"],
-                'anneesscolaire_id' => $validatedData["newReinscription"]["anneesscolaire_id"],
-                'tarification_id' => $validatedData["newReinscription"]["tarification_id"],
-                'fraisVerse' => $this->fraisVerse,
-                'montantRestant' => $this->montantRestant,
-                // Etat = 1 : Entrées dans la caisse, 2 Dépenses
-                'etat' => 1,
-                //'statut' => $this->statut
-            ]);
+        $validationAttributes["newReinscription"]["anneesscolaire_id"] = $this->idAnneeParDefaut;
 
-            DB::commit();
-            $this->dispatchBrowserEvent("showSuccessMessage", ["message" => "L'admission a été effectué avec succès!"]);
-        } catch (Exception $e) {
-            DB::rollback();
-            Log::error($e->getMessage());
-            dd($e->getMessage());
-            $this->dispatchBrowserEvent("showErrorMessage", ["message" => "L'admission de l'élève n'a pas aboutie! "]);
+        $this->R_montantAVerser = Tarification::find($validationAttributes["newReinscription"]["tarification_id"]);
+        $this->R_montantVerse = $validationAttributes["newReinscription"]["montantVerse"];
+        $this->R_montantRestant = $this->R_montantAVerser->prix - $this->R_montantVerse;
+
+        if ($this->R_montantAVerser->prix == $this->R_montantVerse) {
+            $this->R_statut = 1;
+        } else {
+            $this->R_statut = 2;
+        }
+        if ($this->R_montantVerse > $this->R_montantAVerser->prix) {
+            $this->dispatchBrowserEvent("showErrorMessage", ["message" => "Le montant versé ne doit pas être superieur à la tarification! "]);
+        } else {
+            try {
+                DB::beginTransaction();
+                Admission::create($validationAttributes["newReinscription"]);
+
+                Caisse::create([
+                    'eleve_id' => $this->IdEleveInscris,
+                    'anneesscolaire_id' => $validationAttributes["newReinscription"]["anneesscolaire_id"],
+                    'tarification_id' => $validationAttributes["newReinscription"]["tarification_id"],
+                    'montantVerse' => $this->R_montantVerse,
+                    'montantRestant' => $this->R_montantRestant,
+                    // Etat = 1 : Entrées dans la caisse
+                    'etat' => 1,
+                    'statut' => $this->R_statut
+                ]);
+
+                DB::commit();
+                $this->R_montantAVerser = "";
+                $this->R_montantVerse = "";
+                $this->R_montantRestant = "";
+                $this->R_statut = "";
+                $this->newReinscription = [];
+                $this->IdEleveInscris = "";
+                $this->showclasseEleveInscris = "";
+                $this->showSexeEleveInscris = "";
+                $this->showNomEleveInscris = "";
+                $this->showPrenomEleveInscris = "";
+                $this->dispatchBrowserEvent("showSuccessMessage", ["message" => "Le paiement a été effectué avec succés !"]);
+            } catch (Exception $e) {
+                DB::rollback();
+                Log::error($e->getMessage());
+                dd($e->getMessage());
+                $this->dispatchBrowserEvent("showErrorMessage", ["message" => "Le paiement n'a pas abouti ! "]);
+            }
         }
     }
 }

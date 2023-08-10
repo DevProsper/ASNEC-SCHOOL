@@ -115,7 +115,7 @@
                                     l'admission de l'élève, n'affiche pas la réinscription ---->
                                 @if ($admission->anneesscolaire->id == $anneeScolaireParDefaut)
                                 @else
-                                    <button class="btn btn-warning" wire:click="goToshowReinscription({{$admission->eleve_id}})">
+                                    <button class="btn btn-warning" wire:click="goToshowReinscription({{$admission->id}})">
                                         <i class="fa-solid fa-bolt">Ré</i>
                                     </button>
                                 @endif

@@ -106,22 +106,6 @@
                                     @enderror
                                 </div>
                             </div>
-
-                            <div class="form-group">
-                                <label>Classe *</label>
-                                <select
-                                    class="form-control @error('classe_id') 
-                                                                                                                                                                                is-invalid @enderror"
-                                    name="classe_id" wire:model="editEleve.classe_id">
-                                    <option value="">---------</option>
-                                    @foreach($classes as $value)
-                                    <option value="{{ $value->id }}">{{ $value->nom }}</option>
-                                    @endforeach
-                                </select>
-                                @error("classe_id")
-                                <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
                     
                             <div class="d-flex">
                                 <div class="form-group flex-grow-1 mr-2">

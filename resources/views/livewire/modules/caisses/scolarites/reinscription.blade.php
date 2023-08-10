@@ -6,7 +6,7 @@
                 <h3 class="card-title"><i class="fas fa-user fa-2x"></i> Paiements des réinscriptions</h3>
             </div>
             <!-- form start -->
-            <form role="form" wire:submit.prevent="updateEleve()" method="POST">
+            <form role="form" wire:submit.prevent="AddReinscription()" method="POST">
                 <div class="card-body">
                 
                     <div class="row">
@@ -14,10 +14,10 @@
                             <div class="d-flex">
                                 <div class="form-group flex-grow-1 mr-2">
                                     <label>Nom :</label>
-                                    <input disabled autocomplete="off" type="text" wire:model="newReinscription.nom"
-                                        class="form-control @error('newReinscription.nom') is-invalid @enderror">
+                                    <input disabled autocomplete="off" type="text" wire:model="showNomEleveInscris"
+                                        class="form-control @error('showNomEleveInscris') is-invalid @enderror">
                     
-                                    @error("newReinscription.nom")
+                                    @error("showNomEleveInscris")
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -26,10 +26,10 @@
                             <div class="d-flex">
                                 <div class="form-group flex-grow-1 mr-2">
                                     <label>Prenom :</label>
-                                    <input disabled autocomplete="off" type="text" wire:model="newReinscription.prenom"
-                                        class="form-control @error('newReinscription.prenom') is-invalid @enderror">
+                                    <input disabled autocomplete="off" type="text" wire:model="showPrenomEleveInscris"
+                                        class="form-control @error('showPrenomEleveInscris') is-invalid @enderror">
                             
-                                    @error("newReinscription.prenom")
+                                    @error("showPrenomEleveInscris")
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -40,10 +40,10 @@
                             <div class="d-flex">
                                 <div class="form-group flex-grow-1 mr-2">
                                     <label>Ancienne classe </label>
-                                    <input disabled autocomplete="off" type="text" wire:model="newReinscription.nomTiteur"
-                                        class="form-control @error('newReinscription.nomTiteur') is-invalid @enderror">
+                                    <input disabled autocomplete="off" type="text" wire:model="showclasseEleveInscris"
+                                        class="form-control @error('showclasseEleveInscris') is-invalid @enderror">
                     
-                                    @error("newReinscription.nomTiteur")
+                                    @error("showclasseEleveInscris")
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -52,12 +52,11 @@
                             <div class="d-flex">
                                 <div class="form-group flex-grow-1 mr-2">
                                     <label>Sexe </label>
-                                    <input disabled autocomplete="off" type="text" wire:model="newReinscription.prenomTiteur"
-                                        class="form-control @error('newReinscription.prenomTiteur') is-invalid @enderror">
-                    
-                                    @error("newReinscription.prenomTiteur")
-                                    <span class="text-danger">{{ $message }}</span>
-                                    @enderror
+                                    @if($showSexeEleveInscris == "H")
+                                        <span class="text-info">Masculin</span>
+                                    @else
+                                        <span class="text-warning">Feminin</span>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -65,7 +64,7 @@
 
                     <div class="row">
 
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="form-group">
                                 <label>Categorie tarification</label>
                                 <select
@@ -84,22 +83,26 @@
                         </div>
                         
                         @if ($_tarifications)
-                        <div class="col-md-3">
+                        <div class="col-md-5">
                             <div class="form-group">
-                                <label for="classe">Frais </label>
+                                <label>Frais d'inscription</label>
                                 <select
-                                    class="form-control @error('_tarifications') 
-                                                                                                                                                                                                                                                is-invalid @enderror"
-                                    name="_tarifications" wire:model="newReinscription.tarification_id">
+                                    class="form-control @error('newReinscription.tarification_id') 
+                                                                                                                                                                                                                                                                            is-invalid @enderror"
+                                    name="newReinscription.tarification_id" wire:model="newReinscription.tarification_id">
+                                    <option value="">---------</option>
                                     @foreach ($_tarifications as $value)
                                     <option value="{{ $value->id }}">{{ $value->nom }} - {{ $value->prix }}</option>
                                     @endforeach
                                 </select>
+                                @error("newReinscription.tarification_id")
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                         @endif
 
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="form-group">
                                 <label>Niveau scolaire</label>
                                 <select
@@ -120,13 +123,19 @@
                         @if ($_classes)
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="classe">Classe </label>
-                                <select class="form-control @error('newReinscription.classe_id')                                                                                                                                              is-invalid @enderror"
+                                <label>Classe</label>
+                                <select
+                                    class="form-control @error('newReinscription.classe_id') 
+                                                                                                                                                                                                                                                                                                        is-invalid @enderror"
                                     name="newReinscription.classe_id" wire:model="newReinscription.classe_id">
-                                    @foreach ($_classes as $classe)
-                                    <option value="{{ $classe->id }}">{{ $classe->nom }}</option>
+                                    <option value="">---------</option>
+                                    @foreach ($_classes as $value)
+                                    <option value="{{ $value->id }}">{{ $value->nom }} </option>
                                     @endforeach
                                 </select>
+                                @error("newReinscription.classe_id")
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                         @endif
@@ -150,10 +159,10 @@
                             <div class="d-flex">
                                 <div class="form-group flex-grow-1 mr-2">
                                     <label>Montant verse</label>
-                                    <input autocomplete="off" type="number" wire:model="montantVerse"
-                                        class="form-control @error('montantVerse') is-invalid @enderror">
+                                    <input autocomplete="off" type="number" wire:model="newReinscription.montantVerse"
+                                        class="form-control @error('newReinscription.montantVerse') is-invalid @enderror">
                         
-                                    @error("montantVerse")
+                                    @error("newReinscription.montantVerse")
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
