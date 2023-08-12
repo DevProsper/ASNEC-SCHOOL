@@ -3,7 +3,6 @@
 namespace App\Http\Livewire;
 
 use Exception;
-use App\Models\Eleve;
 use App\Models\Caisse;
 use App\Models\Classe;
 use App\Models\Periode;
@@ -59,12 +58,14 @@ class ScolariteComponent extends Component
     public $montantRestantFrais;
     public $fraisAverser;
     public $statutFrais;
+    public $showIdScolaire;
 
     //Variables Réinscription
     public $showclasseEleveInscris;
     public $showSexeEleveInscris;
     public $showNomEleveInscris;
     public $showPrenomEleveInscris;
+    public $showIdInscris;
     public $idAnneeParDefaut;
 
     public $R_montantVerse;
@@ -156,6 +157,7 @@ class ScolariteComponent extends Component
     public function goToshowReinscription($id)
     {
         $this->newReinscription = Admission::find($id);
+        $this->showIdInscris = $this->newReinscription->id;
         $this->IdEleveInscris = $this->newReinscription->eleve_id;
         $this->showclasseEleveInscris = $this->newReinscription->classe->nom;
         $this->showSexeEleveInscris = $this->newReinscription->eleve->sexe;
@@ -167,6 +169,7 @@ class ScolariteComponent extends Component
     public function goToshowFrais($id)
     {
         $this->Show = Admission::find($id);
+        $this->showIdScolaire = $this->Show->id;
         $this->showIdEleve = $this->Show->eleve_id;
         $this->showIdClasse = $this->Show->classe_id;
         $this->showIdAnneeScolaire = $this->Show->anneesscolaire_id;
@@ -236,6 +239,7 @@ class ScolariteComponent extends Component
             try {
                 DB::beginTransaction();
                 Caisse::create([
+                    'admission_id' => $this->showIdScolaire,
                     'eleve_id' => $this->showIdEleve,
                     'classe_id' => $this->showIdClasse,
                     'anneesscolaire_id' => $this->showIdAnneeScolaire,
@@ -302,6 +306,7 @@ class ScolariteComponent extends Component
                 Admission::create($validationAttributes["newReinscription"]);
 
                 Caisse::create([
+                    'admission_id' => $this->showIdInscris,
                     'eleve_id' => $this->IdEleveInscris,
                     'anneesscolaire_id' => $validationAttributes["newReinscription"]["anneesscolaire_id"],
                     'tarification_id' => $validationAttributes["newReinscription"]["tarification_id"],

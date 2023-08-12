@@ -13,6 +13,14 @@ define("PAGEFRAISSCOLAIRE", "frais");
 define("PAGEFRAIS_EDITION", "frais_scolaire_edit");
 //PROC
 
+function Money($amount)
+{
+    $formatter = new \NumberFormatter('fr_FR', \NumberFormatter::CURRENCY);
+    $formattedAmount = $formatter->formatCurrency($amount, 'XAF'); // Remplacez 'EUR' par le code de la devise souhaitée
+
+    return $formattedAmount;
+}
+
 define("DEFAULTPASSOWRD", "password");
 
 function setMenuClass($route, $classe)

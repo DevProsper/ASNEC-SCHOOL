@@ -18,11 +18,15 @@ return new class extends Migration
             $table->foreignId("eleve_id")->constrained();
             $table->foreignId("tarification_id")->constrained();
             $table->foreignId("anneesscolaire_id")->constrained();
-            $table->foreignId('periode_id')->nullable();
+            $table->unsignedBigInteger('periode_id')->nullable();
             $table->double("montantVerse");
             $table->double("montantRestant");
             $table->boolean("statut"); //1-Terminé, 2-Accompte
             $table->boolean("etat"); // 1 Entrées, 2 Dépenses
+            $table->unsignedBigInteger('admission_id')->nullable();
+            // Si vous souhaitez ajouter une clé étrangère vers la table d'admissions
+            $table->foreign('admission_id')->references('id')->on('admissions')->onDelete('set null');
+            $table->foreign('periode_id')->references('id')->on('periodes')->onDelete('set null');
             $table->timestamps();
         });
     }

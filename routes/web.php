@@ -19,6 +19,7 @@ use App\Http\Livewire\TarificationComponent;
 use App\Http\Livewire\AnneeScolaireComponent;
 use App\Http\Livewire\NiveauScolaireComponent;
 use App\Http\Livewire\InscriptionReinscriptionComponent;
+use App\Http\Livewire\OperationComponent;
 
 /*
 |--------------------------------------------------------------------------
@@ -156,6 +157,7 @@ Route::group(
     function () {
         Route::get('/inscription-reinscription', InscriptionReinscriptionComponent::class)->name('inscription-reinscription.index');
         Route::get('/scolarite', ScolariteComponent::class)->name('scolarite.index');
+        Route::get('/operation', OperationComponent::class)->name('operation.index');
     }
 );
 

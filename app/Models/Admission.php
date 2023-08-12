@@ -36,4 +36,9 @@ class Admission extends Model
     {
         return $this->belongsTo(Tarification::class, 'tarification_id');
     }
+
+    public function caisses()
+    {
+        return $this->hasMany(Caisse::class, 'admission_id');
+    }
 }

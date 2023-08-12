@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Caisse;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Periode extends Model
 {
@@ -20,5 +21,10 @@ class Periode extends Model
     public function categorie()
     {
         return $this->belongsTo(CategoriePeriode::class, 'categorieperiode_id');
+    }
+
+    public function caisses()
+    {
+        return $this->hasMany(Caisse::class, 'periode_id');
     }
 }

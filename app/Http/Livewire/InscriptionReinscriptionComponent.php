@@ -161,7 +161,7 @@ class InscriptionReinscriptionComponent extends Component
         } else {
             try {
                 DB::beginTransaction();
-                Admission::create($validationAttributes["newAdmission"]);
+                $admission = Admission::create($validationAttributes["newAdmission"]);
 
                 $eleve = Eleve::find($validationAttributes["newAdmission"]["eleve_id"]);
                 $eleve->update([
@@ -169,6 +169,7 @@ class InscriptionReinscriptionComponent extends Component
                 ]);
 
                 Caisse::create([
+                    'admission_id' => $admission->id,
                     'eleve_id' => $validationAttributes["newAdmission"]["eleve_id"],
                     'anneesscolaire_id' => $validationAttributes["newAdmission"]["anneesscolaire_id"],
                     'tarification_id' => $validationAttributes["newAdmission"]["tarification_id"],

@@ -80,10 +80,10 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('administration.niveaux.nvscolaires.index')}}"
-                            class="nav-link {{ setMenuClass('administration.niveaux.nvscolaires.index', 'active') }}">
+                        <a href="{{route('caisses.operation.index')}}"
+                            class="nav-link {{ setMenuClass('caisses.operation.index', 'active') }}">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>Autres frais</p>
+                            <p>Mes opérations</p>
                         </a>
                     </li>
                 </ul>
