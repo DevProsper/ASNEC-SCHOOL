@@ -72,7 +72,7 @@
                 <div class="col-md-6">
                 </div>
                 <div class="col-md-6">
-                    <p>Nombre total de caisses : {{ $operations->count() }}</p>
+                    <p>Requêttes trouvées : {{ $operations->count() }}</p>
                 </div>
             </div>
         </div>
