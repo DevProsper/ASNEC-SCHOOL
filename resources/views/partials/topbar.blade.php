@@ -5,7 +5,7 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="" class="nav-link">Gestion des utilisateurs et droits</a>
+            <a href="" class="nav-link">Système intégré de gestion d'établissement scolaire v1.0.0</a>
         </li>
     </ul>
 

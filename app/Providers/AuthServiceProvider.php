@@ -45,5 +45,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define("eleves", function (User $user) {
             return $user->hasModule("eleves");
         });
+
+        Gate::define("emploisdutemps", function (User $user) {
+            return $user->hasModule("emploisdutemps");
+        });
     }
 }

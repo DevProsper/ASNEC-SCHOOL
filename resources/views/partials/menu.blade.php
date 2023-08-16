@@ -4,7 +4,7 @@
         <img src="{{asset('assets/images/logo-asnec-it.png')}}" alt="ASNEC-IT Logo" 
         class="brand-image img-circle elevation-3"
             style="opacity: .8">
-        <span class="brand-text font-weight-light">SNEC-SCHOOL</span>
+        <span class="brand-text font-weight-light">SIGES</span>
     </a>
 
     <div class="sidebar">
@@ -103,7 +103,19 @@
                 </li>
             @endcan
 
-                @can("administration")
+            @can("emploisdutemps")
+            <li class="nav-item">
+                <a href="{{route('emploisdutemps.emploisdutemps.index')}}"
+                    class="nav-link {{ setMenuClass('emploisdutemps.emploisdutemps.index', 'active') }}">
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                    <p>
+                        emplois du temps
+                    </p>
+                </a>
+            </li>
+            @endcan
+
+            @can("administration")
                 <li class="nav-item {{ setMenuClass('administration.', 'menu-open') }}">
                     <a href="#" class="nav-link {{ setMenuClass('administration.', 'active') }}">
                         <i class="nav-icon fas fa-cog"></i>
@@ -171,18 +183,9 @@
                         </li>
                     </ul>
                 </li>
-                @endcan
-             <!--   <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>
-                            Simple Link
-                            <span class="right badge badge-danger">New</span>
-                        </p>
-                    </a>
-                </li> -->
-
-                @can("utilisateurs")
+            @endcan
+            
+            @can("utilisateurs")
                 <li class="nav-item">
                     <a href="{{route('users.utilisateurs.index')}}" 
                     class="nav-link {{ setMenuClass('users.utilisateurs.index', 'active') }}">

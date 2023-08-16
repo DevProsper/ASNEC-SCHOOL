@@ -150,7 +150,7 @@ class EnseignantComponent extends Component
         try {
             Enseignant::destroy($id);
             $this->dispatchBrowserEvent("showSuccessMessage", ["message" => "l'enseignant a été supprimée avec succès!"]);
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (Exception $e) {
             // Gestion de l'erreur
             if ($e->getCode() === '23000') {
                 $this->dispatchBrowserEvent("showErrorMessage", ["message" => "Impossible ! Cet enseignant est liée à d'autres données."]);

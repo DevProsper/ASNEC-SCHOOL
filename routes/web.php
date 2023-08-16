@@ -5,18 +5,17 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Livewire\EleveComponent;
 use App\Http\Livewire\SalleComponent;
 use Illuminate\Support\Facades\Route;
-use App\Http\Livewire\CaisseComponent;
 use App\Http\Livewire\ClasseComponent;
 use App\Http\Livewire\ParentComponent;
 use App\Http\Livewire\MatiereComponent;
 use App\Http\Livewire\PeriodeComponent;
 use App\Http\Livewire\BatimentComponent;
 use App\Http\Livewire\ScolariteComponent;
-use App\Http\Livewire\TrimestreComponent;
 use App\Http\Livewire\EnseignantComponent;
 use App\Http\Livewire\UtilisateurComponent;
 use App\Http\Livewire\TarificationComponent;
 use App\Http\Livewire\AnneeScolaireComponent;
+use App\Http\Livewire\EmploieDuTempComponent;
 use App\Http\Livewire\NiveauScolaireComponent;
 use App\Http\Livewire\InscriptionReinscriptionComponent;
 use App\Http\Livewire\OperationComponent;
@@ -138,6 +137,16 @@ Route::group([
 ], function () {
     Route::get('/utilisateurs', UtilisateurComponent::class)->name('utilisateurs.index');
 });
+
+Route::group(
+    [
+        "prefix" => "emploisdutemps",
+        'as' => 'emploisdutemps.'
+    ],
+    function () {
+        Route::get('/emploisdutemps', EmploieDuTempComponent::class)->name('emploisdutemps.index');
+    }
+);
 
 Route::group(
     [

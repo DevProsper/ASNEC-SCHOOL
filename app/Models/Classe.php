@@ -51,4 +51,9 @@ class Classe extends Model
     {
         return $this->hasMany(Admission::class, 'classe_id');
     }
+
+    public function emploisdutemps()
+    {
+        return $this->hasMany(EmploiDuTemp::class);
+    }
 }

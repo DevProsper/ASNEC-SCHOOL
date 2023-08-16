@@ -72,7 +72,7 @@
                 <div class="col-md-6">
                 </div>
                 <div class="col-md-6">
-                    <p>Requêttes trouvées : {{ $operations->count() }}</p>
+                    <p>Requêtes trouvées : {{ $operations->count() }}</p>
                 </div>
             </div>
         </div>

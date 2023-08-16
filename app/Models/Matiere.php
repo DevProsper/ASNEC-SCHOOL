@@ -23,4 +23,19 @@ class Matiere extends Model
     {
         return $this->classes->implode("nom", ' , ');
     }
+
+    public function emploisdutemps_j1()
+    {
+        return $this->hasMany(Emploisdutemps::class, 'matierej1');
+    }
+
+    public function emploisdutemps_j2()
+    {
+        return $this->hasMany(Emploisdutemps::class, 'matierej2');
+    }
+
+    public function emploisdutemps_j3()
+    {
+        return $this->hasMany(Emploisdutemps::class, 'matierej3');
+    }
 }
