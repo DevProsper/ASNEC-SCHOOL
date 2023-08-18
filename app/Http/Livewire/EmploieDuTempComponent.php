@@ -21,7 +21,7 @@ class EmploieDuTempComponent extends Component
     use WithPagination;
 
     public $rows = [];
-    public $editEmplois = [];
+    public $editEmploi = [];
     public $newEmplois = [];
 
     public $classe_id;
@@ -123,7 +123,7 @@ class EmploieDuTempComponent extends Component
 
     public function goToEditEmplois($id)
     {
-        $this->editEmplois = EmploiDuTemp::find($id)->toArray();
+        $this->editEmploi = EmploiDuTemp::find($id)->toArray();
         $this->currentPage = PAGEEDITFORM;
     }
 
@@ -132,9 +132,16 @@ class EmploieDuTempComponent extends Component
         if ($this->currentPage == PAGEEDITFORM) {
 
             return [
-                'newEmplois.nom' => 'required',
-                'newEmplois.classe_id' => 'required',
-                'newEmplois.anneesscolaire_id' => 'required'
+                'editEmploi.nom' => 'nullable',
+                'editEmploi.classe_id' => 'nullable',
+                'editEmploi.anneesscolaire_id' => 'nullable',
+                'editEmploi.matierej1' => 'nullable',
+                'editEmploi.matierej2' => 'nullable',
+                'editEmploi.matierej3' => 'nullable',
+                'editEmploi.matierej4' => 'nullable',
+                'editEmploi.matierej5' => 'nullable',
+                'editEmploi.matierej6' => 'nullable',
+                'editEmploi.matierej7' => 'nullable'
             ];
         }
 
@@ -189,6 +196,19 @@ class EmploieDuTempComponent extends Component
             Log::error($e->getMessage());
             dd($e->getMessage());
             $this->dispatchBrowserEvent("showErrorMessage", ["message" => "Une erreur s'est produite lors de la création de l'emplois du temps."]);
+        }
+    }
+
+    public function updateEmplois()
+    {
+        // Vérifier que les informations envoyées par le formulaire sont correctes
+        $validationAttributes = $this->validate();
+        try {
+            EmploiDuTemp::find($this->editEmploi["id"])->update($validationAttributes["editEmploi"]);
+            $this->dispatchBrowserEvent("showSuccessMessage", ["message" => "La ligne de l'empois du temps a été mise à jour avec succès!"]);
+        } catch (Exception $e) {
+            dd($e->getMessage());
+            $this->dispatchBrowserEvent("showErrorMessage", ["message" => "Une erreur s'est produite lors de la mise à jour des données."]);
         }
     }
 

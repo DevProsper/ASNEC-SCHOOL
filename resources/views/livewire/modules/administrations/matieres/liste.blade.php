@@ -15,6 +15,8 @@
                     <thead>
                         <tr>
                             <th style="width:25%;">Matière</th>
+                            <th style="width:25%;">Nom court</th>
+                            <th style="width:25%;">Coefficient</th>
                             <th style="width:25%;">Classes</th>
                             <th style="width:30%;" class="text-center">Action</th>
                         </tr>
@@ -23,6 +25,8 @@
                         @foreach($matieres as $value)
                         <tr>
                             <td>{{ $value->nom }}</td>
+                            <td>{{ $value->nomCourt }}</td>
+                            <td>{{ $value->coefficient }}</td>
                             <td>{{ $value->getAllClasseNamesAttribute() }}</td>
                             <td class="text-center">
                                 <button class="btn btn-link" wire:click="goToEditMatiere({{$value->id}})"> <i

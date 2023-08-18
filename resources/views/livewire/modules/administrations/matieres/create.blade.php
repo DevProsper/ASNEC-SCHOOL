@@ -21,6 +21,30 @@
                         </div>
                     </div>
 
+                    <div class="d-flex">
+                        <div class="form-group flex-grow-1 mr-2">
+                            <label>Nom court</label>
+                            <input autocomplete="off" type="text" wire:model="newMatiere.nomCourt"
+                                class="form-control @error('newMatiere.nomCourt') is-invalid @enderror">
+                    
+                            @error("newMatiere.nomCourt")
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="d-flex">
+                        <div class="form-group flex-grow-1 mr-2">
+                            <label>Coefficient</label>
+                            <input autocomplete="off" type="text" wire:model="newMatiere.coefficient"
+                                class="form-control @error('newMatiere.coefficient') is-invalid @enderror">
+                    
+                            @error("newMatiere.coefficient")
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
                         <button type="submit" class="btn btn-primary">Enregistrer</button>
                         <button type="button" wire:click.prevent="goToListMatiere()" class="btn btn-danger">Retouner à la liste des
                         matières</button>

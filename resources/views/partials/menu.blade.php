@@ -1,6 +1,6 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
 
-    <a href="index3.html" class="brand-link">
+    <a href="{{route('home')}}" class="brand-link">
         <img src="{{asset('assets/images/logo-asnec-it.png')}}" alt="ASNEC-IT Logo" 
         class="brand-image img-circle elevation-3"
             style="opacity: .8">
@@ -47,7 +47,7 @@
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
                         <a href="{{route('eleves.eleves.index')}}" class="nav-link {{ setMenuClass('eleves.eleves.index', 'active') }}">
-                            <i class="nav-icon fas fa-user"></i>
+                            <i class="fa-solid fa-user-graduate"></i>
                             <p>Nouveaux Arrivants</p>
                         </a>
                     </li>
@@ -58,7 +58,7 @@
             @can("caisses")
             <li class="nav-item {{ setMenuClass('caisses.', 'menu-open') }}">
                 <a href="#" class="nav-link {{ setMenuClass('caisses.', 'active') }}">
-                    <i class="fa-solid fa-credit-card"></i>
+                    <i class="fa fa-credit-card-alt" aria-hidden="true"></i>
                     <p>
                         Caisse
                         <i class="right fas fa-angle-left"></i>
@@ -68,22 +68,94 @@
                     <li class="nav-item">
                         <a href="{{route('caisses.inscription-reinscription.index')}}"
                             class="nav-link {{ setMenuClass('caisses.inscription-reinscription.index', 'active') }}">
-                            <i class="far fa-circle nav-icon"></i>
+                            <i class="fa-solid fa-user-graduate"></i>
                             <p>Admission arrivants</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{route('caisses.scolarite.index')}}"
                             class="nav-link {{ setMenuClass('caisses.scolarite.index', 'active') }}">
-                            <i class="far fa-circle nav-icon"></i>
+                            <i class="fa fa-google-wallet" aria-hidden="true"></i>
                             <p>Admission & paiements</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{route('caisses.operation.index')}}"
                             class="nav-link {{ setMenuClass('caisses.operation.index', 'active') }}">
-                            <i class="far fa-circle nav-icon"></i>
+                            <i class="fa fa-list" aria-hidden="true"></i>
                             <p>Mes opérations</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            @endcan
+
+            @can("caisses")
+            <li class="nav-item {{ setMenuClass('caisses.', 'menu-open') }}">
+                <a href="#" class="nav-link {{ setMenuClass('caisses.', 'active') }}">
+                    <i class="fa-solid fa-user-graduate" aria-hidden="true"></i>
+                    <p>
+                        Cours
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{route('emploisdutemps.emploisdutemps.index')}}"
+                            class="nav-link {{ setMenuClass('emploisdutemps.emploisdutemps.index', 'active') }}">
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                            <p>
+                                emplois du temps
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('caisses.inscription-reinscription.index')}}"
+                            class="nav-link {{ setMenuClass('caisses.inscription-reinscription.index', 'active') }}">
+                            <i class="fa-solid fa-user-graduate"></i>
+                            <p>Liste des élèves</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('caisses.inscription-reinscription.index')}}"
+                            class="nav-link {{ setMenuClass('caisses.inscription-reinscription.index', 'active') }}">
+                            <i class="fa-solid fa-user-graduate"></i>
+                            <p>Liste de présence</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            @endcan
+
+            @can("caisses")
+            <li class="nav-item {{ setMenuClass('caisses.', 'menu-open') }}">
+                <a href="#" class="nav-link {{ setMenuClass('caisses.', 'active') }}">
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <p>
+                        Evaluations
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{route('caisses.inscription-reinscription.index')}}"
+                            class="nav-link {{ setMenuClass('caisses.inscription-reinscription.index', 'active') }}">
+                            <i class="fa-solid fa-user-graduate"></i>
+                            <p>Devois</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('caisses.scolarite.index')}}"
+                            class="nav-link {{ setMenuClass('caisses.scolarite.index', 'active') }}">
+                            <i class="fa fa-google-wallet" aria-hidden="true"></i>
+                            <p>Examens</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('caisses.operation.index')}}"
+                            class="nav-link {{ setMenuClass('caisses.operation.index', 'active') }}">
+                            <i class="fa fa-list" aria-hidden="true"></i>
+                            <p>Résultats</p>
                         </a>
                     </li>
                 </ul>
@@ -95,7 +167,7 @@
                 <li class="nav-item">
                     <a href="{{route('enseignants.enseignants.index')}}" 
                     class="nav-link {{ setMenuClass('enseignants.enseignants.index', 'active') }}">
-                        <i class="nav-icon fas fa-user"></i>
+                        <i class="fa fa-user-circle" aria-hidden="true"></i>
                         <p>
                             Enseignants
                         </p>
@@ -103,22 +175,10 @@
                 </li>
             @endcan
 
-            @can("emploisdutemps")
-            <li class="nav-item">
-                <a href="{{route('emploisdutemps.emploisdutemps.index')}}"
-                    class="nav-link {{ setMenuClass('emploisdutemps.emploisdutemps.index', 'active') }}">
-                    <i class="fa fa-calendar" aria-hidden="true"></i>
-                    <p>
-                        emplois du temps
-                    </p>
-                </a>
-            </li>
-            @endcan
-
             @can("administration")
                 <li class="nav-item {{ setMenuClass('administration.', 'menu-open') }}">
                     <a href="#" class="nav-link {{ setMenuClass('administration.', 'active') }}">
-                        <i class="nav-icon fas fa-cog"></i>
+                        <i class="fa fa-cog" aria-hidden="true"></i>
                         <p>
                             Administration
                             <i class="right fas fa-angle-left"></i>

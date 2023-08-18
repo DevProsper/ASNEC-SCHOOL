@@ -24,9 +24,14 @@ class MatiereComponent extends Component
 
     protected $messages = [
         'newMatiere.nom.required' => "La matière est obligatoire.",
+        'newMatiere.nomCourt.required' => "La matière est obligatoire.",
+        'newMatiere.coefficient.required' => "Le coefficient est obligatoire.",
 
-        'editMatiere.password.min' => "La matière est obligatoire.",
+        'editMatiere.nom.required' => "La matière est obligatoire.",
+        'editMatiere.coefficient.required' => "Le coefficient est obligatoire.",
+        'editMatiere.nomCourt.required' => "La matière est obligatoire."
     ];
+
 
 
     public function render()
@@ -49,8 +54,6 @@ class MatiereComponent extends Component
     public function goToAddMatiere()
     {
         $this->currentPage = PAGECREATEFORM;
-
-        //$this->populateAssignClasses();
     }
 
     public function goToEditMatiere($id)
@@ -98,12 +101,16 @@ class MatiereComponent extends Component
         if ($this->currentPage == PAGEEDITFORM) {
 
             return [
-                'editMatiere.nom' => 'required'
+                'editMatiere.nom' => 'required',
+                'editMatiere.nomCourt' => 'required',
+                'editMatiere.coefficient' => 'required'
             ];
         }
 
         return [
             'newMatiere.nom' => 'required',
+            'newMatiere.nomCourt' => 'required',
+            'newMatiere.coefficient' => 'required'
         ];
     }
 

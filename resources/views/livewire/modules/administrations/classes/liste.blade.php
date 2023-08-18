@@ -25,6 +25,7 @@
                         <tr>
                             <td>{{ $value->nom }}</td>
                             <td>{{ $value->niveauScolaire->nom }}</td>
+                            <td>{{ $value->niveauScolaire->nom }}</td>
                             <td>{{ $value->groupeClasse->nom }}</td>
                             <td class="text-center">
                                 <button class="btn btn-link" wire:click="goToEditClasse({{$value->id}})"> <i

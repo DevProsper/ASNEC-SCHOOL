@@ -44,9 +44,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function mouchards()
+
+
+    public function logs()
     {
-        return $this->hasMany(Mouchard::class);
+        return $this->hasMany(Log::class, 'user_id');
     }
 
     //============================= MODULES APPLICATIONS =============================

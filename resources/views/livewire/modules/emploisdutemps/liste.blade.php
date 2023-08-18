@@ -20,7 +20,7 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label>Filtrer par année scolaire</label>
-                        <select class="form-control" wire:model="anneeScolaire">
+                        <select class="form-control" wire:model="selectedAnneeScolaire">
                             <option value="">Toutes les années scolaires</option>
                             @foreach($anneesscolaires as $anneeScolaire)
                             <option value="{{ $anneeScolaire->id }}" @if($anneeScolaire->id === $anneeScolaireParDefaut) selected @endif>
@@ -46,7 +46,7 @@
                 <table class="table table-head-fixed">
                     <thead>
                         <tr>
-                            <th style="width:10%;">Heure</th>
+                            <th style="width:14%;">Heure</th>
                             <th style="width:10%;">Lundi</th>
                             <th style="width:10%;">Mardi</th>
                             <th style="width:10%;">Mercredi</th>
@@ -70,8 +70,10 @@
                             <td>{{isset($value->matierej7) ? $value->matiere7->nom : "----"}}</td>
                             <td class="text-center">
                                 <button class="btn btn-link" wire:click="goToEditEmplois({{$value->id}})"> <i class="far fa-edit"></i> </button>
+                                @can("utilisateurs")
                                 <button class="btn btn-link" wire:click="confirmDelete('{{ $value->nom }}', {{$value->id}})">
                                     <i class="far fa-trash-alt"></i> </button>
+                                @endcan
                             </td>
                         </tr>
                         @endforeach

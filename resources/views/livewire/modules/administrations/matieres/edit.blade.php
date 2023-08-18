@@ -12,11 +12,35 @@
 
                     <div class="d-flex">
                         <div class="form-group flex-grow-1 mr-2">
-                            <label>Nom</label>
+                            <label>Matière</label>
                             <input autocomplete="off" type="text" wire:model="editMatiere.nom"
                                 class="form-control @error('editMatiere.nom') is-invalid @enderror">
                     
                             @error("editMatiere.nom")
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="d-flex">
+                        <div class="form-group flex-grow-1 mr-2">
+                            <label>Nom court</label>
+                            <input autocomplete="off" type="text" wire:model="editMatiere.nomCourt"
+                                class="form-control @error('editMatiere.nomCourt') is-invalid @enderror">
+                    
+                            @error("editMatiere.nomCourt")
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="d-flex">
+                        <div class="form-group flex-grow-1 mr-2">
+                            <label>Coefficient</label>
+                            <input autocomplete="off" type="text" wire:model="editMatiere.coefficient"
+                                class="form-control @error('editMatiere.coefficient') is-invalid @enderror">
+                    
+                            @error("editMatiere.coefficient")
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>

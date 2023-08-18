@@ -14,10 +14,10 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Nom *</label>
-                                <input disabled autocomplete="off" type="text" wire:model="editEmplois.nom"
-                                    class="form-control @error('editEmplois.nom') is-invalid @enderror">
+                                <input disabled autocomplete="off" type="text" wire:model="editEmploi.nom"
+                                    class="form-control @error('editEmploi.nom') is-invalid @enderror">
 
-                                @error("editEmplois.nom")
+                                @error("editEmploi.nom")
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -26,13 +26,13 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Classe</label>
-                                <select disabled class="form-control" wire:model="editEmplois.classe_id">
+                                <select disabled class="form-control" wire:model="editEmploi.classe_id">
                                     <option value="">----- </option>
                                     @foreach($classes as $value)
                                     <option value="{{ $value->id }}">{{ $value->nom }}</option>
                                     @endforeach
                                 </select>
-                                @error("editEmplois.classe_id")
+                                @error("editEmploi.classe_id")
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -41,7 +41,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Année scolaire</label>
-                                <select disabled class="form-control" wire:model="editEmplois.anneesscolaire_id">
+                                <select disabled class="form-control" wire:model="editEmploi.anneesscolaire_id">
                                     <option value="">Toutes les années scolaires</option>
                                     @foreach($annees as $anneeScolaire)
                                     <option value="{{ $anneeScolaire->id }}" @if($anneeScolaire->id ===
@@ -50,7 +50,7 @@
                                     </option>
                                     @endforeach
                                 </select>
-                                @error("editEmplois.anneesscolaire_id")
+                                @error("editEmploi.anneesscolaire_id")
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -61,16 +61,16 @@
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label for="heure">Heure :</label>
-                                <input wire:model="editEmplois.heure" type="text" class="form-control">
+                                <input wire:model="editEmploi.heure" type="text" class="form-control">
                             </div>
                         </div>
 
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label for="matierej1">Lundi :</label>
-                                <select wire:model="editEmplois.matierej1" id="matierej1"
-                                    class="form-control" wire:model="editEmplois.classe_id">
-                                    <option value="">----- </option>
+                                <select wire:model="editEmploi.matierej1" id="matierej1"
+                                    class="form-control">
+                                    <option value="NULL">----- </option>
                                     @foreach($matieres as $value)
                                     <option value="{{ $value->id }}">{{ $value->nom }}</option>
                                     @endforeach
@@ -81,9 +81,9 @@
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label for="matierej2">Mardi :</label>
-                                <select wire:model="editEmplois.matierej2" id="matierej2"
-                                    class="form-control" wire:model="editEmplois.classe_id">
-                                    <option value="">----- </option>
+                                <select wire:model="editEmploi.matierej2" id="matierej2"
+                                    class="form-control">
+                                    <option value="NULL">----- </option>
                                     @foreach($matieres as $value)
                                     <option value="{{ $value->id }}">{{ $value->nom }}</option>
                                     @endforeach
@@ -94,9 +94,9 @@
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label for="matierej3">Mercredi :</label>
-                                <select wire:model="editEmplois.matierej3" id="matierej3"
-                                    class="form-control" wire:model="editEmplois.classe_id">
-                                    <option value="">----- </option>
+                                <select wire:model="editEmploi.matierej3" id="matierej3"
+                                    class="form-control">
+                                    <option value="NULL">----- </option>
                                     @foreach($matieres as $value)
                                     <option value="{{ $value->id }}">{{ $value->nom }}</option>
                                     @endforeach
@@ -107,9 +107,9 @@
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label for="matierej4">Jeudi :</label>
-                                <select wire:model="editEmplois.matierej4" id="matierej4"
-                                    class="form-control" wire:model="editEmplois.classe_id">
-                                    <option value="">----- </option>
+                                <select wire:model="editEmploi.matierej4" id="matierej4"
+                                    class="form-control">
+                                    <option value="NULL">----- </option>
                                     @foreach($matieres as $value)
                                     <option value="{{ $value->id }}">{{ $value->nom }}</option>
                                     @endforeach
@@ -120,9 +120,9 @@
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label for="matierej5">Vendredi :</label>
-                                <select wire:model="editEmplois.matierej5" id="matierej5"
-                                    class="form-control" wire:model="editEmplois.classe_id">
-                                    <option value="">----- </option>
+                                <select wire:model="editEmploi.matierej5" id="matierej5"
+                                    class="form-control">
+                                    <option value="NULL">----- </option>
                                     @foreach($matieres as $value)
                                     <option value="{{ $value->id }}">{{ $value->nom }}</option>
                                     @endforeach
@@ -133,9 +133,9 @@
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label for="matierej6">Samedi :</label>
-                                <select wire:model="editEmplois.matierej6" id="matierej6"
-                                    class="form-control" wire:model="editEmplois.classe_id">
-                                    <option value="">----- </option>
+                                <select wire:model="editEmploi.matierej6" id="matierej6"
+                                    class="form-control">
+                                    <option value="NULL">----- </option>
                                     @foreach($matieres as $value)
                                     <option value="{{ $value->id }}">{{ $value->nom }}</option>
                                     @endforeach
@@ -146,9 +146,9 @@
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label for="matierej7">Dimanche :</label>
-                                <select wire:model="editEmplois.matierej7" id="matierej7"
-                                    class="form-control" wire:model="editEmplois.classe_id">
-                                    <option value="">----- </option>
+                                <select wire:model="editEmploi.matierej7" id="matierej7"
+                                    class="form-control">
+                                    <option value="NULL">----- </option>
                                     @foreach($matieres as $value)
                                     <option value="{{ $value->id }}">{{ $value->nom }}</option>
                                     @endforeach

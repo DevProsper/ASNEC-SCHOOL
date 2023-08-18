@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Mouchard extends Model
+class Log extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'action',
-        'description',
-        'user_id'
+        'user_id',
+        'securite',
+        'message'
     ];
 
     public function user()

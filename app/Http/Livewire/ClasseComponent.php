@@ -28,6 +28,8 @@ class ClasseComponent extends Component
         'newClasse.tarification_id.required' => "la tarification est obligatoire.",
 
         'editClasse.nom.required' => "la classe est obligatoire.",
+        'editClasse.niveauxscolaires_id.required' => "Le niveau scolaire est obligatoire.",
+        'editClasse.tarification_id.required' => "la tarification est obligatoire.",
     ];
 
     public function render()

@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Models\Log;
 use App\Models\Admission;
 use App\Models\AnneeScolaire;
 
@@ -54,5 +55,16 @@ trait BaseQueryEleve
 
         $this->totalAdmissions = $eleves->count();
         return $eleves->with('eleve', 'classe', 'anneesscolaire', 'tarification.categorie')->get();
+    }
+
+    public function InsertLog($user_id, $securite, $message)
+    {
+        Log::create([
+            'user_id' => $user_id,
+            'securite' => $securite,
+            'message' => $message,
+        ]);
+
+        // Peut-être ajouter des messages de réussite ou de notification ici
     }
 }

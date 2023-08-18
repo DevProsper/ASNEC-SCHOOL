@@ -5,8 +5,10 @@ namespace App\Http\Livewire;
 use Exception;
 use Carbon\Carbon;
 use Livewire\Component;
+use App\Traits\Loggable;
 use Livewire\WithPagination;
 use App\Models\AnneeScolaire;
+use Illuminate\Support\Facades\Auth;
 
 class AnneeScolaireComponent extends Component
 {
@@ -14,7 +16,7 @@ class AnneeScolaireComponent extends Component
 
     public $currentPage = PAGELIST;
 
-    use WithPagination;
+    use WithPagination, Loggable;
     public $newScolaire = [];
     public $editScolaire = [];
 
@@ -30,6 +32,7 @@ class AnneeScolaireComponent extends Component
 
         $anneesscolaires = AnneeScolaire::latest()->paginate(10);
 
+        // Utilisation du service pour insérer un log
         return view('livewire.modules.administrations.anneesscolaires.index', compact("anneesscolaires"))
             ->extends("layouts.master")
             ->section("contenu");
@@ -80,6 +83,7 @@ class AnneeScolaireComponent extends Component
 
         $this->newScolaire = [];
 
+        $this->insertLog(Auth::id(), 'INFO', "Ajout de l'année scolaire " . $validationAttributes["newScolaire"]["nom"]);
         $this->dispatchBrowserEvent("showSuccessMessage", ["message" => "L'année scolaire créée avec succès!"]);
     }
 
@@ -89,6 +93,7 @@ class AnneeScolaireComponent extends Component
         $validationAttributes = $this->validate();
         try {
             AnneeScolaire::find($this->editScolaire["id"])->update($validationAttributes["editScolaire"]);
+            $this->insertLog(Auth::id(), 'INFO', "Mise à jour de l'année scolaire " . $validationAttributes["editScolaire"]["nom"]);
             $this->dispatchBrowserEvent("showSuccessMessage", ["message" => "L'année scolaire mise à jour avec succès!"]);
         } catch (Exception $e) {
             $this->dispatchBrowserEvent("showErrorMessage", ["message" => "Une erreur s'est produite lors de la mise à jour de l'année scolaire."]);
@@ -110,7 +115,9 @@ class AnneeScolaireComponent extends Component
     public function deleteScolaire($id)
     {
         try {
-            AnneeScolaire::destroy($id);
+            $annee = AnneeScolaire::find($id);
+            $annee->destroy($annee->id);
+            $this->insertLog(Auth::id(), 'WARNING', "Supression de l'année scolaire " . $annee->nom);
 
             $this->dispatchBrowserEvent("showSuccessMessage", ["message" => "L'année scolaire a été supprimée avec succès!"]);
         } catch (\Illuminate\Database\QueryException $e) {
