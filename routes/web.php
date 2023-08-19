@@ -10,15 +10,16 @@ use App\Http\Livewire\ParentComponent;
 use App\Http\Livewire\MatiereComponent;
 use App\Http\Livewire\PeriodeComponent;
 use App\Http\Livewire\BatimentComponent;
+use App\Http\Livewire\OperationComponent;
 use App\Http\Livewire\ScolariteComponent;
 use App\Http\Livewire\EnseignantComponent;
+use App\Http\Livewire\EvaluationComponent;
 use App\Http\Livewire\UtilisateurComponent;
 use App\Http\Livewire\TarificationComponent;
 use App\Http\Livewire\AnneeScolaireComponent;
 use App\Http\Livewire\EmploieDuTempComponent;
 use App\Http\Livewire\NiveauScolaireComponent;
 use App\Http\Livewire\InscriptionReinscriptionComponent;
-use App\Http\Livewire\OperationComponent;
 
 /*
 |--------------------------------------------------------------------------
@@ -145,6 +146,16 @@ Route::group(
     ],
     function () {
         Route::get('/emploisdutemps', EmploieDuTempComponent::class)->name('emploisdutemps.index');
+    }
+);
+
+Route::group(
+    [
+        "prefix" => "evaluations",
+        'as' => 'evaluations.'
+    ],
+    function () {
+        Route::get('/evaluations', EvaluationComponent::class)->name('evaluations.index');
     }
 );
 

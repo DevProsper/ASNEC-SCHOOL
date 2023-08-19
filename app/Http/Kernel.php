@@ -62,7 +62,7 @@ class Kernel extends HttpKernel
         'auth.enseignants' => \App\Http\Middleware\EnseignantMiddleware::class,
         'auth.caisses' => \App\Http\Middleware\CaisseMiddleware::class,
         'auth.eleves' => \App\Http\Middleware\EleveMiddleware::class,
-        'auth.emploisdutemps' => \App\Http\Middleware\EmploisDuTemps::class,
+        'auth.evaluations' => \App\Http\Middleware\EvaluationMiddleware::class,
 
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,

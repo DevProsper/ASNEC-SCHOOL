@@ -53,18 +53,9 @@ trait BaseQueryEleve
             });
         }
 
+        $eleves = $eleves->where('etat', 1);
+
         $this->totalAdmissions = $eleves->count();
         return $eleves->with('eleve', 'classe', 'anneesscolaire', 'tarification.categorie')->get();
-    }
-
-    public function InsertLog($user_id, $securite, $message)
-    {
-        Log::create([
-            'user_id' => $user_id,
-            'securite' => $securite,
-            'message' => $message,
-        ]);
-
-        // Peut-être ajouter des messages de réussite ou de notification ici
     }
 }

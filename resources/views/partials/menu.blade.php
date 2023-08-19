@@ -127,9 +127,9 @@
             </li>
             @endcan
 
-            @can("caisses")
-            <li class="nav-item {{ setMenuClass('caisses.', 'menu-open') }}">
-                <a href="#" class="nav-link {{ setMenuClass('caisses.', 'active') }}">
+            @can("evaluations")
+            <li class="nav-item {{ setMenuClass('evaluations.', 'menu-open') }}">
+                <a href="#" class="nav-link {{ setMenuClass('evaluations.', 'active') }}">
                     <i class="fas fa-star" aria-hidden="true"></i>
                     <p>
                         Evaluations
@@ -138,24 +138,10 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="{{route('caisses.inscription-reinscription.index')}}"
-                            class="nav-link {{ setMenuClass('caisses.inscription-reinscription.index', 'active') }}">
+                        <a href="{{route('evaluations.evaluations.index')}}"
+                            class="nav-link {{ setMenuClass('evaluations.evaluations.index', 'active') }}">
                             <i class="fa-solid fa-user-graduate"></i>
-                            <p>Devois</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{route('caisses.scolarite.index')}}"
-                            class="nav-link {{ setMenuClass('caisses.scolarite.index', 'active') }}">
-                            <i class="fa fa-google-wallet" aria-hidden="true"></i>
-                            <p>Examens</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{route('caisses.operation.index')}}"
-                            class="nav-link {{ setMenuClass('caisses.operation.index', 'active') }}">
-                            <i class="fa fa-list" aria-hidden="true"></i>
-                            <p>Résultats</p>
+                            <p>Liste des élèves</p>
                         </a>
                     </li>
                 </ul>

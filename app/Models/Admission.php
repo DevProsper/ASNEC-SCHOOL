@@ -15,6 +15,7 @@ class Admission extends Model
         'anneesscolaire_id',
         'tarification_id',
         'statutAdmission',
+        'etat'
     ];
 
     public function eleve()
