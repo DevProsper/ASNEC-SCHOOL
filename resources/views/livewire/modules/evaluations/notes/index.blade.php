@@ -56,7 +56,7 @@
         }).then((result) => {
         if (result.isConfirmed) {
             if(event.detail.message.data){
-                @this.deleteEvaluation(event.detail.message.data.data_id)
+                @this.deleteNote(event.detail.message.data.data_id)
             }
         }
         })

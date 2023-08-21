@@ -106,7 +106,7 @@
                                     class="form-control @error('nom') is-invalid @enderror">
                                     <option value="">----- </option>
                                     @foreach($matieres as $value)
-                                    <option value="{{ $value['id']}}">{{ $value['nom'] }}</option>
+                                    <option value="{{ $value['id']}}">{{ $value['nomCourt'] }}</option>
                                     @endforeach
                                 </select>
                             </div>

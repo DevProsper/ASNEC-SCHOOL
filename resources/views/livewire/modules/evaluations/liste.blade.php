@@ -41,6 +41,13 @@
                         </select>
                     </div>
                 </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="">Info élève : <small>(nom,tele,tel parent)</small></label>
+                        <input wire:model.debounce.700ms="eleveSearch" type="text" class="form-control">
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row">

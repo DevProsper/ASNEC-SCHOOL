@@ -16,6 +16,7 @@ trait BaseQueryEleve
     public $totalAdmissions;
     public $totalFilles;
     public $totalGarcons;
+    public $eleveSearch;
 
     public function listeEleveParClasseAnneeSexe()
     {
@@ -50,6 +51,18 @@ trait BaseQueryEleve
         if ($this->categorieTarificationId) {
             $eleves->whereHas('tarification', function ($query) {
                 $query->where('categoriestarification_id', $this->categorieTarificationId);
+            });
+        }
+
+        if ($this->eleveSearch) {
+            $eleves->whereHas('eleve', function ($eleves) {
+                $eleves->where('nom', 'like', '%' . $this->eleveSearch . '%');
+            });
+            $eleves->whereHas('eleve', function ($eleves) {
+                $eleves->orWhere('telephone', 'like', '%' . $this->eleveSearch . '%');
+            });
+            $eleves->whereHas('eleve', function ($eleves) {
+                $eleves->orWhere('telephoneTiteur', 'like', '%' . $this->eleveSearch . '%');
             });
         }
 

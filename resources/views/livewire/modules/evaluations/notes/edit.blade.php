@@ -4,35 +4,94 @@
         <div class="card card-primary">
             <div class="card-header">
                 <h3 class="card-title"><i class="fa fa-calendar-plus"></i>
-                    Créer un emploi du temps</h3>
+                    Edite les notes l'élève</h3>
             </div>
             <!-- form start -->
-            <form role="form" wire:submit.prevent="updateEmplois()">
+            <form role="form" wire:submit.prevent="updateNote()">
                 <div class="card-body">
-                    <br>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Nom *</label>
-                                <input disabled autocomplete="off" type="text" wire:model="editEvaluation.nom"
-                                    class="form-control @error('editEvaluation.nom') is-invalid @enderror">
+                                <label>Nom</label>
+                                <input disabled autocomplete="off" type="text" wire:model="nomEleve"
+                                    class="form-control @error('nomEleve') is-invalid @enderror">
 
-                                @error("editEvaluation.nom")
+                                @error("nomEleve")
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
 
-                        <div class="col-md-3">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label>Classe</label>
-                                <select disabled class="form-control" wire:model="editEvaluation.classe_id">
-                                    <option value="">----- </option>
-                                    @foreach($classes as $value)
-                                    <option value="{{ $value->id }}">{{ $value->nom }}</option>
-                                    @endforeach
-                                </select>
-                                @error("editEvaluation.classe_id")
+                                <input disabled autocomplete="off" type="text" wire:model="classEleve"
+                                    class="form-control @error('classEleve') is-invalid @enderror">
+
+                                @error("classEleve")
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Année scolaire</label>
+                                <input disabled autocomplete="off" type="text" wire:model="AnneeScolaire"
+                                    class="form-control @error('AnneeScolaire') is-invalid @enderror">
+
+                                @error("AnneeScolaire")
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-1">
+                            <div class="form-group">
+                                <label>Devoir 1</label>
+                                <input autocomplete="off" type="text" wire:model="editNote.noteDevoir1"
+                                    class="form-control @error('editNote.noteDevoir1') is-invalid @enderror">
+                    
+                                @error("editNote.noteDevoir1")
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-md-1">
+                            <div class="form-group">
+                                <label>Devoir 2</label>
+                                <input autocomplete="off" type="text" wire:model="editNote.noteDevoir2"
+                                    class="form-control @error('editNote.noteDevoir2') is-invalid @enderror">
+                        
+                                @error("editNote.noteDevoir2")
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-md-1">
+                            <div class="form-group">
+                                <label>Devoir 3</label>
+                                <input autocomplete="off" type="text" wire:model="editNote.noteDevoir3"
+                                    class="form-control @error('editNote.noteDevoir3') is-invalid @enderror">
+                        
+                                @error("editNote.noteDevoir3")
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-md-1">
+                            <div class="form-group">
+                                <label>Examen</label>
+                                <input autocomplete="off" type="text" wire:model="editNote.noteExamen"
+                                    class="form-control @error('editNote.noteExamen') is-invalid @enderror">
+                        
+                                @error("editNote.noteDevoir1")
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -40,129 +99,30 @@
 
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>Année scolaire</label>
-                                <select disabled class="form-control" wire:model="editEvaluation.anneesscolaire_id">
-                                    <option value="">Toutes les années scolaires</option>
-                                    @foreach($annees as $anneeScolaire)
-                                    <option value="{{ $anneeScolaire->id }}" @if($anneeScolaire->id ===
-                                        $anneeScolaireParDefaut) selected @endif>
-                                        {{ $anneeScolaire->nom }}
-                                    </option>
-                                    @endforeach
-                                </select>
-                                @error("editEvaluation.anneesscolaire_id")
-                                <span class="text-danger">{{ $message }}</span>
-                                @enderror
+                                <label for="editNote.matiere_id">Matiere :</label>
+                                <input disabled autocomplete="off" type="text" wire:model="nomEleve"
+                                    class="form-control @error('nomEleve') is-invalid @enderror">
                             </div>
                         </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="editNote.periode_id">periode :</label>
+                                <select wire:model="editNote.periode_id" id="editNote.periode_id"
+                                    class="form-control @error('nom') is-invalid @enderror">
+                                    @foreach($periodes as $value)
+                                    <option value="{{ $value->id}}">{{ $value->nom }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    
                     </div>
-
-                    <div class="row">
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label for="heure">Heure :</label>
-                                <input wire:model="editEvaluation.heure" type="text" class="form-control">
-                            </div>
-                        </div>
-
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label for="matierej1">Lundi :</label>
-                                <select wire:model="editEvaluation.matierej1" id="matierej1"
-                                    class="form-control">
-                                    <option value="NULL">----- </option>
-                                    @foreach($matieres as $value)
-                                    <option value="{{ $value->id }}">{{ $value->nom }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label for="matierej2">Mardi :</label>
-                                <select wire:model="editEvaluation.matierej2" id="matierej2"
-                                    class="form-control">
-                                    <option value="NULL">----- </option>
-                                    @foreach($matieres as $value)
-                                    <option value="{{ $value->id }}">{{ $value->nom }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label for="matierej3">Mercredi :</label>
-                                <select wire:model="editEvaluation.matierej3" id="matierej3"
-                                    class="form-control">
-                                    <option value="NULL">----- </option>
-                                    @foreach($matieres as $value)
-                                    <option value="{{ $value->id }}">{{ $value->nom }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label for="matierej4">Jeudi :</label>
-                                <select wire:model="editEvaluation.matierej4" id="matierej4"
-                                    class="form-control">
-                                    <option value="NULL">----- </option>
-                                    @foreach($matieres as $value)
-                                    <option value="{{ $value->id }}">{{ $value->nom }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label for="matierej5">Vendredi :</label>
-                                <select wire:model="editEvaluation.matierej5" id="matierej5"
-                                    class="form-control">
-                                    <option value="NULL">----- </option>
-                                    @foreach($matieres as $value)
-                                    <option value="{{ $value->id }}">{{ $value->nom }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label for="matierej6">Samedi :</label>
-                                <select wire:model="editEvaluation.matierej6" id="matierej6"
-                                    class="form-control">
-                                    <option value="NULL">----- </option>
-                                    @foreach($matieres as $value)
-                                    <option value="{{ $value->id }}">{{ $value->nom }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label for="matierej7">Dimanche :</label>
-                                <select wire:model="editEvaluation.matierej7" id="matierej7"
-                                    class="form-control">
-                                    <option value="NULL">----- </option>
-                                    @foreach($matieres as $value)
-                                    <option value="{{ $value->id }}">{{ $value->nom }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.card-body -->
             </form>
-            <br>
             <button type="submit" class="btn btn-primary">Enregistrer</button>
-            <button type="button" wire:click.prevent="goToListEmplois()" class="btn btn-danger">Retouner à la
+            <button type="button" wire:click.prevent="goToListNote()" class="btn btn-danger">Retouner à la
                 liste des
-                emplois du temps</button>
+                notes</button>
         </div>
     </div>
 </div>

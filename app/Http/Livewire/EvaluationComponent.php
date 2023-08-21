@@ -70,6 +70,7 @@ class EvaluationComponent extends Component
     public function render()
     {
         $eleves = $this->listeEleveParClasseAnneeSexe();
+
         $anneesscolaires = AnneeScolaire::all();
         $periodes = Periode::whereIn('categorieperiode_id', [1, 2])->get();
         $classes = Classe::all();
@@ -120,7 +121,7 @@ class EvaluationComponent extends Component
         $this->classe_id = $this->newEvaluation->classe_id;
 
         $this->matieres = DB::select("
-            SELECT matieres.id, matieres.nom
+            SELECT matieres.id, matieres.nom, matieres.nomCourt
             FROM matieres
             JOIN matiere_classe ON matieres.id = matiere_classe.matiere_id
             WHERE matiere_classe.classe_id = ?
