@@ -27,4 +27,9 @@ class Periode extends Model
     {
         return $this->hasMany(Caisse::class, 'periode_id');
     }
+
+    public function evaluations()
+    {
+        return $this->hasMany(Evaluation::class, 'periode_id');
+    }
 }

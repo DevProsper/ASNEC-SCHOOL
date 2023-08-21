@@ -18,7 +18,12 @@ class Matiere extends Model
 
     public function classes()
     {
-        return $this->belongsToMany(Classe::class, "matiere_classe", "matiere_id", "classe_id");
+        return $this->belongsToMany(
+            Classe::class,
+            "matiere_classe",
+            "matiere_id",
+            "classe_id"
+        );
     }
 
     public function getAllClasseNamesAttribute()
@@ -39,5 +44,10 @@ class Matiere extends Model
     public function emploisdutemps_j3()
     {
         return $this->hasMany(Emploisdutemps::class, 'matierej3');
+    }
+
+    public function evaluations()
+    {
+        return $this->hasMany(Evaluation::class, 'matiere_id');
     }
 }

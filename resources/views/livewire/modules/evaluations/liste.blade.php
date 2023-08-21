@@ -72,7 +72,7 @@
                             <th>Date admission</th>
                             <th>Statut</th>
                             <th>Année scolaire</th>
-                            <th class="text-center">Paiement(s)</th>
+                            <th class="text-center">Note(s)</th>
                             <!-- Autres colonnes d'information des admissions -->
                         </tr>
                     </thead>
@@ -99,8 +99,9 @@
                             <td>{{ $admission->anneesscolaire->nom }}</td>
 
                             <td class="text-center">
-                                <button class="btn btn-primary" wire:click="goToEditEvaluation({{$admission->id}})">
-                                    <i class="fa-solid fa-bolt">F</i>
+                                <button class="btn btn-primary" 
+                                wire:click="goToAddEvaluation({{$admission->id}})">
+                                    <i class="fa-solid fa-bolt">N</i>
                                 </button>
                             </td>
                         </tr>

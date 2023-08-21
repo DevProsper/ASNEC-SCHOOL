@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Livewire\MoiComponent;
+use App\Http\Livewire\NoteComponent;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Livewire\EleveComponent;
 use App\Http\Livewire\SalleComponent;
@@ -113,16 +114,6 @@ Route::group([
 
     Route::group(
         [
-            "prefix" => "mois",
-            'as' => 'mois.'
-        ],
-        function () {
-            Route::get('/mois', MoiComponent::class)->name('mois.index');
-        }
-    );
-
-    Route::group(
-        [
             "prefix" => "salles",
             'as' => 'salles.'
         ],
@@ -156,6 +147,7 @@ Route::group(
     ],
     function () {
         Route::get('/evaluations', EvaluationComponent::class)->name('evaluations.index');
+        Route::get('/notes', NoteComponent::class)->name('notes.index');
     }
 );
 

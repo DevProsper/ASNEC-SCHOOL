@@ -3,8 +3,8 @@
         <!-- general form elements -->
         <div class="card card-primary">
             <div class="card-header">
-                <h3 class="card-title"><i class="fa fa-calendar-plus"></i> 
-                    Créer un emploi du temps</h3>
+                <h3 class="card-title"><i class="fa fa-calendar-plus"></i>
+                    Attribuer les notes</h3>
             </div>
             <!-- form start -->
             <form role="form" wire:submit.prevent="save()">
@@ -16,171 +16,132 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Nom *</label>
-                                <input autocomplete="off" type="text" wire:model="newEmplois.nom"
-                                    class="form-control @error('newEmplois.nom') is-invalid @enderror">
-                                
-                                @error("newEmplois.nom")
+                                <label>Nom</label>
+                                <input disabled autocomplete="off" type="text" wire:model="nomComplet"
+                                    class="form-control @error('nomComplet') is-invalid @enderror">
+
+                                @error("nomComplet")
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
 
-                        <div class="col-md-3">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label>Classe</label>
-                                <select class="form-control @error('nom') 
-                                is-invalid @enderror" wire:model="newEmplois.classe_id">
-                                    <option value="">----- </option>
-                                    @foreach($classes as $value)
-                                    <option value="{{ $value->id }}">{{ $value->nom }}</option>
-                                    @endforeach
-                                </select>
-                                @error("newEmplois.classe_id")
+                                <input disabled autocomplete="off" type="text" wire:model="classe"
+                                    class="form-control @error('classe') is-invalid @enderror">
+
+                                @error("classe")
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
 
-                        <div class="col-md-3">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <label>Année scolaire</label>
-                                <select class="form-control" wire:model="anneesscolaire_id">
-                                    <option value="">----- </option>
-                                    @foreach($annees as $anneeScolaire)
-                                    <option value="{{ $anneeScolaire->id }}" @if($anneeScolaire->id === $anneeScolaireParDefaut) selected @endif>
-                                        {{ $anneeScolaire->nom }}
-                                    </option>
-                                    @endforeach
-                                </select>
-                                @error("anneesscolaire_id")
+                                <label>Statut admission</label>
+                                <input disabled autocomplete="off" type="text" wire:model="statut"
+                                    class="form-control @error('statut') is-invalid @enderror">
+
+                                @error("statut")
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
+
                     </div>
-                    
+
                     @foreach ($rows as $index => $row)
                     <div class="row">
-                        <div class="col-md-2">
+
+                        <div class="col-md-1">
                             <div class="form-group">
-                                <label for="heure_{{ $index }}">Heure :</label>
-                                <input wire:model="rows.{{ $index }}.heure" type="text" 
-                                class="form-control @error('nom') is-invalid @enderror">
+                                <label for="noteDevoir1_{{ $index }}">Note 1 :</label>
+                                <input required wire:model="rows.{{ $index }}.noteDevoir1" type="text"
+                                    class="form-control @error('nom') is-invalid @enderror">
                             </div>
-                            @error("rows.{{ $index }}.heure")
+                            @error("rows.{{ $index }}.noteDevoir1")
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
 
-                        <div class="col-md-2">
+                        <div class="col-md-1">
                             <div class="form-group">
-                                <label for="matierej1_{{ $index }}">Lundi :</label>
-                                <select wire:model="rows.{{ $index }}.matierej1" id="matierej1_{{ $index }}" 
-                                class="form-control @error('nom') is-invalid @enderror" 
-                                >
-                                    <option value="NULL">----- </option>
-                                    @foreach($matieres as $value)
-                                    <option value="{{ $value->id }}">{{ $value->nom }}</option>
-                                    @endforeach
-                                </select>
+                                <label for="noteDevoir2_{{ $index }}">Note 2 :</label>
+                                <input wire:model="rows.{{ $index }}.noteDevoir2" type="text"
+                                    class="form-control @error('nom') is-invalid @enderror">
                             </div>
+                            @error("rows.{{ $index }}.noteDevoir2")
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
 
-                        <div class="col-md-2">
+                        <div class="col-md-1">
                             <div class="form-group">
-                                <label for="matierej2_{{ $index }}">Mardi :</label>
-                                <select wire:model="rows.{{ $index }}.matierej2" id="matierej2_{{ $index }}" class="form-control"
-                                    >
-                                    <option value="NULL">----- </option>
-                                    @foreach($matieres as $value)
-                                    <option value="{{ $value->id }}">{{ $value->nom }}</option>
-                                    @endforeach
-                                </select>
+                                <label for="noteDevoir3_{{ $index }}">Note 3 :</label>
+                                <input wire:model="rows.{{ $index }}.noteDevoir3" type="text"
+                                    class="form-control @error('nom') is-invalid @enderror">
                             </div>
+                            @error("rows.{{ $index }}.noteDevoir3")
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
 
-                        <div class="col-md-2">
+                        <div class="col-md-1">
                             <div class="form-group">
-                                <label for="matierej3_{{ $index }}">Mercredi :</label>
-                                <select wire:model="rows.{{ $index }}.matierej3" id="matierej3_{{ $index }}" class="form-control"
-                                    >
-                                    <option value="NULL">----- </option>
-                                    @foreach($matieres as $value)
-                                    <option value="{{ $value->id }}">{{ $value->nom }}</option>
-                                    @endforeach
-                                </select>
+                                <label for="noteExamen_{{ $index }}">Examen :</label>
+                                <input wire:model="rows.{{ $index }}.noteExamen" type="text"
+                                    class="form-control @error('nom') is-invalid @enderror">
                             </div>
+                            @error("rows.{{ $index }}.noteExamen")
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
 
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label for="matierej4_{{ $index }}">Jeudi :</label>
-                                <select wire:model="rows.{{ $index }}.matierej4" id="matierej4_{{ $index }}" class="form-control"
-                                    >
-                                    <option value="NULL">----- </option>
-                                    @foreach($matieres as $value)
-                                    <option value="{{ $value->id }}">{{ $value->nom }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label for="matierej5_{{ $index }}">Vendredi :</label>
-                                <select wire:model="rows.{{ $index }}.matierej5" id="matierej5_{{ $index }}" class="form-control"
-                                    >
-                                    <option value="NULL">----- </option>
-                                    @foreach($matieres as $value)
-                                    <option value="{{ $value->id }}">{{ $value->nom }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label for="matierej6_{{ $index }}">Samedi :</label>
-                                <select wire:model="rows.{{ $index }}.matierej6" id="matierej6_{{ $index }}" class="form-control"
-                                    >
-                                    <option value="NULL">----- </option>
-                                    @foreach($matieres as $value)
-                                    <option value="{{ $value->id }}">{{ $value->nom }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label for="matierej7_{{ $index }}">Dimanche :</label>
-                                <select wire:model="rows.{{ $index }}.matierej7" id="matierej7_{{ $index }}" class="form-control"
-                                    >
-                                    <option value="NULL">----- </option>
-                                    @foreach($matieres as $value)
-                                    <option value="{{ $value->id }}">{{ $value->nom }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                <!-- /.card-body -->
-                <div class="row">
-                    <div class="container">
                         <div class="col-md-3">
-                            <button wire:click.prevent="removeRow({{ $index }})">Supprimer</button>
+                            <div class="form-group">
+                                <label for="matiere_id_{{ $index }}">Matiere :</label>
+                                <select required wire:model="rows.{{ $index }}.matiere_id" id="matiere_id_{{ $index }}"
+                                    class="form-control @error('nom') is-invalid @enderror">
+                                    <option value="">----- </option>
+                                    @foreach($matieres as $value)
+                                    <option value="{{ $value['id']}}">{{ $value['nom'] }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="periode_id_{{ $index }}">periode :</label>
+                                <select required wire:model="rows.{{ $index }}.periode_id" id="periode_id_{{ $index }}"
+                                    class="form-control @error('nom') is-invalid @enderror">
+                                    <option value="">----- </option>
+                                    @foreach($periodes as $value)
+                                    <option value="{{ $value->id}}">{{ $value->nom }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
                     </div>
-                </div>
+                    <!-- /.card-body -->
+                    <div class="row">
+                        <div class="container">
+                            <div class="col-md-3">
+                                <button class="btn btn-warning"
+                                    wire:click.prevent="removeRow({{ $index }})">Supprimer</button>
+                            </div>
+                        </div>
+                    </div>
             </form>
             @endforeach
             <br>
             <button type="submit" class="btn btn-primary">Enregistrer</button>
-            <button type="button" wire:click.prevent="goToListEmplois()" class="btn btn-danger">Retouner à la
+            <button type="button" wire:click.prevent="goToListEvaluation()" class="btn btn-danger">Retouner à la
                 liste des
-                emplois du temps</button>
-            </div>
+                élèves</button>
         </div>
     </div>
+</div>
 </div>

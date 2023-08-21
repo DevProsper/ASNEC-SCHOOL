@@ -33,6 +33,11 @@ class Admission extends Model
         return $this->belongsTo(AnneeScolaire::class, 'anneesscolaire_id');
     }
 
+    public function evaluations()
+    {
+        return $this->hasMany(Evaluation::class, 'admission_id');
+    }
+
     public function tarification()
     {
         return $this->belongsTo(Tarification::class, 'tarification_id');

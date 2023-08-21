@@ -24,7 +24,22 @@ class Classe extends Model
 
     public function matieres()
     {
-        return $this->belongsToMany(Classe::class, "matiere_classe", "matiere_id", "classe_id");
+        return $this->belongsToMany(
+            Matiere::class,
+            "matiere_classe",
+            "matiere_id",
+            "classe_id"
+        );
+    }
+
+    public function getAllMatieres()
+    {
+        return $this->matieres->map(function ($matiere) {
+            return (object) [
+                'id' => $matiere->id,
+                'nom' => $matiere->nom,
+            ];
+        });
     }
 
     public function getAllMatiereNamesAttribute()

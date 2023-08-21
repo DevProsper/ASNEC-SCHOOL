@@ -16,10 +16,12 @@ return new class extends Migration
         Schema::create('evaluations', function (Blueprint $table) {
             $table->id();
             $table->foreignId("admission_id")->constrained();
-            $table->char('type');
-            $table->timestamp('dateEvaluation')->nullable();
-            $table->integer('note');
-            $table->boolean("statut")->default(1);
+            $table->foreignId("matiere_id")->constrained();
+            $table->foreignId("periode_id")->constrained();
+            $table->string('noteDevoir1')->nullable();
+            $table->string('noteDevoir2')->nullable();
+            $table->string('noteDevoir3')->nullable();
+            $table->string('noteExamen')->nullable();
             $table->timestamps();
         });
         Schema::enableForeignKeyConstraints();

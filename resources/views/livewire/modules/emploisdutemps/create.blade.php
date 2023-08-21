@@ -169,7 +169,7 @@
                 <div class="row">
                     <div class="container">
                         <div class="col-md-3">
-                            <button wire:click.prevent="removeRow({{ $index }})">Supprimer</button>
+                            <button class="btn btn-warning" wire:click.prevent="removeRow({{ $index }})">Supprimer</button>
                         </div>
                     </div>
                 </div>

@@ -90,43 +90,6 @@
             </li>
             @endcan
 
-            @can("caisses")
-            <li class="nav-item {{ setMenuClass('caisses.', 'menu-open') }}">
-                <a href="#" class="nav-link {{ setMenuClass('caisses.', 'active') }}">
-                    <i class="fa-solid fa-user-graduate" aria-hidden="true"></i>
-                    <p>
-                        Cours
-                        <i class="right fas fa-angle-left"></i>
-                    </p>
-                </a>
-                <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="{{route('emploisdutemps.emploisdutemps.index')}}"
-                            class="nav-link {{ setMenuClass('emploisdutemps.emploisdutemps.index', 'active') }}">
-                            <i class="fa fa-calendar" aria-hidden="true"></i>
-                            <p>
-                                emplois du temps
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{route('caisses.inscription-reinscription.index')}}"
-                            class="nav-link {{ setMenuClass('caisses.inscription-reinscription.index', 'active') }}">
-                            <i class="fa-solid fa-user-graduate"></i>
-                            <p>Liste des élèves</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{route('caisses.inscription-reinscription.index')}}"
-                            class="nav-link {{ setMenuClass('caisses.inscription-reinscription.index', 'active') }}">
-                            <i class="fa-solid fa-user-graduate"></i>
-                            <p>Liste de présence</p>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            @endcan
-
             @can("evaluations")
             <li class="nav-item {{ setMenuClass('evaluations.', 'menu-open') }}">
                 <a href="#" class="nav-link {{ setMenuClass('evaluations.', 'active') }}">
@@ -140,8 +103,15 @@
                     <li class="nav-item">
                         <a href="{{route('evaluations.evaluations.index')}}"
                             class="nav-link {{ setMenuClass('evaluations.evaluations.index', 'active') }}">
-                            <i class="fa-solid fa-user-graduate"></i>
-                            <p>Liste des élèves</p>
+                            <i class="fa fa-eraser" aria-hidden="true"></i>
+                            <p>Attribuer les notes</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('evaluations.notes.index')}}"
+                            class="nav-link {{ setMenuClass('evaluations.notes.index', 'active') }}">
+                            <i class="fa fa-list" aria-hidden="true"></i>
+                            <p>Liste des notes</p>
                         </a>
                     </li>
                 </ul>
