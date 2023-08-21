@@ -58,7 +58,7 @@
                         <div class="col-md-1">
                             <div class="form-group">
                                 <label for="noteDevoir1_{{ $index }}">Note 1 :</label>
-                                <input required wire:model="rows.{{ $index }}.noteDevoir1" type="text"
+                                <input wire:model="rows.{{ $index }}.noteDevoir1" type="text"
                                     class="form-control @error('nom') is-invalid @enderror">
                             </div>
                             @error("rows.{{ $index }}.noteDevoir1")

@@ -99,14 +99,6 @@
 
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="editNote.matiere_id">Matiere :</label>
-                                <input disabled autocomplete="off" type="text" wire:model="nomEleve"
-                                    class="form-control @error('nomEleve') is-invalid @enderror">
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <div class="form-group">
                                 <label for="editNote.periode_id">periode :</label>
                                 <select wire:model="editNote.periode_id" id="editNote.periode_id"
                                     class="form-control @error('nom') is-invalid @enderror">
