@@ -112,9 +112,9 @@
                     </div>
             </form>
             <button type="submit" class="btn btn-primary">Enregistrer</button>
-            <button type="button" wire:click.prevent="goToListNote()" class="btn btn-danger">Retouner à la
+            <a href="{{route('evaluations.notes.index')}}" class="btn btn-danger">Retouner à la
                 liste des
-                notes</button>
+                notes</a>
         </div>
     </div>
 </div>
