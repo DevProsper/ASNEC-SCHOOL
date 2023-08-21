@@ -21,8 +21,8 @@ class NoteComponent extends Component
     public $anneeScolaireId;
     public $classeId;
     public $periodeId;
-    public $triEleveNom = null;
-    public $triEleveTel = null;
+
+    public $eleveSearch;
 
     public $moyenne;
 
@@ -64,13 +64,18 @@ class NoteComponent extends Component
             $query->where('periode_id', $this->periodeId);
         }
 
-        if ($this->triEleveNom) {
-            $query->orderBy('eleves.nom', $this->triEleveNom);
+        if ($this->eleveSearch) {
+            $query->whereHas('admission.eleve', function ($query) {
+                $query->where('nom', 'like', '%' . $this->eleveSearch . '%');
+            });
+            $query->whereHas('admission.eleve', function ($query) {
+                $query->orWhere('telephone', 'like', '%' . $this->eleveSearch . '%');
+            });
+            $query->whereHas('admission.eleve', function ($query) {
+                $query->orWhere('telephoneTiteur', 'like', '%' . $this->eleveSearch . '%');
+            });
         }
 
-        if ($this->triEleveTel) {
-            $query->orderBy('eleves.tel', $this->triEleveTel);
-        }
 
         $query->orderBy('created_at', 'desc');
 
