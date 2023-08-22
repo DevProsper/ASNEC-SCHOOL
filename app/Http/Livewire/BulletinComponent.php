@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use Carbon\Carbon;
 use App\Models\Classe;
 use App\Models\Matiere;
 use App\Models\Periode;
@@ -26,7 +25,11 @@ class BulletinComponent extends Component
     public $periodeId;
     public $matiereId;
 
+    public $AnneeScolaire;
+
     public $eleveSearch;
+
+    public $moyenne;
 
     public function mount()
     {
@@ -52,10 +55,10 @@ class BulletinComponent extends Component
 
     public function render()
     {
-        /*$anneesscolaires = AnneeScolaire::all();
+        $anneesscolaires = AnneeScolaire::all();
         $periodes = Periode::whereIn('categorieperiode_id', [2])->get();
-        $classes = Classe::all();
-        $matieres = Matiere::all();
+        $classes = Classe::whereIn('niveauxscolaires_id', [2])->get();
+        $matieres = Matiere::whereNotNull('nomCourt')->get();
 
         $query = Evaluation::with([
             'admission.eleve',
@@ -82,7 +85,8 @@ class BulletinComponent extends Component
 
         if ($this->eleveSearch) {
             $query->whereHas('admission.eleve', function ($query) {
-                $query->where('nom', 'like', '%' . $this->eleveSearch . '%');
+                $query->whereRaw("CONCAT(nom, ' ', prenom) LIKE ?", '%' . $this->eleveSearch . '%');
+                //$query->where('nom', 'like', '%' . $this->eleveSearch . '%');
             });
             $query->whereHas('admission.eleve', function ($query) {
                 $query->orWhere('telephone', 'like', '%' . $this->eleveSearch . '%');
@@ -92,18 +96,11 @@ class BulletinComponent extends Component
             });
         }
 
-        if ($this->matiereId) {
-            $query->where('matiere_id', $this->matiereId);
-        }
-
-        $query->orderBy('created_at', 'desc');
 
         $evaluations = $query->get();
 
-        $donnees = [10, 15, 20, 25, 30];
-        $moyenne = $this->calculerMoyenne($donnees);*/
 
-        $evaluations = Evaluation::all();
+        //$evaluations = Evaluation::all();
 
         foreach ($evaluations as $evaluation) {
             $notes = [];
@@ -127,7 +124,7 @@ class BulletinComponent extends Component
 
         return view(
             'livewire.modules.bulletins.index',
-            compact("evaluations")
+            compact("evaluations", "anneesscolaires", "classes", "matieres", "periodes")
         )
             ->extends("layouts.master")
             ->section("contenu");

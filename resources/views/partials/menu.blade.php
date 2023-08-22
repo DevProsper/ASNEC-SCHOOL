@@ -118,7 +118,14 @@
                         <a href="{{route('evaluations.bulletin.index')}}"
                             class="nav-link {{ setMenuClass('evaluations.bulletin.index', 'active') }}">
                             <i class="fa fa-list" aria-hidden="true"></i>
-                            <p>Bulletin</p>
+                            <p>Bulletin niveau second.</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a target="_blank" href="{{route('evaluations.pdf.index')}}"
+                            class="nav-link {{ setMenuClass('evaluations.pdf.index', 'active') }}">
+                            <i class="fa fa-list" aria-hidden="true"></i>
+                            <p>PDF</p>
                         </a>
                     </li>
                 </ul>

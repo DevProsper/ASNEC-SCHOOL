@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire;
 
+use PDF;
+
 use Exception;
 use App\Models\Classe;
 use App\Models\Matiere;
@@ -49,8 +51,8 @@ class NoteComponent extends Component
     {
         $anneesscolaires = AnneeScolaire::all();
         $periodes = Periode::whereIn('categorieperiode_id', [2])->get();
-        $classes = Classe::all();
-        $matieres = Matiere::all();
+        $classes = Classe::whereIn('niveauxscolaires_id', [2])->get();
+        $matieres = Matiere::whereNotNull('nomCourt')->get();
 
         $query = Evaluation::with([
             'admission.eleve',
@@ -198,5 +200,9 @@ class NoteComponent extends Component
                 );
             }
         }
+    }
+
+    public function getToShowBulletin()
+    {
     }
 }

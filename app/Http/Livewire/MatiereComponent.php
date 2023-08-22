@@ -102,15 +102,15 @@ class MatiereComponent extends Component
 
             return [
                 'editMatiere.nom' => 'required',
-                'editMatiere.nomCourt' => 'required',
-                'editMatiere.coefficient' => 'required'
+                'editMatiere.nomCourt' => 'nullable',
+                'editMatiere.coefficient' => 'nullable'
             ];
         }
 
         return [
             'newMatiere.nom' => 'required',
-            'newMatiere.nomCourt' => 'required',
-            'newMatiere.coefficient' => 'required'
+            'newMatiere.nomCourt' => 'nullable',
+            'newMatiere.coefficient' => 'nullable'
         ];
     }
 

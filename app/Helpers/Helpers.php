@@ -11,6 +11,8 @@ define("PAGECREATEFORM_ELEVE", "create_eleve");
 define("PAGEREINSCRIPTION", "reinscription");
 define("PAGEFRAISSCOLAIRE", "frais");
 define("PAGEFRAIS_EDITION", "frais_scolaire_edit");
+
+define("PAGECREATE_", "frais_scolaire_edit");
 //PROC
 
 function Money($amount)
