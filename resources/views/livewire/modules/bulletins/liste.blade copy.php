@@ -30,7 +30,7 @@
                         </select>
                     </div>
                 </div>
-        
+
                 <div class="col-md-3">
                     <div class="form-group">
                         <label>Filtrer par période</label>
@@ -56,18 +56,17 @@
                 <div class="col-md-2">
                     <div class="form-group">
                         <label for="">Info : <small>(nom,tele,tel parent)</small></label>
-                        <input wire:model.debounce.700ms="eleveSearch" type="text"
-                            class="form-control">
+                        <input wire:model.debounce.700ms="eleveSearch" type="text" class="form-control">
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <div class="row">
             <div class="container">
                 <div class="col-md-6">
                 </div>
-                
+
             </div>
         </div>
         <div class="card">
@@ -85,39 +84,30 @@
                             <th>Nom de l'élève</th>
                             <th>Classe</th>
                             <th>Matiere</th>
-                            <th>Période</th>
-                            <th>Devoir 1</th>
-                            <th>Devoir 2</th>
-                            <th>Devoir 3</th>
-                            <th>Examen</th>
-                            <th>Année scolaire</th>
-                            <th class="text-center">Action</th>
+                            <th>Moy.Classe</th>
+                            <th>Note. Comp</th>
+                            <th>Moy.</th>
+                            <th>Moy. Gen</th>
+                            <th>Appréciation</th>
+                            <th>Enseignants</th>
+                            <th>Moyenne</th>
                             <!-- Autres colonnes d'information des admissions -->
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($evaluations as $evaluation)
                         <tr>
-                            <td>{{ $evaluation->admission->eleve->nom }} {{ $evaluation->admission->eleve->prenom }}</td>
+                            <td>{{ $evaluation->admission->eleve->nom }} {{ $evaluation->admission->eleve->prenom }}
+                            </td>
                             <td>{{ $evaluation->admission->classe->nom }}</td>
+                            <td>{{ $evaluation->matiere->nomCourt }}</td>
                             <td>{{ $evaluation->matiere->nom }}</td>
-                            <td>{{ $evaluation->periode->nom }}</td>
-                            <td>{{ $evaluation->noteDevoir1 }}</td>
-                            <td>{{ $evaluation->noteDevoir2 }}</td>
+                            <td>{{ $evaluation->matiere->nom }}</td>
+                            <td>{{ $evaluation->matiere->nom }}</td>
+                            <td>{{ $evaluation->matiere->nom }}</td>
                             <td>{{ $evaluation->noteDevoir3 }}</td>
                             <td>{{ $evaluation->noteExamen }}</td>
-                            <td>{{ $evaluation->admission->anneesscolaire->nom }}</td>
-                            <td class="text-center">
-                                <button class="btn btn-link" wire:click="goToEditNote({{$evaluation->id}})"> 
-                                    <i class="far fa-edit"></i> </button>
-                                <button class="btn btn-link" 
-                                wire:click="goToEditNote({{$evaluation->id}})">
-                                    <i class="far fa-trash-alt"></i>
-                                </button>
-                                <button class="btn btn-link" wire:click="confirmDelete('{{ $evaluation->matiere->nomCourt }}', {{$evaluation->id}})">
-                                    <i class="far fa-trash-alt"></i>
-                                </button>
-                            </td>
+                            <td>{{ $moyenne }}</td>
                         </tr>
                         @endforeach
                     </tbody>

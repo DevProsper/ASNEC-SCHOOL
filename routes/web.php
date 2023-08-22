@@ -10,6 +10,7 @@ use App\Http\Livewire\ClasseComponent;
 use App\Http\Livewire\ParentComponent;
 use App\Http\Livewire\MatiereComponent;
 use App\Http\Livewire\PeriodeComponent;
+use App\Http\Controllers\StatController;
 use App\Http\Livewire\BatimentComponent;
 use App\Http\Livewire\OperationComponent;
 use App\Http\Livewire\ScolariteComponent;
@@ -18,6 +19,7 @@ use App\Http\Livewire\EvaluationComponent;
 use App\Http\Livewire\UtilisateurComponent;
 use App\Http\Livewire\TarificationComponent;
 use App\Http\Livewire\AnneeScolaireComponent;
+use App\Http\Livewire\BulletinComponent;
 use App\Http\Livewire\EmploieDuTempComponent;
 use App\Http\Livewire\NiveauScolaireComponent;
 use App\Http\Livewire\InscriptionReinscriptionComponent;
@@ -38,7 +40,6 @@ Route::get('/', function () {
 })->name("home");
 
 Auth::routes();
-
 // Le groupe des routes relatives aux administrateurs uniquement
 Route::group([
     "middleware" => ["auth", "auth.administration"],
@@ -148,6 +149,7 @@ Route::group(
     function () {
         Route::get('/evaluations', EvaluationComponent::class)->name('evaluations.index');
         Route::get('/notes', NoteComponent::class)->name('notes.index');
+        Route::get('/bulletin', BulletinComponent::class)->name('bulletin.index');
     }
 );
 

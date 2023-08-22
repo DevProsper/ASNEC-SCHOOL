@@ -10,7 +10,6 @@ use Livewire\Component;
 use App\Models\Evaluation;
 use Livewire\WithPagination;
 use App\Models\AnneeScolaire;
-use Illuminate\Support\Facades\DB;
 
 class NoteComponent extends Component
 {
@@ -137,11 +136,11 @@ class NoteComponent extends Component
 
         $this->classe_id = $this->editNote2->admission->classe_id;
 
-        $this->matieres = DB::table('matieres')
+        /*$this->matieres = DB::table('matieres')
             ->join('matiere_classe', 'matieres.id', '=', 'matiere_classe.matiere_id')
             ->where('matiere_classe.classe_id', $this->classe_id)
             ->select('matieres.id', 'matieres.nom', 'matieres.nomCourt')
-            ->get()->toArray();
+            ->get()->toArray();*/
 
         $this->currentPage = PAGEEDITFORM;
     }

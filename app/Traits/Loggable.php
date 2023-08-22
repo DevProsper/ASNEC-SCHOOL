@@ -16,4 +16,17 @@ trait Loggable
 
         // Peut-être ajouter des messages de réussite ou de notification ici
     }
+
+    function calculerMoyenne($donnees)
+    {
+        $somme = array_sum($donnees);
+        $nombreElements = count($donnees);
+
+        if ($nombreElements > 0) {
+            $moyenne = $somme / $nombreElements;
+            return $moyenne;
+        } else {
+            return 0; // Éviter une division par zéro si le tableau est vide
+        }
+    }
 }

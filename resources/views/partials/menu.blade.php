@@ -114,6 +114,13 @@
                             <p>Liste des notes</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{route('evaluations.bulletin.index')}}"
+                            class="nav-link {{ setMenuClass('evaluations.bulletin.index', 'active') }}">
+                            <i class="fa fa-list" aria-hidden="true"></i>
+                            <p>Bulletin</p>
+                        </a>
+                    </li>
                 </ul>
             </li>
             @endcan
