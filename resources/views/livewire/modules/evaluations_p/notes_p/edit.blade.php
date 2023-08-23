@@ -63,46 +63,10 @@
                     <div class="row">
                         <div class="col-md-1">
                             <div class="form-group">
-                                <label>Devoir 1</label>
+                                <label>Composition</label>
                                 <input autocomplete="off" type="text" wire:model="editNote.noteDevoir1"
                                     class="form-control @error('editNote.noteDevoir1') is-invalid @enderror">
                     
-                                @error("editNote.noteDevoir1")
-                                <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="col-md-1">
-                            <div class="form-group">
-                                <label>Devoir 2</label>
-                                <input autocomplete="off" type="text" wire:model="editNote.noteDevoir2"
-                                    class="form-control @error('editNote.noteDevoir2') is-invalid @enderror">
-                        
-                                @error("editNote.noteDevoir2")
-                                <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="col-md-1">
-                            <div class="form-group">
-                                <label>Devoir 3</label>
-                                <input autocomplete="off" type="text" wire:model="editNote.noteDevoir3"
-                                    class="form-control @error('editNote.noteDevoir3') is-invalid @enderror">
-                        
-                                @error("editNote.noteDevoir3")
-                                <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="col-md-1">
-                            <div class="form-group">
-                                <label>Examen</label>
-                                <input autocomplete="off" type="text" wire:model="editNote.noteExamen"
-                                    class="form-control @error('editNote.noteExamen') is-invalid @enderror">
-                        
                                 @error("editNote.noteDevoir1")
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -124,7 +88,7 @@
                     </div>
             </form>
             <button type="submit" class="btn btn-primary">Enregistrer</button>
-            <a href="{{route('evaluations.notes.index')}}" class="btn btn-danger">Retouner à la
+            <a href="{{route('evaluations.notes_p.index')}}" class="btn btn-danger">Retouner à la
                 liste des
                 notes</a>
         </div>

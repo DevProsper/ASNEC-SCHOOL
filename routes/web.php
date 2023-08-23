@@ -19,10 +19,12 @@ use App\Http\Livewire\ScolariteComponent;
 use App\Http\Livewire\EnseignantComponent;
 use App\Http\Livewire\EvaluationComponent;
 use App\Http\Livewire\UtilisateurComponent;
+use App\Http\Livewire\NotePrimaireComponent;
 use App\Http\Livewire\TarificationComponent;
 use App\Http\Livewire\AnneeScolaireComponent;
 use App\Http\Livewire\EmploieDuTempComponent;
 use App\Http\Livewire\NiveauScolaireComponent;
+use App\Http\Livewire\EvaluationPrimaireComponent;
 use App\Http\Livewire\InscriptionReinscriptionComponent;
 
 /*
@@ -144,8 +146,19 @@ Route::group(
 
 Route::group(
     [
-        "prefix" => "evaluations",
-        'as' => 'evaluations.'
+        "prefix" => "evaluations.primaire",
+        'as' => 'evaluations.primaire.'
+    ],
+    function () {
+        Route::get('/evaluations_p', EvaluationPrimaireComponent::class)->name('evaluations_p.index');
+        Route::get('/notes_p', NotePrimaireComponent::class)->name('notes_p.index');
+    }
+);
+
+Route::group(
+    [
+        "prefix" => "secondaire.evaluations",
+        'as' => 'secondaire.evaluations.'
     ],
     function () {
         Route::get('/evaluations', EvaluationComponent::class)->name('evaluations.index');

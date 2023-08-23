@@ -3,7 +3,6 @@
 namespace App\Http\Livewire;
 
 use Exception;
-use App\Models\User;
 use App\Models\Classe;
 use App\Models\Matiere;
 use Livewire\Component;
@@ -69,12 +68,12 @@ class EvaluationComponent extends Component
 
     public function render()
     {
-        $eleves = $this->listeEleveParClasseAnneeSexe();
+        $eleves = $this->listeAdmissionFiltreParAnneeClasseSexeNom();
 
         $anneesscolaires = AnneeScolaire::all();
-        $periodes = Periode::whereIn('categorieperiode_id', [1, 2])->get();
-        $classes = Classe::all();
-        $matieres = Matiere::all();
+        $periodes = Periode::whereIn('categorieperiode_id', [2])->get();
+        $classes = Classe::whereIn('niveauxscolaires_id', [2])->get();
+        $matieres = Matiere::whereNotNull('nomCourt')->get();
 
         return view(
             'livewire.modules.evaluations.index',
@@ -131,12 +130,6 @@ class EvaluationComponent extends Component
         $this->currentPage = PAGECREATEFORM;
     }
 
-    public function goToEditEvaluation($id)
-    {
-        $this->editEvaluation = Admission::find($id)->toArray();
-        $this->currentPage = PAGECREATEFORM;
-    }
-
     public function rules()
     {
         if ($this->currentPage == PAGEEDITFORM) {
@@ -186,11 +179,9 @@ class EvaluationComponent extends Component
             }
             // Réinitialiser les lignes après l'insertion
             $this->rows = [];
-            /*$this->newEmplois = [];
-            $this->heure = "";
-            $this->anneesscolaire_id = "";
-            $this->nom = "";
-            $this->classe_id = "";*/
+            $this->nomComplet = "";
+            $this->classe = "";
+            $this->statut = "";
 
             $this->dispatchBrowserEvent("showSuccessMessage", ["message" => "Les notes ont bel et bien été attribuées avec succès !"]);
         } catch (Exception $e) {

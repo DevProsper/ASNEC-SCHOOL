@@ -31,6 +31,7 @@ class NoteComponent extends Component
     public $moyenne;
     public $editNote;
     public $editNote2;
+    public $MatiereD;
 
     public $nomEleve;
     public $classEleve;
@@ -93,6 +94,10 @@ class NoteComponent extends Component
             $query->where('matiere_id', $this->matiereId);
         }
 
+        $query->whereHas('admission.classe', function ($query) {
+            $query->where('niveauxscolaires_id', 2);
+        });
+
         $query->orderBy('created_at', 'desc');
 
         $evaluations = $query->get();
@@ -135,14 +140,9 @@ class NoteComponent extends Component
         $this->nomEleve = $this->editNote2->admission->eleve->nom . " " . $this->editNote2->admission->eleve->prenom;
         $this->classEleve = $this->editNote2->admission->classe->nom;
         $this->AnneeScolaire = $this->editNote2->admission->anneesscolaire->nom;
+        $this->MatiereD = $this->editNote2->matiere->nom;
 
         $this->classe_id = $this->editNote2->admission->classe_id;
-
-        /*$this->matieres = DB::table('matieres')
-            ->join('matiere_classe', 'matieres.id', '=', 'matiere_classe.matiere_id')
-            ->where('matiere_classe.classe_id', $this->classe_id)
-            ->select('matieres.id', 'matieres.nom', 'matieres.nomCourt')
-            ->get()->toArray();*/
 
         $this->currentPage = PAGEEDITFORM;
     }

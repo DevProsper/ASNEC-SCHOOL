@@ -91,40 +91,66 @@
             @endcan
 
             @can("evaluations")
-            <li class="nav-item {{ setMenuClass('evaluations.', 'menu-open') }}">
-                <a href="#" class="nav-link {{ setMenuClass('evaluations.', 'active') }}">
+            <li class="nav-item {{ setMenuClass('evaluations.primaire.', 'menu-open') }}">
+                <a href="#" class="nav-link {{ setMenuClass('evaluations.primaire.', 'active') }}">
                     <i class="fas fa-star" aria-hidden="true"></i>
                     <p>
-                        Evaluations
+                        Evaluations primaire
                         <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="{{route('evaluations.evaluations.index')}}"
-                            class="nav-link {{ setMenuClass('evaluations.evaluations.index', 'active') }}">
-                            <i class="fa fa-eraser" aria-hidden="true"></i>
-                            <p>Attribuer les notes</p>
+                        <a href="{{route('evaluations.primaire.evaluations_p.index')}}"
+                            class="nav-link {{ setMenuClass('evaluations.primaire.evaluations_p.index', 'active') }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Notes niveau prim.</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('evaluations.notes.index')}}"
-                            class="nav-link {{ setMenuClass('evaluations.notes.index', 'active') }}">
-                            <i class="fa fa-list" aria-hidden="true"></i>
-                            <p>Liste des notes</p>
+                        <a href="{{route('evaluations.primaire.notes_p.index')}}"
+                            class="nav-link {{ setMenuClass('evaluations.primaire.notes_p.index', 'active') }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Liste notes prim.</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-item {{ setMenuClass('secondaire.evaluations.', 'menu-open') }}">
+                <a href="#" class="nav-link {{ setMenuClass('secondaire.evaluations.', 'active') }}">
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <p>
+                        Evaluations secondaire
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{route('secondaire.evaluations.evaluations.index')}}"
+                            class="nav-link {{ setMenuClass('secondaire.evaluations.evaluations.index', 'active') }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Notes niveau second.</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('evaluations.bulletin.index')}}"
-                            class="nav-link {{ setMenuClass('evaluations.bulletin.index', 'active') }}">
-                            <i class="fa fa-list" aria-hidden="true"></i>
+                        <a href="{{route('secondaire.evaluations.notes.index')}}"
+                            class="nav-link {{ setMenuClass('secondaire.evaluations.notes.index', 'active') }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Liste notes second.</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('secondaire.evaluations.bulletin.index')}}"
+                            class="nav-link {{ setMenuClass('secondaire.evaluations.bulletin.index', 'active') }}">
+                            <i class="far fa-circle nav-icon"></i>
                             <p>Bulletin niveau second.</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a target="_blank" href="{{route('evaluations.pdf.index')}}"
-                            class="nav-link {{ setMenuClass('evaluations.pdf.index', 'active') }}">
-                            <i class="fa fa-list" aria-hidden="true"></i>
+                        <a target="_blank" href="{{route('secondaire.evaluations.pdf.index')}}"
+                            class="nav-link {{ setMenuClass('secondaire.evaluations.pdf.index', 'active') }}">
+                            <i class="far fa-circle nav-icon"></i>
                             <p>PDF</p>
                         </a>
                     </li>

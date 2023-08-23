@@ -96,6 +96,10 @@ class BulletinComponent extends Component
             });
         }
 
+        $query->whereHas('admission.classe', function ($query) {
+            $query->where('niveauxscolaires_id', 2);
+        });
+
 
         $evaluations = $query->get();
 
