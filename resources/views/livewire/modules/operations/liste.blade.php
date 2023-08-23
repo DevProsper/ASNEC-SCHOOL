@@ -99,6 +99,11 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @php
+                        $CumulTarif = 0;
+                        $CumulVerse = 0;
+                        $CumulDette = 0;
+                        @endphp
                         @foreach($operations as $value)
                         <tr>
                             <td>
@@ -111,7 +116,7 @@
                             <td>{{$value->eleve->nom}} {{$value->eleve->prenom}}</td>
                             <td>{{ $value->admission->classe->nom }}</td>
                             <td>{{$value->tarification->nom}}</td>
-                            <td><b>{{Money($value->tarification->prix)}}</b></td>
+                            <td>{{Money($value->tarification->prix)}}</td>
                             <td>{{$value->anneesscolaire->nom}}</td>
                             @if ($value->periode_id)
                                 <td>{{$value->periode->nom}}</td>
@@ -125,8 +130,26 @@
                             <td><span class="badge bg-primary">Soldé</span></td>
                             @endif
                         </tr>
+                        @php
+                        $CumulTarif += $value->tarification->prix;
+                        $CumulVerse += $value->montantVerse;
+                        $CumulDette += $value->montantRestant;
+                        @endphp
                         @endforeach
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th style="width:10%;">{{Money($CumulTarif)}}</th>
+                            <th style="width:10%;"></th>
+                            <th></th>
+                            <th>{{Money($CumulVerse)}}</th>
+                            <th>{{Money($CumulDette)}}</th>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
 
