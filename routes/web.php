@@ -24,6 +24,7 @@ use App\Http\Livewire\TarificationComponent;
 use App\Http\Livewire\AnneeScolaireComponent;
 use App\Http\Livewire\EmploieDuTempComponent;
 use App\Http\Livewire\NiveauScolaireComponent;
+use App\Http\Livewire\BulletinPrimaireComponent;
 use App\Http\Livewire\EvaluationPrimaireComponent;
 use App\Http\Livewire\InscriptionReinscriptionComponent;
 
@@ -152,6 +153,7 @@ Route::group(
     function () {
         Route::get('/evaluations_p', EvaluationPrimaireComponent::class)->name('evaluations_p.index');
         Route::get('/notes_p', NotePrimaireComponent::class)->name('notes_p.index');
+        Route::get('/bulletin_p', BulletinPrimaireComponent::class)->name('bulletin_p.index');
     }
 );
 

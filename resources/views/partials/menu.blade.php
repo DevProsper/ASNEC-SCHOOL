@@ -47,7 +47,7 @@
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
                         <a href="{{route('eleves.eleves.index')}}" class="nav-link {{ setMenuClass('eleves.eleves.index', 'active') }}">
-                            <i class="fa-solid fa-user-graduate"></i>
+                            <i class="far fa-circle nav-icon"></i>
                             <p>Nouveaux Arrivants</p>
                         </a>
                     </li>
@@ -68,21 +68,21 @@
                     <li class="nav-item">
                         <a href="{{route('caisses.inscription-reinscription.index')}}"
                             class="nav-link {{ setMenuClass('caisses.inscription-reinscription.index', 'active') }}">
-                            <i class="fa-solid fa-user-graduate"></i>
+                            <i class="far fa-circle nav-icon"></i>
                             <p>Admission arrivants</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{route('caisses.scolarite.index')}}"
                             class="nav-link {{ setMenuClass('caisses.scolarite.index', 'active') }}">
-                            <i class="fa fa-google-wallet" aria-hidden="true"></i>
+                            <i class="far fa-circle nav-icon"></i>
                             <p>Admission & paiements</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{route('caisses.operation.index')}}"
                             class="nav-link {{ setMenuClass('caisses.operation.index', 'active') }}">
-                            <i class="fa fa-list" aria-hidden="true"></i>
+                            <i class="far fa-circle nav-icon"></i>
                             <p>Mes opérations</p>
                         </a>
                     </li>
@@ -112,6 +112,13 @@
                             class="nav-link {{ setMenuClass('evaluations.primaire.notes_p.index', 'active') }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Liste notes prim.</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('evaluations.primaire.bulletin_p.index')}}"
+                            class="nav-link {{ setMenuClass('evaluations.primaire.bulletin_p.index', 'active') }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Bulletin niveau prim.</p>
                         </a>
                     </li>
                 </ul>

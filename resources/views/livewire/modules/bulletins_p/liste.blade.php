@@ -70,35 +70,33 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th style="width:30%;">Nom complet</th>
+                            <th style="width:20%;">Nom complet</th>
                             <th style="width:10%;">Classe</th>
                             <th style="width:10%;">Matiere</th>
-                            <th style="width:10%;">Moy.Devoir</th>
-                            <th style="width:20%;">Note. Comp</th>
-                            <th style="width:20%;">Moy/20</th>
-                            <th style="width:20%;">Coefficient</th>
-                            <th style="width:20%;">Moyen.Gen</th>
+                            <th style="width:10%;">Compo.</th>
+                            <th style="width:10%;">Coefficient</th>
+                            <th style="width:10%;">Moy./10</th>
                         </tr>
                     </thead>
                     <tbody>
                         @php
-                        $totalPrix = 0;
+                        $MoyGen = 0;
+                        $totalCompo = 0;
                         $Coefficien = 0;
                         @endphp
                         @foreach ($evaluations as $evaluation)
                         <tr>
                             <td>{{ $evaluation->admission->eleve->nom }} {{ $evaluation->admission->eleve->prenom }}</td>
                             <td>{{ $evaluation->admission->classe->nom }}</td>
-                            <td>{{ $evaluation->matiere->nomCourt }}</td>
-                            <td>{{ number_format($evaluation->moyenne, 2) }}</td>
-                            <td>{{ $evaluation->noteExamen }}</td>
-                            <td>{{ ($evaluation->noteExamen + number_format($evaluation->moyenne, 2))/2 }}</td>
+                            <td>{{ $evaluation->matiere->nom }}</td>
+                            <td>{{ number_format($evaluation->noteDevoir1, 2) }}</td>
                             <td>{{ $evaluation->matiere->coefficient }}</td>
-                            <td>{{ $evaluation->matiere->coefficient * ($evaluation->noteExamen + number_format($evaluation->moyenne, 2))/2}}</td>
+                            <td>{{ $evaluation->matiere->coefficient * number_format($evaluation->noteDevoir1, 2) }}</td>
                         </tr>
                         @php
-                        $totalPrix += $evaluation->matiere->coefficient * ($evaluation->noteExamen + number_format($evaluation->moyenne, 2))/2;
-                        $Coefficien += $evaluation->matiere->coefficient
+                        $MoyGen += $evaluation->matiere->coefficient * number_format($evaluation->noteDevoir1, 2);
+                        $Coefficien += $evaluation->matiere->coefficient;
+                        $totalCompo += number_format($evaluation->noteDevoir1, 2);
                         @endphp
                         @endforeach
                     </tbody>
@@ -106,17 +104,14 @@
                         <tr>
                             <th style="width:20%;">
                                 @if ($Coefficien != 0)
-                                Moyenne genérale : {{ number_format($totalPrix / $Coefficien, 2) }}
+                                Moyenne genérale : {{ $MoyGen / $Coefficien}}
                                 @endif
                             </th>
                             <th style="width:10%;"></th>
                             <th style="width:10%;"></th>
-                            <th style="width:10%;"></th>
-                            <th style="width:20%;"></th>
-                            <th style="width:20%;">
-                            </th>
-                            <th style="width:20%;">{{ $Coefficien }}</th>
-                            <th style="width:20%;">{{ $totalPrix }}</th>
+                            <th style="width:10%;">{{ $totalCompo }}</th>
+                            <th style="width:10%;">{{ $Coefficien }}</th>
+                            <th style="width:10%;">{{ $MoyGen }}</th>
                         </tr>
                     </tfoot>
                 </table>
