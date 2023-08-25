@@ -143,11 +143,11 @@
                             <th></th>
                             <th></th>
                             <th></th>
-                            <th style="width:10%;">{{Money($CumulTarif)}}</th>
+                            <th class="" style="width:10%;"><span class="badge bg-info">{{Money($CumulTarif)}}</span></th>
                             <th style="width:10%;"></th>
                             <th></th>
-                            <th>{{Money($CumulVerse)}}</th>
-                            <th>{{Money($CumulDette)}}</th>
+                            <th><span class="badge bg-primary">{{Money($CumulVerse)}}</span></th>
+                            <th><span class="badge bg-danger">{{Money($CumulDette)}}</span></th>
                         </tr>
                     </tfoot>
                 </table>

@@ -11,7 +11,7 @@
                         <select
                             class="form-control @error('editEleve.anneesscolaire_id') 
                                                                                                                                                                                                                                         is-invalid @enderror"
-                            name="editEleve.anneesscolaire_id" wire:model="editEleve.anneesscolaire_id">
+                            name="editEleve.anneesscolaire_id">
                             <option value="">---------</option>
                             @foreach($anneesscolaires as $value)
                             <option value="{{ $value->id }}">{{ $value->nom }}</option>
@@ -24,25 +24,8 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label>Classe</label>
-                        <select
-                            class="form-control @error('editEleve.anneesscolaire_id') 
-                                                                                                                                                                                                                                                                    is-invalid @enderror"
-                            name="editEleve.anneesscolaire_id" wire:model="editEleve.anneesscolaire_id">
-                            <option value="">---------</option>
-                            @foreach($classes as $value)
-                            <option value="{{ $value->id }}">{{ $value->nom }}</option>
-                            @endforeach
-                        </select>
-                        @error("editEleve.anneesscolaire_id")
-                        <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
                         <label>Nom ou numéro de téléphone</label>
-                        <input type="text" name="table_search" wire:model.debounce.700ms="search" class="form-control float-right"
+                        <input type="text" name="table_search" class="form-control float-right"
                             placeholder="Recherche par nom ou tel">
                     </div>
                 </div>
@@ -64,7 +47,6 @@
                         <tr>
                             <th style="width:20%;">Nom</th>
                             <th style="width:10%;">Prix</th>
-                            <th style="width:10%;">Classe</th>
                             <th style="width:20%;">Année scolaire</th>
                             <th style="width:20%;">Catégorie</th>
                             <th style="width:5%;">Statut</th>
@@ -76,7 +58,6 @@
                         <tr>
                             <td>{{ $value->nom }} </td>
                             <td>{{ $value->prix }} FCFA</td>
-                            <td>{{ $value->classe->nom }} </td>
                             <td>{{ $value->anneeScolaire->nom }} </td>
                             <td>{{ $value->categorie->nom }} </td>
 

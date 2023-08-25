@@ -160,36 +160,50 @@ class EvaluationComponent extends Component
         //$this->validate();
         try {
             foreach ($this->rows as $row) {
-                $noteDevoir1 = isset($row['noteDevoir1']) ? $row['noteDevoir1'] : NULL;
-                $noteDevoir2 = isset($row['noteDevoir2']) ? $row['noteDevoir2'] : NULL;
-                $noteDevoir3 = isset($row['noteDevoir3']) ? $row['noteDevoir3'] : NULL;
-                $noteExamen = isset($row['noteExamen']) ? $row['noteExamen'] : NULL;
-                $matiere = isset($row['matiere_id']) ? $row['matiere_id'] : NULL;
-                $periode = isset($row['periode_id']) ? $row['periode_id'] : NULL;
-                Evaluation::create([
-                    //updateEmplois
-                    'admission_id' =>  $this->admission_id,
-                    'matiere_id' => $matiere,
-                    'periode_id' => $periode,
-                    'noteDevoir1' => $noteDevoir1,
-                    'noteDevoir2' => $noteDevoir2,
-                    'noteDevoir3' => $noteDevoir3,
-                    'noteExamen' => $noteExamen
-                ]);
+                $noteDevoir1 = isset($row['noteDevoir1']) ? $row['noteDevoir1'] : null;
+                $noteDevoir2 = isset($row['noteDevoir2']) ? $row['noteDevoir2'] : null;
+                $noteDevoir3 = isset($row['noteDevoir3']) ? $row['noteDevoir3'] : null;
+                $noteExamen = isset($row['noteExamen']) ? $row['noteExamen'] : null;
+                $matiere = isset($row['matiere_id']) ? $row['matiere_id'] : null;
+                $periode = isset($row['periode_id']) ? $row['periode_id'] : null;
+
+                // Calcul de la moyenne des notes de devoir
+                if ($noteDevoir1 >= 0 && $noteDevoir2 == null && $noteDevoir3 == null) {
+                    $moyenneDevoir = $noteDevoir1;
+                } elseif ($noteDevoir1 >= 0 && $noteDevoir2 >= 0 && $noteDevoir3 == null) {
+                    $moyenneDevoir = ($noteDevoir1 + $noteDevoir2) / 2;
+                } elseif ($noteDevoir1 >= 0 && $noteDevoir2 >= 0 && $noteDevoir3 >= 0) {
+                    $moyenneDevoir = ($noteDevoir1 + $noteDevoir2 + $noteDevoir3) / 3;
+                } else {
+                    // Cas où au moins une note est négative, égal à null, etc.
+                    $moyenneDevoir = null;
+                }
+
+                if ($moyenneDevoir !== null) {
+                    Evaluation::create([
+                        'admission_id' =>  $this->admission_id,
+                        'matiere_id' => $matiere,
+                        'periode_id' => $periode,
+                        'noteDevoir1' => $noteDevoir1,
+                        'noteDevoir2' => $noteDevoir2,
+                        'noteDevoir3' => $noteDevoir3,
+                        'noteExamen' => $noteExamen,
+                        'moyenneDevoir' => $moyenneDevoir, // Ajout de la moyenne des devoirs
+                    ]);
+                }
             }
+
             // Réinitialiser les lignes après l'insertion
             $this->rows = [];
-            $this->nomComplet = "";
-            $this->classe = "";
-            $this->statut = "";
 
-            $this->dispatchBrowserEvent("showSuccessMessage", ["message" => "Les notes ont bel et bien été attribuées avec succès !"]);
+            $this->dispatchBrowserEvent("showSuccessMessage", ["message" => "Les notes ont été attribuées avec succès !"]);
         } catch (Exception $e) {
             Log::error($e->getMessage());
             dd($e->getMessage());
             $this->dispatchBrowserEvent("showErrorMessage", ["message" => "Une erreur s'est produite lors de la création des notes."]);
         }
     }
+
 
     public function updateEvaluation()
     {

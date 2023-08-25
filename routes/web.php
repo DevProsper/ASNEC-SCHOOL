@@ -19,6 +19,7 @@ use App\Http\Livewire\ScolariteComponent;
 use App\Http\Livewire\EnseignantComponent;
 use App\Http\Livewire\EvaluationComponent;
 use App\Http\Livewire\UtilisateurComponent;
+use App\Http\Controllers\BulletinSecondaire;
 use App\Http\Livewire\NotePrimaireComponent;
 use App\Http\Livewire\TarificationComponent;
 use App\Http\Livewire\AnneeScolaireComponent;
@@ -167,6 +168,7 @@ Route::group(
         Route::get('/notes', NoteComponent::class)->name('notes.index');
         Route::get('/bulletin', BulletinComponent::class)->name('bulletin.index');
         Route::get('/pdf', [PdfController::class, 'index'])->name('pdf.index');
+        Route::get('/bulletin-secondaire/{id_admission}/{id_periode}/', [BulletinSecondaire::class, 'index'])->name('bulletin-secondaire.index');
     }
 );
 

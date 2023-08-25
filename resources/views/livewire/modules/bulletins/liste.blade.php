@@ -70,6 +70,7 @@
                 <table class="table">
                     <thead>
                         <tr>
+                            <th style="">B</th>
                             <th style="width:30%;">Nom complet</th>
                             <th style="width:10%;">Classe</th>
                             <th style="width:10%;">Matiere</th>
@@ -77,7 +78,8 @@
                             <th style="width:20%;">Note. Comp</th>
                             <th style="width:20%;">Moy/20</th>
                             <th style="width:20%;">Coefficient</th>
-                            <th style="width:20%;">Moyen.Gen</th>
+                            <th style="width:10%;">Moy.Gen</th>
+                            <th style="width:10%;">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -86,8 +88,9 @@
                         $Coefficien = 0;
                         @endphp
                         @foreach ($evaluations as $evaluation)
-                        <tr>
-                            <td>{{ $evaluation->admission->eleve->nom }} {{ $evaluation->admission->eleve->prenom }}</td>
+                        <tr> 
+                            <td><a target="_blank" href="{{route('secondaire.evaluations.bulletin-secondaire.index', ['id_admission' => $evaluation->admission->id,'id_periode' => $evaluation->periode->id])}}"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
+                            <td>{{ $evaluation->admission->eleve->nom }} {{ $evaluation->admission->eleve->prenom }}</a></td>
                             <td>{{ $evaluation->admission->classe->nom }}</td>
                             <td>{{ $evaluation->matiere->nomCourt }}</td>
                             <td>{{ number_format($evaluation->moyenne, 2) }}</td>
@@ -95,6 +98,14 @@
                             <td>{{ ($evaluation->noteExamen + number_format($evaluation->moyenne, 2))/2 }}</td>
                             <td>{{ $evaluation->matiere->coefficient }}</td>
                             <td>{{ $evaluation->matiere->coefficient * ($evaluation->noteExamen + number_format($evaluation->moyenne, 2))/2}}</td>
+                            <td class="text-center">
+                                <button class="btn btn-link" wire:click="goToEditEleve({{$evaluation->id}})"> <i class="far fa-edit"></i>
+                                </button>
+                                @can("utilisateurs")
+                                <button class="btn btn-link" wire:click="confirmDelete('{{ $evaluation->nom }}', {{$evaluation->id}})">
+                                    <i class="far fa-trash-alt"></i> </button>
+                                @endcan
+                            </td>
                         </tr>
                         @php
                         $totalPrix += $evaluation->matiere->coefficient * ($evaluation->noteExamen + number_format($evaluation->moyenne, 2))/2;
@@ -104,6 +115,7 @@
                     </tbody>
                     <tfoot>
                         <tr>
+                            <th style="width:5%;"></th>
                             <th style="width:20%;">
                                 @if ($Coefficien != 0)
                                 Moyenne genérale : {{ number_format($totalPrix / $Coefficien, 2) }}
@@ -116,7 +128,7 @@
                             <th style="width:20%;">
                             </th>
                             <th style="width:20%;">{{ $Coefficien }}</th>
-                            <th style="width:20%;">{{ $totalPrix }}</th>
+                            <th style="width:10%;">{{ $totalPrix }}</th>
                         </tr>
                     </tfoot>
                 </table>

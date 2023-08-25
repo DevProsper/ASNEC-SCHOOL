@@ -19,7 +19,8 @@ class Evaluation extends Model
         'noteExamen',
         'admission_id',
         'periode_id',
-        'matiere_id'
+        'matiere_id',
+        'moyenneDevoir'
     ];
 
     public function admission()

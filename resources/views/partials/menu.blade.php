@@ -155,7 +155,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a target="_blank" href="{{route('secondaire.evaluations.pdf.index')}}"
+                        <a href="{{route('secondaire.evaluations.pdf.index')}}"
                             class="nav-link {{ setMenuClass('secondaire.evaluations.pdf.index', 'active') }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>PDF</p>

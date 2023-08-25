@@ -65,30 +65,14 @@
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
-                    
-                    <div class="form-group">
-                        <label>Classe</label>
-                        <select
-                            class="form-control @error('classe_id') 
-                                                                                                                                                                is-invalid @enderror"
-                            name="classe_id" wire:model="editTarification.classe_id">
-                            <option value="">---------</option>
-                            @foreach($classes as $value)
-                            <option value="{{ $value->id }}">{{ $value->nom }}</option>
-                            @endforeach
-                        </select>
-                        @error("classe_id")
-                        <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
 
                     <div class="form-group">
                         <label>Statut *</label>
                         <select class="form-control @error('statut') 
                         is-invalid @enderror" wire:model="editTarification.statut">
                             <option value="">---------</option>
-                            <option value="1">Visible</option>
-                            <option value="0">Invisible</option>
+                            <option value="1">Activé</option>
+                            <option value="0">Desactivé</option>
                         </select>
                         @error("statut")
                         <span class="text-danger">{{ $message }}</span>

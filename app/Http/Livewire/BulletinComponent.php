@@ -10,6 +10,7 @@ use App\Traits\Loggable;
 use App\Models\Evaluation;
 use Livewire\WithPagination;
 use App\Models\AnneeScolaire;
+use PDF;
 
 class BulletinComponent extends Component
 {
@@ -132,5 +133,44 @@ class BulletinComponent extends Component
         )
             ->extends("layouts.master")
             ->section("contenu");
+    }
+
+    public function generatePDF($admission_id, $periode_id)
+    {
+        $evaluations =
+            Evaluation::select('evaluations.*', 'periodes.nom as periode_nom', 'matieres.nom as matiere_nom')
+            ->join('periodes', 'periodes.id', '=', 'evaluations.periode_id')
+            ->join('matieres', 'matieres.id', '=', 'evaluations.matiere_id')
+            ->where('evaluations.admission_id', $admission_id)
+            ->where('evaluations.periode_id', $periode_id)
+            ->get()
+            ->toArray();
+
+        foreach ($evaluations as $evaluation) {
+            $notes = [];
+
+            if ($evaluation['noteDevoir1'] != null) {
+                $notes[] = $evaluation['noteDevoir1'];
+            }
+
+            if ($evaluation['noteDevoir2'] != null) {
+                $notes[] = $evaluation['noteDevoir2'];
+            }
+
+            if ($evaluation['noteDevoir3'] != null) {
+                $notes[] = $evaluation['noteDevoir3'];
+            }
+
+            $moyenne = $this->calculerMoyenne($notes);
+            $evaluation['moyenne'] = $moyenne;
+        }
+
+        $data = [
+            'evaluations' => $evaluations
+        ];
+
+        $pdf = PDF::loadView('livewire.modules.pdf.liste', $data)->setPaper('A4', 'portrait');
+        //landscape , portrait
+        return $pdf->stream('fichier.pdf');
     }
 }

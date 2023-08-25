@@ -66,22 +66,6 @@
                         @enderror
                     </div>
 
-                    <div class="form-group">
-                        <label>Classe</label>
-                        <select
-                            class="form-control @error('classe_id') 
-                                                                                                                                            is-invalid @enderror"
-                            name="classe_id" wire:model="newTarification.classe_id">
-                            <option value="">---------</option>
-                            @foreach($classes as $value)
-                            <option value="{{ $value->id }}">{{ $value->nom }}</option>
-                            @endforeach
-                        </select>
-                        @error("classe_id")
-                        <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
-
                         <button type="submit" class="btn btn-primary">Enregistrer</button>
                         <button type="button" wire:click.prevent="goToListTarification()" class="btn btn-danger">Retouner à la liste des
                         tarifications</button>

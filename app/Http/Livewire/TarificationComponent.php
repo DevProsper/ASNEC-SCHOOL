@@ -35,7 +35,6 @@ class TarificationComponent extends Component
 
         $tarifications = Tarification::latest()->paginate(10);
 
-        $classes = Classe::where('statut', 1)->orderBy('nom', 'asc')->get();
         $categories = CategorieTarification::orderBy('id', 'asc')->get();
         $anneesscolaires = AnneeScolaire::where('defaut', 1)->orderBy('nom', 'asc')->get();
 
@@ -45,8 +44,7 @@ class TarificationComponent extends Component
             compact(
                 "tarifications",
                 "categories",
-                "anneesscolaires",
-                "classes"
+                "anneesscolaires"
             )
         )
             ->extends("layouts.master")
@@ -79,8 +77,7 @@ class TarificationComponent extends Component
                 'editTarification.prix' => 'required',
                 'editTarification.statut' => 'required',
                 'editTarification.categoriestarification_id' => 'required',
-                'editTarification.anneesscolaire_id' => 'required',
-                'editTarification.classe_id' => 'required',
+                'editTarification.anneesscolaire_id' => 'required'
             ];
         }
 
@@ -88,8 +85,7 @@ class TarificationComponent extends Component
             'newTarification.nom' => 'required',
             'newTarification.prix' => 'required',
             'newTarification.categoriestarification_id' => 'required',
-            'newTarification.anneesscolaire_id' => 'required',
-            'newTarification.classe_id' => 'required',
+            'newTarification.anneesscolaire_id' => 'required'
         ];
     }
 
