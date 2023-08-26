@@ -90,6 +90,7 @@
                             <th>Note 1</th>
                             <th>Note 2</th>
                             <th>Note 3</th>
+                            <th>Moy.Nte</th>
                             <th>Examen</th>
                             <th>Année scolaire</th>
                             <th class="text-center">Action</th>
@@ -106,11 +107,10 @@
                             <td>{{ $evaluation->noteDevoir1 }}</td>
                             <td>{{ $evaluation->noteDevoir2 }}</td>
                             <td>{{ $evaluation->noteDevoir3 }}</td>
+                            <td>{{ number_format($evaluation->moyenneDevoir, 2)}}</td>
                             <td>{{ $evaluation->noteExamen }}</td>
                             <td>{{ $evaluation->admission->anneesscolaire->nom }}</td>
                             <td class="text-center">
-                                <button class="btn btn-link" wire:click="goToEditNote({{$evaluation->id}})"> 
-                                    <i class="far fa-edit"></i> </button>
                                 <button class="btn btn-link" wire:click="confirmDelete('{{ $evaluation->matiere->nomCourt }}', {{$evaluation->id}})">
                                     <i class="far fa-trash-alt"></i>
                                 </button>

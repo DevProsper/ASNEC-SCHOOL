@@ -107,7 +107,7 @@ class BulletinComponent extends Component
 
         //$evaluations = Evaluation::all();
 
-        foreach ($evaluations as $evaluation) {
+        /*foreach ($evaluations as $evaluation) {
             $notes = [];
 
             if ($evaluation->noteDevoir1 != null) {
@@ -124,7 +124,7 @@ class BulletinComponent extends Component
 
             $moyenne = $this->calculerMoyenne($notes);
             $evaluation->moyenne = $moyenne;
-        }
+        }*/
 
 
         return view(

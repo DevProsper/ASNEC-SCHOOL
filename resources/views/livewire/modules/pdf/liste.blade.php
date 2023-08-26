@@ -167,47 +167,36 @@
             <td width="37"><strong>Comp.20</strong></td>
             <td width="43"><strong>Moy.20</strong></td>
             <td width="37"><strong>Coef.</strong></td>
-            <td width="80"><strong>Moy. Gen</strong></td>
+            <td width="37"><strong>Moy.Gen</strong></td>
             <td colspan="2" width="171"><strong>Appr&eacute;ciations</strong></td>
         </tr>
         @php
-
-            foreach ($evaluations as $evaluation) {
-            $notes = [];
-            
-            if ($evaluation['noteDevoir1'] != null) {
-            $notes[] = $evaluation['noteDevoir1'];
-            }
-            
-            if ($evaluation['noteDevoir2'] != null) {
-            $notes[] = $evaluation['noteDevoir2'];
-            }
-            
-            if ($evaluation['noteDevoir3'] != null) {
-            $notes[] = $evaluation['noteDevoir3'];
-            }
-            
-            $moyenne = calculerMoyenne($notes);
-            $evaluation['moyenne'] = $moyenne;
-            }
-            
+        $totalPrix = 0;
+        $Coefficien = 0;
         @endphp
+        @foreach ($evaluations as $evaluation)
+            <tr height="19">
+                <td>{{$evaluation['matiere_nom']}}</td>
+                <td style="text-align: center" height="19">{{number_format($evaluation['moyenneDevoir'], 2)}}</td>
+                <td style="text-align: center">{{number_format($evaluation['noteExamen'], 2)}}</td>
+                <td style="text-align: center">{{number_format(($evaluation['moyenneDevoir'] + $evaluation['noteExamen']) / 2,2)}}</td>
+                <td style="text-align: center">{{$evaluation['coefficient']}}</td>
+                <td style="text-align: center">{{number_format(($evaluation['moyenneDevoir'] + $evaluation['noteExamen']) / 2,2) * $evaluation['coefficient']}}</td>
+                <td colspan="2">&nbsp;</td>
+            </tr>
+            @php
+            $totalPrix += intval($evaluation['coefficient']) * (number_format($evaluation['noteExamen'], 2) +
+            number_format($evaluation['moyenneDevoir'], 2))/2;
+            $Coefficien += $evaluation['coefficient']
+            @endphp
+        @endforeach
         <tr height="19">
-            <td>{{$evaluation['matiere_nom']}}</td>
-            <td height="19"></td>
-            <td style="text-align: center">{{$evaluation['noteExamen']}}</td>
-            <td>&nbsp;</td>
-            <td style="text-align: center">{{$evaluation['coefficient']}}</td>
-            <td>&nbsp;</td>
-            <td colspan="2">&nbsp;</td>
-        </tr>
-        <tr height="19">
-            <td height="19" width="80">TOTAL</td>
+            <td height="19" width="80">Total</td>
             <td width="43"></td>
             <td width="37"></td>
             <td width="43"></td>
-            <td width="37"></td>
-            <td width="80"></td>
+            <td style="text-align: center" width="37"><b>{{$Coefficien}}</b></td>
+            <td style="text-align: center" width="37"><b>{{ $totalPrix }}</b></td>
             <td colspan="2" width="171"></td>
         </tr>
     </tbody>
@@ -216,8 +205,12 @@
 <table border="1" cellpadding="0" cellspacing="0" width="476">
     <tbody>
         <tr height="19">
-            <td height="19" width="80">Moyenne :&nbsp;</td>
-            <td width="80">&nbsp;</td>
+            <td height="19" width="80">Moyenne Gen :&nbsp;</td>
+            <td style="text-align: center" width="80">
+                <b>@if ($Coefficien != 0)
+                {{ number_format($totalPrix / $Coefficien, 2) }}
+                @endif</b>
+            </td>
             <td width="42">Rang</td>
             <td width="80">&nbsp;</td>
             <td width="45">Retard</td>

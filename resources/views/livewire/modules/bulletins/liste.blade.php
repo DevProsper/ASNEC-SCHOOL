@@ -79,7 +79,6 @@
                             <th style="width:20%;">Moy/20</th>
                             <th style="width:20%;">Coefficient</th>
                             <th style="width:10%;">Moy.Gen</th>
-                            <th style="width:10%;">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -93,23 +92,15 @@
                             <td>{{ $evaluation->admission->eleve->nom }} {{ $evaluation->admission->eleve->prenom }}</a></td>
                             <td>{{ $evaluation->admission->classe->nom }}</td>
                             <td>{{ $evaluation->matiere->nomCourt }}</td>
-                            <td>{{ number_format($evaluation->moyenne, 2) }}</td>
+                            <td>{{ number_format($evaluation->moyenneDevoir, 2) }}</td>
                             <td>{{ $evaluation->noteExamen }}</td>
-                            <td>{{ ($evaluation->noteExamen + number_format($evaluation->moyenne, 2))/2 }}</td>
+                            <td>{{ (intval($evaluation->noteExamen) + intval($evaluation->moyenneDevoir))/2 }}</td>
                             <td>{{ $evaluation->matiere->coefficient }}</td>
-                            <td>{{ $evaluation->matiere->coefficient * ($evaluation->noteExamen + number_format($evaluation->moyenne, 2))/2}}</td>
-                            <td class="text-center">
-                                <button class="btn btn-link" wire:click="goToEditEleve({{$evaluation->id}})"> <i class="far fa-edit"></i>
-                                </button>
-                                @can("utilisateurs")
-                                <button class="btn btn-link" wire:click="confirmDelete('{{ $evaluation->nom }}', {{$evaluation->id}})">
-                                    <i class="far fa-trash-alt"></i> </button>
-                                @endcan
-                            </td>
+                            <td>{{ intval($evaluation->matiere->coefficient) * (intval($evaluation->noteExamen) + number_format(intval($evaluation->moyenneDevoir), 2))/2}}</td>
                         </tr>
                         @php
-                        $totalPrix += $evaluation->matiere->coefficient * ($evaluation->noteExamen + number_format($evaluation->moyenne, 2))/2;
-                        $Coefficien += $evaluation->matiere->coefficient
+                        $totalPrix += intval($evaluation->matiere->coefficient) * (intval($evaluation->noteExamen) + number_format(intval($evaluation->moyenneDevoir), 2))/2;
+                        $Coefficien += intval($evaluation->matiere->coefficient)
                         @endphp
                         @endforeach
                     </tbody>
@@ -118,7 +109,7 @@
                             <th style="width:5%;"></th>
                             <th style="width:20%;">
                                 @if ($Coefficien != 0)
-                                Moyenne genérale : {{ number_format($totalPrix / $Coefficien, 2) }}
+                                Moyenne Gen : {{ number_format($totalPrix / $Coefficien, 2) }}
                                 @endif
                             </th>
                             <th style="width:10%;"></th>

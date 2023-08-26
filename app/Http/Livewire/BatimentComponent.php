@@ -128,7 +128,7 @@ class BatimentComponent extends Component
             ->get()
             ->toArray();
 
-        foreach ($evaluations as $evaluation) {
+        /*foreach ($evaluations as $evaluation) {
             $notes = [];
 
             if ($evaluation['noteDevoir1'] != null) {
@@ -145,7 +145,7 @@ class BatimentComponent extends Component
 
             $moyenne = $this->calculerMoyenne($notes);
             $evaluation['moyenne'] = $moyenne;
-        }
+        }*/
 
         $data = [
             'evaluations' => $evaluations
