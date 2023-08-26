@@ -88,18 +88,19 @@
                         @endphp
                         @foreach ($evaluations as $evaluation)
                         <tr> 
-                            <td><a target="_blank" href="{{route('secondaire.evaluations.bulletin-secondaire.index', ['id_admission' => $evaluation->admission->id,'id_periode' => $evaluation->periode->id])}}"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
+                            <td><a target="_blank" href="{{route('secondaire.evaluations.bulletin-secondaire.index', ['id_admission' => $evaluation->admission->id,'id_periode' => $evaluation->periode->id, 'eleve_id' => $evaluation->admission->eleve_id])}}"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
                             <td>{{ $evaluation->admission->eleve->nom }} {{ $evaluation->admission->eleve->prenom }}</a></td>
                             <td>{{ $evaluation->admission->classe->nom }}</td>
                             <td>{{ $evaluation->matiere->nomCourt }}</td>
                             <td>{{ number_format($evaluation->moyenneDevoir, 2) }}</td>
                             <td>{{ $evaluation->noteExamen }}</td>
-                            <td>{{ (intval($evaluation->noteExamen) + intval($evaluation->moyenneDevoir))/2 }}</td>
+                            <td>{{ (number_format($evaluation->noteExamen, 2) + number_format($evaluation->moyenneDevoir, 2))/2 }}</td>
                             <td>{{ $evaluation->matiere->coefficient }}</td>
-                            <td>{{ intval($evaluation->matiere->coefficient) * (intval($evaluation->noteExamen) + number_format(intval($evaluation->moyenneDevoir), 2))/2}}</td>
+                            <td>{{ number_format($evaluation->matiere->coefficient, 2) * (number_format($evaluation->noteExamen, 2) + number_format($evaluation->moyenneDevoir, 2))/2}}</td>
                         </tr>
                         @php
-                        $totalPrix += intval($evaluation->matiere->coefficient) * (intval($evaluation->noteExamen) + number_format(intval($evaluation->moyenneDevoir), 2))/2;
+                        $totalPrix += number_format($evaluation->matiere->coefficient, 2) * (number_format($evaluation->noteExamen, 2) +
+                        number_format($evaluation->moyenneDevoir, 2))/2;
                         $Coefficien += intval($evaluation->matiere->coefficient)
                         @endphp
                         @endforeach

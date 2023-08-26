@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use PDF;
 use App\Models\Evaluation;
 use Illuminate\Support\Facades\DB;
+use PDF;
 
-class BulletinSecondaire extends Controller
+class BulletinPrimaire extends Controller
 {
     public function index($admission_id, $periode_id, $eleve_id = null)
     {
@@ -15,7 +15,7 @@ class BulletinSecondaire extends Controller
             Evaluation::select(
                 'evaluations.*',
                 'periodes.nom as periode_nom',
-                'matieres.nomCourt as matiere_nom',
+                'matieres.nom as matiere_nom',
                 'matieres.coefficient'
             )
             ->join('periodes', 'periodes.id', '=', 'evaluations.periode_id')
@@ -55,7 +55,7 @@ class BulletinSecondaire extends Controller
             'admission'   => $admission
         ];
 
-        $pdf = PDF::loadView('livewire.modules.bulletin_eleves.niveau_secondaire', $data)->setPaper('A4', 'portrait');
+        $pdf = PDF::loadView('livewire.modules.bulletin_eleves.niveau_primaire', $data)->setPaper('A4', 'portrait');
         //landscape , portrait
         return $pdf->stream('fichier.pdf');
     }

@@ -16,6 +16,7 @@ use App\Http\Livewire\BatimentComponent;
 use App\Http\Livewire\BulletinComponent;
 use App\Http\Livewire\OperationComponent;
 use App\Http\Livewire\ScolariteComponent;
+use App\Http\Controllers\BulletinPrimaire;
 use App\Http\Livewire\EnseignantComponent;
 use App\Http\Livewire\EvaluationComponent;
 use App\Http\Livewire\UtilisateurComponent;
@@ -155,6 +156,7 @@ Route::group(
         Route::get('/evaluations_p', EvaluationPrimaireComponent::class)->name('evaluations_p.index');
         Route::get('/notes_p', NotePrimaireComponent::class)->name('notes_p.index');
         Route::get('/bulletin_p', BulletinPrimaireComponent::class)->name('bulletin_p.index');
+        Route::get('/bulletin-primaire/{id_admission}/{id_periode}/{eleve_id?}/', [BulletinPrimaire::class, 'index'])->name('bulletin-primaire.index');
     }
 );
 
@@ -168,7 +170,7 @@ Route::group(
         Route::get('/notes', NoteComponent::class)->name('notes.index');
         Route::get('/bulletin', BulletinComponent::class)->name('bulletin.index');
         Route::get('/pdf', [PdfController::class, 'index'])->name('pdf.index');
-        Route::get('/bulletin-secondaire/{id_admission}/{id_periode}/', [BulletinSecondaire::class, 'index'])->name('bulletin-secondaire.index');
+        Route::get('/bulletin-secondaire/{id_admission}/{id_periode}/{eleve_id?}/', [BulletinSecondaire::class, 'index'])->name('bulletin-secondaire.index');
     }
 );
 

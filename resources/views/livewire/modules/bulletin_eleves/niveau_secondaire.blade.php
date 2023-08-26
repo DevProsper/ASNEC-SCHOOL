@@ -1,3 +1,13 @@
+<style>
+    .signature {
+    font-family: cursive;
+    font-size: 36px;
+    font-weight: bold;
+    letter-spacing: 5px;
+    transform: rotate(-10deg);
+    text-align: justify;
+    }
+</style>
 <table border="0" cellpadding="0" cellspacing="0" width="651">
     
     <tbody>
@@ -30,14 +40,16 @@
             <td colspan="4" height="57" rowspan="3" style="text-align: center;" width="283">DIRECTION DEPARTEMENTALE DE
                 L&#39;ENSEIGNEMENT PRESCOLAIRE, PRIMAIRE, SECONDAIRE ET DE L&#39;ALPHABETISATION DE POINTE NOIRE</td>
             <td>&nbsp;</td>
-            <td colspan="3" style="text-align: center;">Travail*Rigeur*R&eacute;ussite</td>
-            <td>&nbsp;</td>
+            <td colspan="3" rowspan="2" style="text-align: center;">
+                <strong><span style="font-size:28px;">KANI</span></strong>
+            </td>
         </tr>
         <tr height="19">
             <td height="19">&nbsp;</td>
-            <td colspan="3" rowspan="2" style="text-align: center;"><strong><span
-                        style="font-size:28px;">KANI</span></strong></td>
-            <td>&nbsp;</td>
+        </tr>
+        <tr height="19">
+            <td height="19">&nbsp;</td>
+            <td colspan="3" style="text-align: center;">Travail*Rigeur*R&eacute;ussite</td>
         </tr>
         <tr height="19">
             <td height="19">&nbsp;</td>
@@ -104,48 +116,26 @@
             <td>&nbsp;</td>
         </tr>
         <tr height="19">
-            <td colspan="2" height="19">Ann&eacute;e scolaire :&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>Classe :</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
+            <td colspan="5" height="19" rowspan="1">Ann&eacute;e scolaire : <b>{{$admission->annee_nom}}</b></td>
+            <td colspan="3" rowspan="1">Classe : <b>{{$admission->classe_nom}}</b> </td>
             <td>&nbsp;</td>
         </tr>
         <tr height="19">
-            <td colspan="2" height="19">Nom(s) et prenom(s) :&nbsp; : </td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>Titeur :</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
+            <td colspan="5" height="19" rowspan="1">Nom(s) et prenom(s) : <b>{{$admission->eleve_nom}} {{$admission->eleve_prenom}}</b> </td>
+            <td colspan="3" rowspan="1">Titeur : {{$admission->nomTiteur}} {{$admission->prenomTiteur}}</td>
             <td>&nbsp;</td>
         </tr>
         <tr height="19">
-            <td colspan="2" height="19">Date et lieu de naissance</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>Adresse :</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
+            <td colspan="5" height="19" rowspan="1">Date et lieu de naissance : <b>{{substr($admission->dateNaissance, 0, 11)}}</b> à <b>{{$admission->lieuNaissance}}</b> </td>
+            <td colspan="3" rowspan="1">Adresse : {{$admission->adresseTiteur}}</td>
             <td>&nbsp;</td>
         </tr>
         <tr height="19">
-            <td height="19">&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
+            <td colspan="8" height="19" rowspan="1">&nbsp;</td>
             <td>&nbsp;</td>
         </tr>
         <tr height="19">
-            <td colspan="6" height="19" rowspan="1"><strong>RELEVE DE NOTES DU </strong></td>
+            <td colspan="6" height="19" rowspan="1"><strong>RELEVE DE NOTES DU {{strtoupper($admission->periode)}} </strong></td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
@@ -205,7 +195,7 @@
 <table border="1" cellpadding="0" cellspacing="0" width="476">
     <tbody>
         <tr height="19">
-            <td height="19" width="80">Moyenne Gen :&nbsp;</td>
+            <td height="19" width="80">Moyenne Gen &nbsp;</td>
             <td style="text-align: center" width="80">
                 <b>@if ($Coefficien != 0)
                 {{ number_format($totalPrix / $Coefficien, 2) }}
@@ -234,3 +224,14 @@
         </tr>
     </tbody>
 </table>
+<footer>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p style="text-align: center;">KANI</p>
+</footer>

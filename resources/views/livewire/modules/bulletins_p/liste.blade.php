@@ -70,6 +70,7 @@
                 <table class="table">
                     <thead>
                         <tr>
+                            <th style="">B</th>
                             <th style="width:20%;">Nom complet</th>
                             <th style="width:10%;">Classe</th>
                             <th style="width:10%;">Matiere</th>
@@ -86,6 +87,10 @@
                         @endphp
                         @foreach ($evaluations as $evaluation)
                         <tr>
+                            <td>
+                                <a target="_blank"
+                                    href="{{route('evaluations.primaire.bulletin-primaire.index', ['id_admission' => $evaluation->admission->id,'id_periode' => $evaluation->periode->id, 'eleve_id' => $evaluation->admission->eleve_id])}}"><i
+                                        class="fa fa-eye" aria-hidden="true"></i></a></td>
                             <td>{{ $evaluation->admission->eleve->nom }} {{ $evaluation->admission->eleve->prenom }}</td>
                             <td>{{ $evaluation->admission->classe->nom }}</td>
                             <td>{{ $evaluation->matiere->nom }}</td>
@@ -102,6 +107,7 @@
                     </tbody>
                     <tfoot>
                         <tr>
+                            <th style="width:5%;"></th>
                             <th style="width:20%;">
                                 @if ($Coefficien != 0)
                                 Moyenne genérale : {{ $MoyGen / $Coefficien}}

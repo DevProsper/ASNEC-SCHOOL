@@ -70,7 +70,7 @@ class EvaluationPrimaireComponent extends Component
         $anneesscolaires = AnneeScolaire::all();
         $periodes = Periode::whereIn('categorieperiode_id', [1])->get();
         $classes = Classe::whereIn('niveauxscolaires_id', [3])->get();
-        $matieres = Matiere::whereNotNull('nomCourt')->get();
+        $matieres = Matiere::whereNull('nomCourt')->get();
 
         return view(
             'livewire.modules.evaluations_p.index',

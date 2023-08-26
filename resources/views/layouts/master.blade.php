@@ -52,7 +52,6 @@
     <script src="{{asset('assets/adminlte/js/bootstrap.bundle.min.js')}}"></script>
     
     <script src="{{asset('assets/adminlte/js/adminlte.min.js')}}"></script>
-
     @yield('scripts')
     @livewireScripts
 </body>

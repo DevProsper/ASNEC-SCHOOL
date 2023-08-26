@@ -154,13 +154,6 @@
                             <p>Bulletin niveau second.</p>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="{{route('secondaire.evaluations.pdf.index')}}"
-                            class="nav-link {{ setMenuClass('secondaire.evaluations.pdf.index', 'active') }}">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>PDF</p>
-                        </a>
-                    </li>
                 </ul>
             </li>
             @endcan

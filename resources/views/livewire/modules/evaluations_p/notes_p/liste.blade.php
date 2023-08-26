@@ -103,8 +103,6 @@
                             <td>{{ $evaluation->noteDevoir1 }}</td>
                             <td>{{ $evaluation->admission->anneesscolaire->nom }}</td>
                             <td class="text-center">
-                                <button class="btn btn-link" wire:click="goToEditNote({{$evaluation->id}})"> 
-                                    <i class="far fa-edit"></i> </button>
                                 <button class="btn btn-link" wire:click="confirmDelete('{{ $evaluation->matiere->nomCourt }}', {{$evaluation->id}})">
                                     <i class="far fa-trash-alt"></i>
                                 </button>
