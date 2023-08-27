@@ -15,6 +15,7 @@ class Caisse extends Model
         'anneesscolaire_id',
         'tarification_id',
         'montantVerse',
+        'montantVerse2',
         'montantRestant',
         'statut', // 1-Terminé, 2-Accompte
         'etat', // 1 Entrées, 2 Dépenses

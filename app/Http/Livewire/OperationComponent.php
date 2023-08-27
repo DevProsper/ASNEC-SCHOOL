@@ -7,7 +7,6 @@ use App\Models\Caisse;
 use App\Models\Classe;
 use App\Models\Periode;
 use Livewire\Component;
-use App\Models\Admission;
 use Livewire\WithPagination;
 use App\Models\AnneeScolaire;
 use App\Models\CategorieTarification;
@@ -24,8 +23,14 @@ class OperationComponent extends Component
     public $anneescolaire_id;
     public $statut;
 
+    public $editOperation = [];
+
     public $statutFilter = '';
     public $periodeFilter = '';
+
+    public $nomComplet = "";
+    public $classeEleve = "";
+    public $annee_scolaire = "";
 
     public $anneeScolaireParDefaut;
     public $anneeScolaire;
@@ -91,8 +96,28 @@ class OperationComponent extends Component
             ->section("contenu");
     }
 
-    public function goToListEnseignant()
+    public function goToListOperation()
     {
         $this->currentPage = PAGELIST;
     }
+
+    public function goToEditOperation($id)
+    {
+        $this->editOperation = Caisse::find($id);
+        $this->nomComplet = $this->editOperation->admission->eleve->nom . " " . $this->editOperation->admission->eleve->prenom;
+        $this->classeEleve = $this->editOperation->admission->classe->nom;
+        $this->annee_scolaire = $this->editOperation->admission->anneesscolaire->nom;
+        $this->currentPage = PAGEEDITFORM;
+    }
+
+    /*public function updateOperation()
+    {
+        $validationAttributes = $this->validate();
+        try {
+            ParentEl::find($this->editOperation["id"])->update($validationAttributes["editOperation"]);
+            $this->dispatchBrowserEvent("showSuccessMessage", ["message" => "Le parent a été mis à jour avec succès!"]);
+        } catch (Exception $e) {
+            $this->dispatchBrowserEvent("showErrorMessage", ["message" => "Une erreur s'est produite lors de la mise à jour du parent."]);
+        }
+    }*/
 }

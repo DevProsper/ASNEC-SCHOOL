@@ -175,7 +175,6 @@ class InscriptionReinscriptionComponent extends Component
                     'tarification_id' => $validationAttributes["newAdmission"]["tarification_id"],
                     'montantVerse' => $this->montantVerse,
                     'montantRestant' => $this->montantRestant,
-                    // Etat = 1 : Entrées dans la caisse
                     'etat' => 1,
                     'statut' => $this->statut
                 ]);

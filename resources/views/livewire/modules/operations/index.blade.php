@@ -4,6 +4,10 @@
     @include("livewire.modules.operations.liste")
     @endif
 
+    @if($currentPage == PAGEEDITFORM)
+    @include("livewire.modules.operations.edit")
+    @endif
+
 </div>
 
 <script>

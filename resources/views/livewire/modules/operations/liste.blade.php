@@ -96,6 +96,7 @@
                         <th>Période</th>
                         <th>Montant versé</th>
                         <th>Montant Restant</th>
+                        <th style="text-align:center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -129,6 +130,15 @@
                             @else
                             <td><span class="badge bg-primary">Soldé</span></td>
                             @endif
+                            @can('utilisateurs')
+                                <td class="text-center">
+                                    <button class="btn btn-link" wire:click="goToEditOperation({{$value->id}})">
+                                        <i class="fa-solid fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-link" wire:click="confirmDelete('{{ $value->nom }}', {{$value->id}})">
+                                        <i class="far fa-trash-alt"></i> </button>
+                                </td>
+                            @endcan
                         </tr>
                         @php
                         $CumulTarif += $value->tarification->prix;
