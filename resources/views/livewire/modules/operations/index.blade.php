@@ -8,6 +8,10 @@
     @include("livewire.modules.operations.edit")
     @endif
 
+    @if($currentPage == PAGEACOMPTE)
+    @include("livewire.modules.operations.acompte")
+    @endif
+
 </div>
 
 <script>
@@ -52,7 +56,7 @@
         }).then((result) => {
         if (result.isConfirmed) {
             if(event.detail.message.data){
-                @this.deleteEleve(event.detail.message.data.data_id)
+                @this.deleteOperation(event.detail.message.data.data_id)
             }
         }
         })

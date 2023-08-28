@@ -23,7 +23,6 @@ class OperationComponent extends Component
 
     use WithPagination;
 
-    public $periode_id;
     public $anneescolaire_id;
 
     public $editOperation = [];
@@ -48,7 +47,14 @@ class OperationComponent extends Component
     public $niveau_id;
     public $statutAdmission;
     public $admission_id;
+    public $periode_id = null;
     public $tarification_id;
+
+    public $montantVerse;
+    public $montantVerse2;
+    public $montantRestant;
+    public $montantRestantACouvri;
+    public $statut;
 
     public $_classes;
     public $niveauId;
@@ -57,6 +63,7 @@ class OperationComponent extends Component
     //Filtre quand la péiode quand la catégorie est égale à 
     public $periodesCategorie = [];
     public $selectedCategoryId = null;
+    public $montantAverser;
 
     public function mount()
     {
@@ -128,14 +135,11 @@ class OperationComponent extends Component
         if ($this->currentPage == PAGEEDITFORM) {
 
             return [
-                'eleve_id' => 'nullable',
                 'tarification_id' => 'required',
                 'classe_id' => 'required',
-                'anneesscolaire_id' => 'nullable',
                 'statutAdmission' => 'required',
                 'montantVerse' => 'required',
                 'montantVerse2' => 'nullable',
-                'periode_id' => 'nullable',
             ];
         }
         return [];
@@ -159,6 +163,8 @@ class OperationComponent extends Component
         $classe = Classe::find($classeId);
         $this->classe_id = $classe->id;
         $this->tarificationId = $this->editOperation->tarification_id;
+        $this->montantVerse = $this->editOperation->montantVerse;
+        $this->montantVerse2 = $this->editOperation->montantVerse2;
 
         $tarification = Tarification::find($this->tarificationId);
 
@@ -169,14 +175,154 @@ class OperationComponent extends Component
         $this->currentPage = PAGEEDITFORM;
     }
 
+    public function goToAcompteOperation($id)
+    {
+        $this->editOperation = Caisse::find($id);
+        $this->nomComplet = $this->editOperation->admission->eleve->nom . " " . $this->editOperation->admission->eleve->prenom;
+        $this->classeEleve = $this->editOperation->admission->classe->nom;
+        $this->annee_scolaire = $this->editOperation->admission->anneesscolaire->nom;
+        $this->admission_id = $this->editOperation->admission_id;
+        $admission = Admission::find($this->admission_id);
+        $this->statutAdmission = $admission->statutAdmission;
+        $classeId = $admission->classe_id;
+        $classe = Classe::find($classeId);
+        $this->classe_id = $classe->id;
+        $this->tarificationId = $this->editOperation->tarification_id;
+        $this->montantVerse = $this->editOperation->montantVerse;
+        $this->montantVerse2 = $this->editOperation->montantVerse2;
+        $this->montantRestantACouvri = $this->editOperation->montantRestant;
+
+        $tarification = Tarification::find($this->tarificationId);
+
+        $this->categorieId = $tarification->categoriestarification_id;
+        $this->tarification_id = $tarification->id;
+        $this->periode_id = $this->editOperation->periode_id;
+
+        $this->currentPage = PAGEACOMPTE;
+    }
+
     public function updateOperation()
     {
-        $validationAttributes = $this->validate();
+        //$this->validate();
+        $this->montantVerse2 = $this->montantVerse2 ?: null;
+        $this->periode_id = $this->periode_id ?: null;
+
+        $this->montantAverser = Tarification::find($this->tarification_id)->toArray();
+
+        $montantVerse = $this->montantVerse;
+        $this->montantRestant = $this->montantAverser['prix'] - $montantVerse;
+
+        if ($this->montantAverser['prix'] == $montantVerse) {
+            $this->statut = 1; //Soldé
+        } else {
+            $this->statut = 2; //Acompte
+        }
+        if ($montantVerse < -1) {
+            $this->dispatchBrowserEvent(
+                "showErrorMessage",
+                ["message" => "Le montant versé ne peut pas être inférieur à - 1 "]
+            );
+        }
+        if ($montantVerse > $this->montantAverser['prix']) {
+            $this->dispatchBrowserEvent("showErrorMessage", ["message" => "Le montant versé ne doit pas être superieur à la tarification! "]);
+        } else {
+            try {
+                Caisse::find($this->editOperation["id"])->update([
+                    'tarification_id' => $this->tarification_id,
+                    'periode_id' => $this->periode_id,
+                    'montantVerse' => $montantVerse,
+                    'admission_id'  => $this->admission_id,
+                    'etat' => 1,
+                    'montantVerse2' => null,
+                    'montantRestant' => $this->montantRestant,
+                    'statut' => $this->statut
+                ]);
+                Admission::find($this->admission_id)->update([
+                    'classe_id' => $this->classe_id,
+                    'statutAdmission' => $this->statutAdmission,
+                ]);
+                $this->dispatchBrowserEvent("showSuccessMessage", ["message" => "Le parent a été mis à jour avec succès!"]);
+            } catch (Exception $e) {
+                dd($e->getMessage());
+                $this->dispatchBrowserEvent("showErrorMessage", ["message" => "Une erreur s'est produite lors de la mise à jour du parent."]);
+            }
+        }
+    }
+
+    public function updateAcompteOperation()
+    {
+        //$this->validate();
+
+        $this->montantAverser = Tarification::find($this->tarification_id)->toArray();
+
+        $montantAVerser = $this->montantRestantACouvri;
+
+
+        if ($montantAVerser > $this->montantVerse2) {
+            $this->dispatchBrowserEvent(
+                "showErrorMessage",
+                ["message" => "Veuillez terminer votre dette qui coûte $montantAVerser FCFA !"]
+            );
+        } elseif ($montantAVerser < $this->montantVerse2) {
+            $this->dispatchBrowserEvent(
+                "showErrorMessage",
+                ["message" => "Vous ne pouvez que verser $montantAVerser FCFA !"]
+            );
+        } else {
+            $this->montantVerse += intval($this->montantVerse2);
+
+            try {
+                Caisse::find($this->editOperation["id"])->update([
+                    'montantVerse' => $this->montantVerse,
+                    'montantVerse2' => $this->montantVerse2,
+                    'dateVersementReste'  => Carbon::now(),
+                    'etat' => 1,
+                    'statut' => 1,
+                    'montantRestant' => 0
+                ]);
+                $this->dispatchBrowserEvent("showSuccessMessage", ["message" =>
+                "Votre dette est entièrement réglé !"]);
+            } catch (Exception $e) {
+                dd($e->getMessage());
+                $this->dispatchBrowserEvent("showErrorMessage", ["message" =>
+                "Une erreur s'est produite lors du versement du montant."]);
+            }
+        }
+    }
+
+    public function confirmDelete($nom, $id)
+    {
+        $this->dispatchBrowserEvent("showConfirmMessage", ["message" => [
+            "text" => "Vous êtes sur le point de supprimer $nom de la liste. Voulez-vous continuer?",
+            "title" => "Êtes-vous sûr de continuer ?",
+            "type" => "warning",
+            "data" => [
+                "data_id" => $id
+            ]
+        ]]);
+    }
+
+    public function deleteOperation($id)
+    {
         try {
-            Caisse::find($this->editOperation["id"])->update($validationAttributes["editOperation"]);
-            $this->dispatchBrowserEvent("showSuccessMessage", ["message" => "Le parent a été mis à jour avec succès!"]);
-        } catch (Exception $e) {
-            $this->dispatchBrowserEvent("showErrorMessage", ["message" => "Une erreur s'est produite lors de la mise à jour du parent."]);
+            Caisse::destroy($id);
+            $this->dispatchBrowserEvent(
+                "showSuccessMessage",
+                ["message" => "l'opération a été supprimée avec succès!"]
+            );
+        } catch (\Illuminate\Database\QueryException $e) {
+            // Gestion de l'erreur
+            if ($e->getCode() === '23000') {
+                $this->dispatchBrowserEvent(
+                    "showErrorMessage",
+                    ["message" => "Impossible ! Cette opération est liée à d'autres données."]
+                );
+            } else {
+                $this->dispatchBrowserEvent(
+                    "showErrorMessage",
+                    ["message" => "Une erreur s'est produite lors de la suppression de l'opération."]
+                );
+            }
         }
     }
 }

@@ -130,15 +130,22 @@
                             @else
                             <td><span class="badge bg-primary">Soldé</span></td>
                             @endif
-                            @can('utilisateurs')
+                            
                                 <td class="text-center">
-                                    <button class="btn btn-link" wire:click="goToEditOperation({{$value->id}})">
+                                    @if ($value->montantRestant)
+                                    <button class="btn btn-warning" wire:click="goToAcompteOperation({{$value->id}})">
+                                        <i class="fa-solid fa-edit">A</i>
+                                    </button>
+                                    @endif
+                                    @can('utilisateurs')
+                                    <button class="btn btn-info" 
+                                    wire:click="goToEditOperation({{$value->id}})">
                                         <i class="fa-solid fa-edit"></i>
                                     </button>
-                                    <button class="btn btn-link" wire:click="confirmDelete('{{ $value->nom }}', {{$value->id}})">
+                                    <button class="btn btn-danger" wire:click="confirmDelete('{{ $value->nom }}', {{$value->id}})">
                                         <i class="far fa-trash-alt"></i> </button>
+                                    @endcan
                                 </td>
-                            @endcan
                         </tr>
                         @php
                         $CumulTarif += $value->tarification->prix;

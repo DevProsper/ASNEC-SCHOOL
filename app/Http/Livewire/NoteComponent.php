@@ -178,7 +178,6 @@ class NoteComponent extends Component
             $this->moyenneDevoir = null;
         }
         try {
-            Evaluation::find($this->editNote["id"])->update($validationAttributes["editNote"]);
             if ($this->moyenneDevoir != null) {
                 Evaluation::find($this->editNote["id"])->update([
                     'matiere_id' => $matiere_id,

@@ -69,6 +69,7 @@ trait BaseQueryEleve
         }
 
         $eleves = $eleves->where('etat', 1);
+        $eleves = $eleves->orderBy('created_at', 'desc');
 
         $this->totalAdmissions = $eleves->count();
         return $eleves->with('eleve', 'classe', 'anneesscolaire', 'tarification.categorie')->get();

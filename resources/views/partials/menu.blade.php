@@ -15,7 +15,7 @@
                 alt="images profile">
             </div>
             <div class="info">
-                <a href="#" class="d-block">Prosper NGOUARI</a>
+                <a href="#" class="d-block">{{ auth()->user()->name }}</a>
             </div>
         </div>
 

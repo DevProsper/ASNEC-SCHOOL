@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Livewire\MoiComponent;
 use App\Http\Livewire\NoteComponent;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Livewire\EleveComponent;

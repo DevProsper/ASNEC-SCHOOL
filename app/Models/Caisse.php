@@ -20,7 +20,8 @@ class Caisse extends Model
         'statut', // 1-Terminé, 2-Accompte
         'etat', // 1 Entrées, 2 Dépenses
         'periode_id',
-        'admission_id'
+        'admission_id',
+        'dateVersementReste'
     ];
 
     public function eleve()

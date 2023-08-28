@@ -11,6 +11,7 @@ define("PAGECREATEFORM_ELEVE", "create_eleve");
 define("PAGEREINSCRIPTION", "reinscription");
 define("PAGEFRAISSCOLAIRE", "frais");
 define("PAGEFRAIS_EDITION", "frais_scolaire_edit");
+define("PAGEACOMPTE", "acompte");
 
 define("PAGECREATE_", "frais_scolaire_edit");
 //PROC
