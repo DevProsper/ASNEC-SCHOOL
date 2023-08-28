@@ -38,6 +38,7 @@ class NoteComponent extends Component
     public $AnneeScolaire;
     public $classe_id;
     public $matiereId;
+    public $moyenneDevoir;
 
     public function mount()
     {
@@ -121,7 +122,8 @@ class NoteComponent extends Component
                 'editNote.noteDevoir1' => 'nullable',
                 'editNote.noteDevoir2' => 'nullable',
                 'editNote.noteDevoir3' => 'nullable',
-                'editNote.noteExamen' => 'nullable'
+                'editNote.noteExamen' => 'nullable',
+                'editNote.moyenneDevoir' => 'nullable'
             ];
         }
 
@@ -151,13 +153,49 @@ class NoteComponent extends Component
     {
         // Vérifier que les informations envoyées par le formulaire sont correctes
         $validationAttributes = $this->validate();
+
+        $noteDevoir1 = $validationAttributes["editNote"]["noteDevoir1"];
+        $noteDevoir2 = $validationAttributes["editNote"]["noteDevoir2"];
+        $noteDevoir3 = $validationAttributes["editNote"]["noteDevoir3"];
+        $noteExamen = $validationAttributes["editNote"]["noteExamen"];
+        $matiere_id = $validationAttributes["editNote"]["matiere_id"];
+        $periode_id = $validationAttributes["editNote"]["periode_id"];
+        // Calcul de la moyenne des notes de devoir
+        if (
+            $noteDevoir1 >= 0 && $noteDevoir2 == null && $noteDevoir3 == null
+        ) {
+            $this->moyenneDevoir = $noteDevoir1;
+        } elseif (
+            $noteDevoir1 >= 0 && $noteDevoir2 >= 0 && $noteDevoir3 == null
+        ) {
+            $this->moyenneDevoir = ($noteDevoir1 + $noteDevoir2) / 2;
+        } elseif ($noteDevoir1 >= 0 && $noteDevoir2 >= 0 && $noteDevoir3 >= 0) {
+            $this->moyenneDevoir = ($noteDevoir1 + $noteDevoir2 + $noteDevoir3) / 3;
+        } elseif ($noteDevoir1 >= 0 && $noteDevoir2 == null && $noteDevoir3 >= 0) {
+            $this->moyenneDevoir = ($noteDevoir1 + $noteDevoir3) / 2;
+        } else {
+            // Cas où au moins une note est négative, égal à null, etc.
+            $this->moyenneDevoir = null;
+        }
         try {
             Evaluation::find($this->editNote["id"])->update($validationAttributes["editNote"]);
+            if ($this->moyenneDevoir != null) {
+                Evaluation::find($this->editNote["id"])->update([
+                    'matiere_id' => $matiere_id,
+                    'periode_id' => $periode_id,
+                    'noteDevoir1' => $noteDevoir1,
+                    'noteDevoir2' => $noteDevoir2,
+                    'noteDevoir3' => $noteDevoir3,
+                    'noteExamen' => $noteExamen,
+                    'moyenneDevoir' => $this->moyenneDevoir,
+                ]);
+            }
             $this->dispatchBrowserEvent(
                 "showSuccessMessage",
                 ["message" => "Les notes ont été mise à jour avec succès!"]
             );
         } catch (Exception $e) {
+            dd($e->getMessage());
             $this->dispatchBrowserEvent(
                 "showErrorMessage",
                 ["message" => "Une erreur s'est produite lors de la mise à jour des notes."]

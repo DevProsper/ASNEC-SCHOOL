@@ -23,7 +23,7 @@
                         <label>Filtrer par catégorie tarif</label>
                         <select class="form-control" wire:model="categorieTarificationFilter">
                             <option value="">Toutes les catégories</option>
-                            @foreach ($categoriesTarification as $category)
+                            @foreach ($categories as $category)
                             <option value="{{ $category->id }}">{{ $category->nom }}</option>
                             @endforeach
                         </select>

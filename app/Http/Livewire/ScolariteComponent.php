@@ -33,11 +33,13 @@ class ScolariteComponent extends Component
 
     //Filtre classes par niveaux scolaires et tarifications par categories tarifications
     public $_classes;
-    public $_tarifications;
+    public $niveauId;
+
     public $_periodes;
 
-    public $niveauId;
+
     public $categorieId;
+    public $_tarifications;
     public $categoriePeriodeId;
 
     //=================Variables à passer dans la vue Frais scolaire============
@@ -195,7 +197,9 @@ class ScolariteComponent extends Component
     {
         if ($this->categorieId) {
             $this->_tarifications =
-                Tarification::where('categoriestarification_id', $this->categorieId)->get();
+                Tarification::where('categoriestarification_id', $this->categorieId)
+                ->where('statut', 1)
+                ->get();
         } else {
             $this->_tarifications = null;
         }

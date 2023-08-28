@@ -124,7 +124,7 @@
                     </div>
             </form>
             <button type="submit" class="btn btn-primary">Enregistrer</button>
-            <a href="{{route('evaluations.notes.index')}}" class="btn btn-danger">Retouner à la
+            <a href="" class="btn btn-danger">Retouner à la
                 liste des
                 notes</a>
         </div>

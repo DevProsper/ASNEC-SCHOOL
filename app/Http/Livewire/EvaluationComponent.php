@@ -174,6 +174,8 @@ class EvaluationComponent extends Component
                     $moyenneDevoir = ($noteDevoir1 + $noteDevoir2) / 2;
                 } elseif ($noteDevoir1 >= 0 && $noteDevoir2 >= 0 && $noteDevoir3 >= 0) {
                     $moyenneDevoir = ($noteDevoir1 + $noteDevoir2 + $noteDevoir3) / 3;
+                } elseif ($noteDevoir1 >= 0 && $noteDevoir2 == null && $noteDevoir3 >= 0) {
+                    $moyenneDevoir = ($noteDevoir1 + $noteDevoir3) / 2;
                 } else {
                     // Cas où au moins une note est négative, égal à null, etc.
                     $moyenneDevoir = null;
