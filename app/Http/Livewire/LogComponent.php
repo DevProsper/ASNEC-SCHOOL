@@ -35,7 +35,7 @@ class LogComponent extends Component
             $query->whereBetween('created_at', $this->getSelectedPeriodRange());
         }
 
-        $this->logs = $query->orderBy('created_at', 'desc')->limit(10)->get();
+        $this->logs = $query->orderBy('created_at', 'desc')->limit(100)->get();
 
         return view(
             'livewire.modules.logs.index'
