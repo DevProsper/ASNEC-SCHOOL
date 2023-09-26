@@ -49,5 +49,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define("evaluations", function (User $user) {
             return $user->hasModule("evaluations");
         });
+
+        Gate::define("consultation", function (User $user) {
+            return $user->hasModule("consultation");
+        });
     }
 }

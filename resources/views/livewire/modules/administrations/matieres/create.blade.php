@@ -11,7 +11,7 @@
 
                     <div class="d-flex">
                         <div class="form-group flex-grow-1 mr-2">
-                            <label>Matière</label>
+                            <label>Matière <small>Niveau scolaire</small></label>
                             <input autocomplete="off" type="text" wire:model="newMatiere.nom"
                                 class="form-control @error('newMatiere.nom') is-invalid @enderror">
 

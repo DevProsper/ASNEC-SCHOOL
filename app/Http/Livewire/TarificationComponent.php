@@ -6,10 +6,10 @@ use Exception;
 use Carbon\Carbon;
 use App\Models\Classe;
 use Livewire\Component;
+use App\Traits\Loggable;
 use App\Models\Tarification;
 use Livewire\WithPagination;
 use App\Models\AnneeScolaire;
-use App\Models\CategoriesFinance;
 use Illuminate\Support\Facades\Log;
 use App\Models\CategorieTarification;
 
@@ -19,9 +19,12 @@ class TarificationComponent extends Component
 
     public $currentPage = PAGELIST;
 
-    use WithPagination;
+    use WithPagination,Loggable;
     public $newTarification = [];
     public $editTarification = [];
+
+    public $anneeScolaireId;
+    public $anneeScolaireParDefaut;
 
     protected $messages = [
         'newTarification.prix.required' => "la tarification est obligatoire.",
@@ -29,15 +32,31 @@ class TarificationComponent extends Component
         'editTarification.prix.required' => "la tarification est obligatoire.",
     ];
 
+    public function mount()
+    {
+        // Récupérer l'année scolaire par défaut si aucune année n'est sélectionnée
+        $this->anneeScolaireParDefaut = AnneeScolaire::where('defaut', 1)->value('id');
+
+        // Appliquer l'année scolaire par défaut à la sélection si aucune année n'est sélectionnée
+        $this->anneeScolaireId = $this->anneeScolaire ?? $this->anneeScolaireParDefaut;
+    }
+
     public function render()
     {
         //Carbon::setLocale("fr");
 
-        $tarifications = Tarification::latest()->paginate(10);
+        //$tarifications = Tarification::latest()->paginate(10);
+
+        $query = Tarification::query();
+
+        if ($this->anneeScolaireId) {
+            $query->where('anneesscolaire_id', $this->anneeScolaireId);
+        }
+
+        $tarifications = $query->get();
 
         $categories = CategorieTarification::orderBy('id', 'asc')->get();
-        $anneesscolaires = AnneeScolaire::where('defaut', 1)->orderBy('nom', 'asc')->get();
-
+        $anneesscolaires = AnneeScolaire::orderBy('created_at', 'desc')->get();
 
         return view(
             'livewire.modules.administrations.tarifications.index',

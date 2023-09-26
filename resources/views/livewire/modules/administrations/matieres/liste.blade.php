@@ -10,13 +10,13 @@
                 </div>
             </div>
             <!-- /.card-header -->
-            <div class="card-body table-responsive p-0 table-striped" style="height: 300px;">
+            <div class="card-body table-responsive p-0 table-striped">
                 <table class="table table-head-fixed">
                     <thead>
                         <tr>
                             <th style="width:25%;">Matière</th>
                             <th style="width:25%;">Nom court</th>
-                            <th style="width:25%;">Coefficient</th>
+                            <th style="width:10%;">Coefficient</th>
                             <th style="width:25%;">Classes</th>
                             <th style="width:30%;" class="text-center">Action</th>
                         </tr>

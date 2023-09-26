@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\LogComponent;
 use App\Http\Livewire\NoteComponent;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Livewire\EleveComponent;
@@ -7,10 +8,8 @@ use App\Http\Livewire\SalleComponent;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\ClasseComponent;
 use App\Http\Livewire\ParentComponent;
-use App\Http\Controllers\PdfController;
 use App\Http\Livewire\MatiereComponent;
 use App\Http\Livewire\PeriodeComponent;
-use App\Http\Controllers\StatController;
 use App\Http\Livewire\BatimentComponent;
 use App\Http\Livewire\BulletinComponent;
 use App\Http\Livewire\OperationComponent;
@@ -18,13 +17,16 @@ use App\Http\Livewire\ScolariteComponent;
 use App\Http\Controllers\BulletinPrimaire;
 use App\Http\Livewire\EnseignantComponent;
 use App\Http\Livewire\EvaluationComponent;
+use App\Http\Controllers\AcceuilController;
 use App\Http\Livewire\UtilisateurComponent;
 use App\Http\Controllers\BulletinSecondaire;
+use App\Http\Livewire\ConsultationComponent;
 use App\Http\Livewire\NotePrimaireComponent;
 use App\Http\Livewire\TarificationComponent;
 use App\Http\Livewire\AnneeScolaireComponent;
 use App\Http\Livewire\EmploieDuTempComponent;
 use App\Http\Livewire\NiveauScolaireComponent;
+use App\Http\Controllers\ConsultationController;
 use App\Http\Livewire\BulletinPrimaireComponent;
 use App\Http\Livewire\EvaluationPrimaireComponent;
 use App\Http\Livewire\InscriptionReinscriptionComponent;
@@ -40,12 +42,15 @@ use App\Http\Livewire\InscriptionReinscriptionComponent;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name("home");
-
+Route::get('/', [AcceuilController::class, 'index'])->name('home');
 Auth::routes();
 // Le groupe des routes relatives aux administrateurs uniquement
+Route::group([
+    "middleware" => ["auth"],
+], function () {
+    Route::get('/consultation', ConsultationComponent::class)->name('consultation');
+});
+
 Route::group([
     "middleware" => ["auth", "auth.administration"],
     'as' => 'administration.'
@@ -100,31 +105,11 @@ Route::group([
 
     Route::group(
         [
-            "prefix" => "batiments",
-            'as' => 'batiments.'
-        ],
-        function () {
-            Route::get('/batiments', BatimentComponent::class)->name('batiments.index');
-        }
-    );
-
-    Route::group(
-        [
             "prefix" => "periodes",
             'as' => 'periodes.'
         ],
         function () {
             Route::get('/periodes', PeriodeComponent::class)->name('periodes.index');
-        }
-    );
-
-    Route::group(
-        [
-            "prefix" => "salles",
-            'as' => 'salles.'
-        ],
-        function () {
-            Route::get('/salles', SalleComponent::class)->name('salles.index');
         }
     );
 });
@@ -134,6 +119,7 @@ Route::group([
     'as' => 'users.'
 ], function () {
     Route::get('/utilisateurs', UtilisateurComponent::class)->name('utilisateurs.index');
+    Route::get('/logs', LogComponent::class)->name('logs.index');
 });
 
 Route::group(
@@ -168,7 +154,6 @@ Route::group(
         Route::get('/evaluations', EvaluationComponent::class)->name('evaluations.index');
         Route::get('/notes', NoteComponent::class)->name('notes.index');
         Route::get('/bulletin', BulletinComponent::class)->name('bulletin.index');
-        Route::get('/pdf', [PdfController::class, 'index'])->name('pdf.index');
         Route::get('/bulletin-secondaire/{id_admission}/{id_periode}/{eleve_id?}/', [BulletinSecondaire::class, 'index'])->name('bulletin-secondaire.index');
     }
 );

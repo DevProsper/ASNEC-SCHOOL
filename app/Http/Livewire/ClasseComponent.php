@@ -9,8 +9,10 @@ use Livewire\Component;
 use App\Models\GroupeClasse;
 use Livewire\WithPagination;
 use App\Models\NiveauScolaire;
+use App\Traits\Loggable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 class ClasseComponent extends Component
 {
@@ -18,9 +20,11 @@ class ClasseComponent extends Component
 
     public $currentPage = PAGELIST;
 
-    use WithPagination;
+    use WithPagination, Loggable;
     public $newClasse = [];
     public $editClasse = [];
+
+    public $niveauScolaireId;
 
     protected $messages = [
         'newClasse.nom.required' => "la classe est obligatoire.",
@@ -36,7 +40,15 @@ class ClasseComponent extends Component
     {
         Carbon::setLocale("fr");
 
-        $classes = Classe::latest()->paginate(10);
+        $classes = Classe::query();
+
+        if ($this->niveauScolaireId) {
+            $classes->where('niveauxscolaires_id', $this->niveauScolaireId);
+        }
+
+        $classes = $classes->paginate(10);
+
+
         $niveauxScolaires = NiveauScolaire::orderBy('nom', 'asc')->get();
         $groupes = GroupeClasse::orderBy('nom', 'asc')->get();
 
@@ -96,6 +108,7 @@ class ClasseComponent extends Component
             DB::commit();
             $this->newClasse = [];
 
+            $this->insertLog(Auth::id(), 'CREATION', "Ajout la classe " . $validationAttributes["newClasse"]["nom"]);
             $this->dispatchBrowserEvent("showSuccessMessage", ["message" => "La classe a créée avec succès!"]);
         } catch (Exception $e) {
             dd($e->getMessage());
@@ -110,6 +123,7 @@ class ClasseComponent extends Component
         $validationAttributes = $this->validate();
         try {
             Classe::find($this->editClasse["id"])->update($validationAttributes["editClasse"]);
+            $this->insertLog(Auth::id(), 'MODIFICATION', "Mise à jour de la classe " . $validationAttributes["editClasse"]["nom"]);
             $this->dispatchBrowserEvent("showSuccessMessage", ["message" => "La classe a été mise à jour avec succès!"]);
         } catch (Exception $e) {
             $this->dispatchBrowserEvent("showErrorMessage", ["message" => "Une erreur s'est produite lors de la mise à jour de la classe."]);
@@ -131,8 +145,9 @@ class ClasseComponent extends Component
     public function deleteClasse($id)
     {
         try {
-            Classe::destroy($id);
-
+            $classe = Classe::find($id);
+            $classe->destroy($classe->id);
+            $this->insertLog(Auth::id(), 'SUPRESSION', "Supression de la classe " . $classe->nom);
             $this->dispatchBrowserEvent("showSuccessMessage", ["message" => "La classe a été supprimée avec succès!"]);
         } catch (\Illuminate\Database\QueryException $e) {
             // Gestion de l'erreur

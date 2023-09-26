@@ -3,30 +3,24 @@
         <div class="callout callout-info">
             <div class="row">
                 <div class="col-md-12">
-                    <h5><i class="fas fa-search"></i> Recherche avancée des élèves </h5>
+                    <h5><i class="fas fa-search"></i> Recherche avancée des tarifications </h5>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-2">
                     <div class="form-group">
                         <label>Année scolaire</label>
                         <select
-                            class="form-control @error('editEleve.anneesscolaire_id') 
+                            class="form-control @error('anneesscolaire_id') 
                                                                                                                                                                                                                                         is-invalid @enderror"
-                            name="editEleve.anneesscolaire_id">
+                            wire:model="anneeScolaireId">
                             <option value="">---------</option>
                             @foreach($anneesscolaires as $value)
-                            <option value="{{ $value->id }}">{{ $value->nom }}</option>
+                            <option value="{{ $value->id }}" @if($value->id === $anneeScolaireParDefaut)
+                            selected @endif>{{ $value->nom }}</option>
                             @endforeach
                         </select>
-                        @error("editEleve.anneesscolaire_id")
+                        @error("anneesscolaire_id")
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label>Nom ou numéro de téléphone</label>
-                        <input type="text" name="table_search" class="form-control float-right"
-                            placeholder="Recherche par nom ou tel">
                     </div>
                 </div>
             </div>
@@ -41,7 +35,7 @@
                 </div>
             </div>
             <!-- /.card-header -->
-            <div class="card-body table-responsive p-0 table-striped" style="height: 300px;">
+            <div class="card-body table-responsive p-0 table-striped">
                 <table class="table table-head-fixed">
                     <thead>
                         <tr>
@@ -82,7 +76,7 @@
             <!-- /.card-body -->
             <div class="card-footer">
                 <div class="float-right">
-                    {{ $tarifications->links() }}
+                   
                 </div>
             </div>
         </div>

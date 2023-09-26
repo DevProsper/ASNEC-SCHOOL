@@ -16,11 +16,9 @@ class NotePrimaireComponent extends Component
     protected $paginationTheme = "bootstrap";
 
     public $currentPage = PAGELIST;
-    public $anneeScolaireParDefaut;
 
     use WithPagination;
 
-    public $anneeScolaireId;
     public $classeId;
     public $periodeId;
 
@@ -33,9 +31,12 @@ class NotePrimaireComponent extends Component
 
     public $nomEleve;
     public $classEleve;
-    public $AnneeScolaire;
     public $classe_id;
     public $matiereId;
+
+    public $anneeScolaireParDefaut;
+    public $anneeScolaireId;
+    public $AnneeScolaire;
 
     public function mount()
     {
@@ -51,6 +52,7 @@ class NotePrimaireComponent extends Component
         $anneesscolaires = AnneeScolaire::all();
         $periodes = Periode::whereIn('categorieperiode_id', [1])->get();
         $classes = Classe::whereIn('niveauxscolaires_id', [3])->get();
+
         $matieres = Matiere::whereNull('nomCourt')->get();
 
         $query = Evaluation::with([

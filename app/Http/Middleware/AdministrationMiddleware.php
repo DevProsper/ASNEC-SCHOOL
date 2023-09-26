@@ -20,6 +20,6 @@ class AdministrationMiddleware
         if (Gate::allows("administration")) {
             return $next($request);
         }
-        return redirect()->route("home");
+        return redirect()->route("consultation");
     }
 }

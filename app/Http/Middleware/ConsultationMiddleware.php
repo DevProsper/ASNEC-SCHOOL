@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
-class EvaluationMiddleware
+class ConsultationMiddleware
 {
     /**
      * Handle an incoming request.
@@ -17,7 +17,7 @@ class EvaluationMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Gate::allows("evaluations")) {
+        if (Gate::allows("consultation")) {
             return $next($request);
         }
         return redirect()->route("consultation");

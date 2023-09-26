@@ -20,6 +20,6 @@ class EleveMiddleware
         if (Gate::allows("eleves")) {
             return $next($request);
         }
-        return redirect()->route("home");
+        return redirect()->route("consultation");
     }
 }

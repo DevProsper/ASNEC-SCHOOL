@@ -52,7 +52,7 @@ class UtilisateurComponent extends Component
             $users = $users->orWhere("telephone1", "like", "%{$search}%");
         }
 
-        $users = $users->paginate(1);
+        $users = $users->paginate(10);
 
         return view('livewire.modules.utilisateurs.index', compact("users"))
             ->extends("layouts.master")

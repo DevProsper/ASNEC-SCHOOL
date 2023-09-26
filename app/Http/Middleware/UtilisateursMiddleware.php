@@ -20,6 +20,6 @@ class UtilisateursMiddleware
         if (Gate::allows("utilisateurs")) {
             return $next($request);
         }
-        return redirect()->route("home");
+        return redirect()->route("consultation");
     }
 }

@@ -40,7 +40,7 @@
 
 
         <footer class="main-footer">
-            <small>Copyright &copy; 2021-2023 <a href="https://www.asnec-it.com">ASNEC-IT.COM</a>. 
+            <small>Copyright &copy; {{ date('Y') }} - COMPLEXE SCOLAIRE KANI. Develloper par <a href="https://www.asnec-it.com">ASNEC-IT.COM</a>. 
                 Tous droits reservés.</small>
         </footer>
     </div>

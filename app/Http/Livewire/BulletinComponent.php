@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use PDF;
 use App\Models\Classe;
 use App\Models\Matiere;
 use App\Models\Periode;
@@ -10,7 +11,7 @@ use App\Traits\Loggable;
 use App\Models\Evaluation;
 use Livewire\WithPagination;
 use App\Models\AnneeScolaire;
-use PDF;
+use Illuminate\Support\Facades\Auth;
 
 class BulletinComponent extends Component
 {
@@ -103,29 +104,6 @@ class BulletinComponent extends Component
 
 
         $evaluations = $query->get();
-
-
-        //$evaluations = Evaluation::all();
-
-        /*foreach ($evaluations as $evaluation) {
-            $notes = [];
-
-            if ($evaluation->noteDevoir1 != null) {
-                $notes[] = $evaluation->noteDevoir1;
-            }
-
-            if ($evaluation->noteDevoir2 != null) {
-                $notes[] = $evaluation->noteDevoir2;
-            }
-
-            if ($evaluation->noteDevoir3 != null) {
-                $notes[] = $evaluation->noteDevoir3;
-            }
-
-            $moyenne = $this->calculerMoyenne($notes);
-            $evaluation->moyenne = $moyenne;
-        }*/
-
 
         return view(
             'livewire.modules.bulletins.index',

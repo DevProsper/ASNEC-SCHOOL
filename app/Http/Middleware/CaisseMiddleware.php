@@ -20,6 +20,6 @@ class CaisseMiddleware
         if (Gate::allows("caisses")) {
             return $next($request);
         }
-        return redirect()->route("home");
+        return redirect()->route("consultation");
     }
 }

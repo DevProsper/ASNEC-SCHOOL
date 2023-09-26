@@ -43,8 +43,9 @@ class BulletinPrimaireComponent extends Component
     public function render()
     {
         $anneesscolaires = AnneeScolaire::all();
-        $periodes = Periode::whereIn('categorieperiode_id', [2])->get();
-        $classes = Classe::whereIn('niveauxscolaires_id', [2])->get();
+        $periodes = Periode::whereIn('categorieperiode_id', [1])->get();
+        $classes = Classe::whereIn('niveauxscolaires_id', [3])->get();
+
         $matieres = Matiere::whereNotNull('nomCourt')->get();
 
         $query = Evaluation::with([

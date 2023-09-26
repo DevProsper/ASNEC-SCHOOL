@@ -83,7 +83,7 @@ class AnneeScolaireComponent extends Component
 
         $this->newScolaire = [];
 
-        $this->insertLog(Auth::id(), 'INFO', "Ajout de l'année scolaire " . $validationAttributes["newScolaire"]["nom"]);
+        $this->insertLog(Auth::id(), 'CREATION', "Ajout de l'année scolaire " . $validationAttributes["newScolaire"]["nom"]);
         $this->dispatchBrowserEvent("showSuccessMessage", ["message" => "L'année scolaire créée avec succès!"]);
     }
 
@@ -93,7 +93,7 @@ class AnneeScolaireComponent extends Component
         $validationAttributes = $this->validate();
         try {
             AnneeScolaire::find($this->editScolaire["id"])->update($validationAttributes["editScolaire"]);
-            $this->insertLog(Auth::id(), 'INFO', "Mise à jour de l'année scolaire " . $validationAttributes["editScolaire"]["nom"]);
+            $this->insertLog(Auth::id(), 'MODIFICATION', "Mise à jour de l'année scolaire " . $validationAttributes["editScolaire"]["nom"]);
             $this->dispatchBrowserEvent("showSuccessMessage", ["message" => "L'année scolaire mise à jour avec succès!"]);
         } catch (Exception $e) {
             $this->dispatchBrowserEvent("showErrorMessage", ["message" => "Une erreur s'est produite lors de la mise à jour de l'année scolaire."]);
@@ -117,7 +117,8 @@ class AnneeScolaireComponent extends Component
         try {
             $annee = AnneeScolaire::find($id);
             $annee->destroy($annee->id);
-            $this->insertLog(Auth::id(), 'WARNING', "Supression de l'année scolaire " . $annee->nom);
+
+            $this->insertLog(Auth::id(), 'SUPRESSION', "Supression de l'année scolaire " . $annee->nom);
 
             $this->dispatchBrowserEvent("showSuccessMessage", ["message" => "L'année scolaire a été supprimée avec succès!"]);
         } catch (\Illuminate\Database\QueryException $e) {

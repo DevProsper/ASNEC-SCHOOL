@@ -1,6 +1,6 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
 
-    <a href="{{route('home')}}" class="brand-link">
+    <a href="{{route('consultation')}}" class="brand-link">
         <img src="{{asset('assets/images/logo-asnec-it.png')}}" alt="ASNEC-IT Logo" 
         class="brand-image img-circle elevation-3"
             style="opacity: .8">
@@ -34,6 +34,16 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" 
             data-accordion="false">
+
+            <li class="nav-item">
+                <a href="{{route('consultation')}}"
+                    class="nav-link {{ setMenuClass('consultation', 'active') }}">
+                    <i class="fa fa-user-circle" aria-hidden="true"></i>
+                    <p>
+                        Tableau de bord
+                    </p>
+                </a>
+            </li>
 
             @can("eleves")
             <li class="nav-item {{ setMenuClass('eleves.', 'menu-open') }}">
@@ -217,20 +227,6 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('administration.batiments.batiments.index')}}" 
-                            class="nav-link {{ setMenuClass('administration.batiments.batiments.index', 'active') }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Gestion de batiment(s)</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{route('administration.salles.salles.index')}}" 
-                            class="nav-link {{ setMenuClass('administration.salles.salles.index', 'active') }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Gestion des salles</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a href="{{route('administration.periodes.periodes.index')}}" 
                             class="nav-link {{ setMenuClass('administration.periodes.periodes.index', 'active') }}">
                                 <i class="far fa-circle nav-icon"></i>
@@ -240,18 +236,36 @@
                     </ul>
                 </li>
             @endcan
-            
+
             @can("utilisateurs")
-                <li class="nav-item">
-                    <a href="{{route('users.utilisateurs.index')}}" 
-                    class="nav-link {{ setMenuClass('users.utilisateurs.index', 'active') }}">
-                        <i class="nav-icon fas fa-users"></i>
-                        <p>
-                            Utilisateurs
-                        </p>
-                    </a>
-                </li>
-                @endcan
+            <li class="nav-item {{ setMenuClass('users.', 'menu-open') }}">
+                <a href="#" class="nav-link {{ setMenuClass('users.', 'active') }}">
+                    <i class="fa-solid fa-chalkboard-user"></i>
+                    <p>
+                        Utilisateurs
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{route('users.utilisateurs.index')}}"
+                            class="nav-link {{ setMenuClass('users.utilisateurs.index', 'active') }}">
+                            <i class="nav-icon fas fa-users"></i>
+                            <p>
+                                Utilisateurs
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('users.logs.index')}}"
+                            class="nav-link {{ setMenuClass('users.logs.index', 'active') }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Action système</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            @endcan
             </ul>
         </nav>
 

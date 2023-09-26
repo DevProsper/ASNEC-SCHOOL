@@ -28,7 +28,7 @@
                 </div>
             </div>
             <!-- /.card-header -->
-            <div class="card-body table-responsive p-0 table-striped" style="height: 300px;">
+            <div class="card-body table-responsive p-0 table-striped">
                 <table class="table table-head-fixed">
                     <thead>
                         <tr>

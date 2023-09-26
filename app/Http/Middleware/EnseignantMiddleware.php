@@ -20,6 +20,6 @@ class EnseignantMiddleware
         if (Gate::allows("enseignants")) {
             return $next($request);
         }
-        return redirect()->route("home");
+        return redirect()->route("consultation");
     }
 }
